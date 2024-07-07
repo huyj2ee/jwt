@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -40,11 +41,13 @@ public class JwtFilter extends OncePerRequestFilter {
         System.out.println("JWT Token has expired");
       } catch (MalformedJwtException e) {
         System.out.println("Invalid JWT Token");
+      } catch (SignatureException e) {
+        System.out.println("Invalid JWT Token");
       }
     } else {
       System.out.println("Bearer String not found in token");
     }
-    if (null != username &&SecurityContextHolder.getContext().getAuthentication() == null) {
+    if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = userDetailsService.loadUserByUsername(username);
       if (tokenManager.validateJwtToken(token, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

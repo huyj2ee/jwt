@@ -1,8 +1,10 @@
 package com.blogspot.huyj2ee.jwt.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +17,13 @@ public class User {
 
   @Column(name = "account_non_locked")
   private boolean accountNonLocked;
+
+  @OneToOne(
+    mappedBy = "user",
+    orphanRemoval = true,
+    cascade = {CascadeType.ALL}
+  )
+  private RefreshToken refreshToken;
 
   public User() {
   }
@@ -47,5 +56,13 @@ public class User {
 
   public boolean getAccountNonLocked() {
     return accountNonLocked;
+  }
+
+  public RefreshToken getRefreshToken() {
+    return this.refreshToken;
+  }
+
+  public void setRefreshToken(RefreshToken refreshToken) {
+    this.refreshToken = refreshToken;
   }
 }
