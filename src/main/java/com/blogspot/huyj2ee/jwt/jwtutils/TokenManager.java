@@ -5,8 +5,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
+import com.blogspot.huyj2ee.jwt.model.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -24,7 +27,7 @@ public class TokenManager implements Serializable {
     return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
   }
 
-  public String generateJwtToken(UserDetails userDetails) {
+  public String generateJwtToken(UserPrincipal userDetails) {
     return Jwts.builder()
       .claims()
       .subject(userDetails.getUsername())
@@ -35,7 +38,7 @@ public class TokenManager implements Serializable {
       .compact();
   }
 
-  public Boolean validateJwtToken(String token, UserDetails userDetails) {
+  public Boolean validateJwtToken(String token, UserPrincipal userDetails) {
     String username = getUsernameFromToken(token);
     Claims claims = Jwts.parser()
       .verifyWith(getSecretKey())
@@ -43,6 +46,10 @@ public class TokenManager implements Serializable {
       .parseSignedClaims(token)
       .getPayload();    
     Boolean isTokenExpired = claims.getExpiration().before(new Date());
+    User user = userDetails.getUser();
+    if (user.getLastLogout() != null && user.getLastLogout().isAfter(claims.getIssuedAt().toInstant())) {
+      isTokenExpired = true;
+    }
     return (username.equals(userDetails.getUsername()) && !isTokenExpired);
   }
 

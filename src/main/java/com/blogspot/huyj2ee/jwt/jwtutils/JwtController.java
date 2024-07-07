@@ -1,9 +1,10 @@
 package com.blogspot.huyj2ee.jwt.jwtutils;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
 
 import com.blogspot.huyj2ee.jwt.exception.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRefreshTokenRequestModel;
@@ -45,14 +47,24 @@ public class JwtController {
   @Autowired
   private RefreshTokenService refreshTokenService;
 
-  @PostMapping("/login")
+  @PostMapping("/signout")
+  public ResponseEntity<?> logOut() throws Exception {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+    User user = userDetails.getUser();
+    user.setLastLogout(Instant.now());
+    userRepository.save(user);
+    return ResponseEntity.ok("ok");
+  }
+
+  @PostMapping("/signin")
   public ResponseEntity<?> createToken(@RequestBody JwtRequestModel request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findUserByUsername(username).orElseThrow(
       () -> new BadCredentialsException("User not found.")
     );
-    final UserDetails userDetails = new UserPrincipal(user);
+    final UserPrincipal userDetails = new UserPrincipal(user);
     if (!user.getAccountNonLocked()) {
       throw new LockedException("Too many invalid attempts. Account is locked!!");
     }
@@ -78,7 +90,7 @@ public class JwtController {
       .map(refreshTokenService::verifyExpiration)
       .map(RefreshToken::getUser)
       .map(user -> {
-        UserDetails userDetail = new UserPrincipal(user);
+        UserPrincipal userDetail = new UserPrincipal(user);
         String token = tokenManager.generateJwtToken(userDetail);
         return ResponseEntity.ok(new JwtResponseModel(token, requestRefreshToken));
       }).orElseThrow(

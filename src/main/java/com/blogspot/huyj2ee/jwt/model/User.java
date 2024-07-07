@@ -1,5 +1,7 @@
 package com.blogspot.huyj2ee.jwt.model;
 
+import java.time.Instant;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +26,12 @@ public class User {
     cascade = {CascadeType.ALL}
   )
   private RefreshToken refreshToken;
+
+  @Column(
+    name = "last_logout",
+    nullable = true
+  )
+  private Instant lastLogout;
 
   public User() {
   }
@@ -64,5 +72,13 @@ public class User {
 
   public void setRefreshToken(RefreshToken refreshToken) {
     this.refreshToken = refreshToken;
+  }
+
+  public Instant getLastLogout() {
+    return this.lastLogout;
+  }
+
+  public void setLastLogout(Instant lastLogout) {
+    this.lastLogout = lastLogout;
   }
 }

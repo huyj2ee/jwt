@@ -43,7 +43,7 @@ public class WebSecurityConfig {
       .exceptionHandling(exp -> exp.authenticationEntryPoint(authenticationEntryPoint))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/login").permitAll()
+        .requestMatchers("/signin").permitAll()
         .requestMatchers("/refreshtoken").permitAll()
         .requestMatchers("/register**").permitAll()
         .anyRequest().authenticated()

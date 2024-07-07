@@ -9,10 +9,12 @@ import org.springframework.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -48,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
       System.out.println("Bearer String not found in token");
     }
     if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
-      UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+      UserPrincipal userDetails = (UserPrincipal)userDetailsService.loadUserByUsername(username);
       if (tokenManager.validateJwtToken(token, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
           userDetails, null,
