@@ -1,20 +1,21 @@
 package com.blogspot.huyj2ee.jwt.jwtutils;
 
-import org.springframework.security.authentication.LockedException;
-
 import java.util.Optional;
 
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtResponseModel;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.model.Attempts;
 import com.blogspot.huyj2ee.jwt.model.User;
 import com.blogspot.huyj2ee.jwt.repository.AttemptsRepository;
@@ -41,13 +42,14 @@ public class JwtController {
   public ResponseEntity<?> createToken(@RequestBody JwtRequestModel request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
-    final UserDetails userDetails = userRepository.findUserByUsername(username).orElseThrow(
+    final User user = userRepository.findUserByUsername(username).orElseThrow(
       () -> new BadCredentialsException("User not found.")
     );
-    if (!userDetails.isAccountNonLocked()) {
+    final UserDetails userDetails = new UserPrincipal(user);
+    if (!user.getAccountNonLocked()) {
       throw new LockedException("Too many invalid attempts. Account is locked!!");
     }
-    if (passwordEncoder.matches(password, userDetails.getPassword())) {
+    if (passwordEncoder.matches(password, user.getPassword())) {
       Optional<Attempts> userAttempts = attemptsRepository.findAttemptsByUsername(username);
       if (userAttempts.isPresent()) {
         Attempts attempts = userAttempts.get();
@@ -57,7 +59,7 @@ public class JwtController {
       final String jwtToken = tokenManager.generateJwtToken(userDetails);
       return ResponseEntity.ok(new JwtResponseModel(jwtToken));
     }
-    processFailedAttempts(username, (User)userDetails);
+    processFailedAttempts(username, user);
     throw new BadCredentialsException("Invalid password.");
   }
 
