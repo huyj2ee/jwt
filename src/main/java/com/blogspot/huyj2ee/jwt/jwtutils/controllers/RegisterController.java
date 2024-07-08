@@ -1,4 +1,4 @@
-package com.blogspot.huyj2ee.jwt.controllers;
+package com.blogspot.huyj2ee.jwt.jwtutils.controllers;
 
 import java.util.Map;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.blogspot.huyj2ee.jwt.jwtutils.JwtUserDetailsService;
-import com.blogspot.huyj2ee.jwt.model.User;
+import com.blogspot.huyj2ee.jwt.jwtutils.services.JwtUserDetailsService;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.User;
 
 @Controller
 public class RegisterController {

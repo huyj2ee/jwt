@@ -1,4 +1,4 @@
-package com.blogspot.huyj2ee.jwt.model;
+package com.blogspot.huyj2ee.jwt.jwtutils.models;
 
 import java.time.Instant;
 

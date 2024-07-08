@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
-import com.blogspot.huyj2ee.jwt.model.User;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

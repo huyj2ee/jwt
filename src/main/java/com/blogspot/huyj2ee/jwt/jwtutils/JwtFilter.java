@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
+import com.blogspot.huyj2ee.jwt.jwtutils.services.JwtUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -46,8 +47,6 @@ public class JwtFilter extends OncePerRequestFilter {
       } catch (SignatureException e) {
         System.out.println("Invalid JWT Token");
       }
-    } else {
-      System.out.println("Bearer String not found in token");
     }
     if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserPrincipal userDetails = (UserPrincipal)userDetailsService.loadUserByUsername(username);

@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.blogspot.huyj2ee.jwt.model.User;
-
 public class UserPrincipal implements UserDetails {
   private static final long serialVersionUID = 1L;
 

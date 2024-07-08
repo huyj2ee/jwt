@@ -1,4 +1,4 @@
-package com.blogspot.huyj2ee.jwt.jwtutils;
+package com.blogspot.huyj2ee.jwt.jwtutils.controllers;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -15,17 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
 
-import com.blogspot.huyj2ee.jwt.exception.TokenRefreshException;
+import com.blogspot.huyj2ee.jwt.jwtutils.TokenManager;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRefreshTokenRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtResponseModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
-import com.blogspot.huyj2ee.jwt.model.Attempts;
-import com.blogspot.huyj2ee.jwt.model.RefreshToken;
-import com.blogspot.huyj2ee.jwt.model.User;
-import com.blogspot.huyj2ee.jwt.repository.AttemptsRepository;
-import com.blogspot.huyj2ee.jwt.repository.UserRepository;
-import com.blogspot.huyj2ee.jwt.services.RefreshTokenService;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.Attempts;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.RefreshToken;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.User;
+import com.blogspot.huyj2ee.jwt.jwtutils.repositories.AttemptsRepository;
+import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
+import com.blogspot.huyj2ee.jwt.jwtutils.services.RefreshTokenService;
 
 @RestController
 @CrossOrigin
@@ -61,7 +62,7 @@ public class JwtController {
   public ResponseEntity<?> createToken(@RequestBody JwtRequestModel request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
-    final User user = userRepository.findUserByUsername(username).orElseThrow(
+    final User user = userRepository.findByUsername(username).orElseThrow(
       () -> new BadCredentialsException("User not found.")
     );
     final UserPrincipal userDetails = new UserPrincipal(user);

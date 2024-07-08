@@ -1,4 +1,4 @@
-package com.blogspot.huyj2ee.jwt.config;
+package com.blogspot.huyj2ee.jwt.jwtutils.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

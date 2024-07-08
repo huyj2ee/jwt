@@ -1,4 +1,4 @@
-package com.blogspot.huyj2ee.jwt.services;
+package com.blogspot.huyj2ee.jwt.jwtutils.services;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.blogspot.huyj2ee.jwt.exception.TokenRefreshException;
-import com.blogspot.huyj2ee.jwt.model.RefreshToken;
-import com.blogspot.huyj2ee.jwt.model.User;
-import com.blogspot.huyj2ee.jwt.repository.RefreshTokenRepository;
-import com.blogspot.huyj2ee.jwt.repository.UserRepository;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.RefreshToken;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.User;
+import com.blogspot.huyj2ee.jwt.jwtutils.repositories.RefreshTokenRepository;
+import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 
 @Service
 @Transactional
@@ -30,11 +30,10 @@ public class RefreshTokenService {
   }
 
   public RefreshToken createRefreshToken(String username) {
-    User user = userRepository.findUserByUsername(username).orElse(null);
+    User user = userRepository.findByUsername(username).orElse(null);
     String tokenStr = UUID.randomUUID().toString();
     RefreshToken token = new RefreshToken();
 
-    user = userRepository.findUserByUsername(username).orElse(null);
     token.setUser(user);
     token.setIssuedAt(Instant.now());
     token.setExpiration(Instant.now().plusMillis(TOKEN_VALIDITY));
@@ -65,6 +64,6 @@ public class RefreshTokenService {
 
   @Transactional
   public int deleteByUsername(String username) {
-    return refreshTokenRepository.deleteByUser(userRepository.findUserByUsername(username).orElse(null));
+    return refreshTokenRepository.deleteByUser(userRepository.findByUsername(username).orElse(null));
   }
 }
