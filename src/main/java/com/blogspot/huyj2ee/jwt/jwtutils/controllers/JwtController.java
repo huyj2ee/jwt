@@ -18,7 +18,7 @@ import org.springframework.security.core.Authentication;
 import com.blogspot.huyj2ee.jwt.jwtutils.TokenManager;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRefreshTokenRequestModel;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRequestModel;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtSignInRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtResponseModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.Attempts;
@@ -59,7 +59,7 @@ public class JwtController {
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<?> createToken(@RequestBody JwtRequestModel request) throws Exception {
+  public ResponseEntity<?> createToken(@RequestBody JwtSignInRequestModel request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findByUsername(username).orElseThrow(

@@ -2,15 +2,15 @@ package com.blogspot.huyj2ee.jwt.jwtutils.models;
 
 import java.io.Serializable;
 
-public class JwtRequestModel implements Serializable {
+public class JwtSignInRequestModel implements Serializable {
   private static final long serialVersionUID = 2636936156391265891L;
   private String username;
   private String password;
 
-  public JwtRequestModel() {
+  public JwtSignInRequestModel() {
   }
 
-  public JwtRequestModel(String username, String password) {
+  public JwtSignInRequestModel(String username, String password) {
     super();
     this.username = username;
     this.password = password;
