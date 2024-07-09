@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import com.blogspot.huyj2ee.jwt.jwtutils.TokenManager;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRefreshTokenRequestModel;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRegisterRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtSignInRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtResponseModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
@@ -47,6 +48,16 @@ public class JwtController {
 
   @Autowired
   private RefreshTokenService refreshTokenService;
+
+  @PostMapping("/register")
+  public ResponseEntity<?> register(@RequestBody JwtRegisterRequestModel request) throws Exception {
+    User user = new User();
+    user.setUsername(request.getUsername());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+    user.setAccountNonLocked(true);
+    userRepository.save(user);
+    return ResponseEntity.ok("ok");
+  }
 
   @PostMapping("/signout")
   public ResponseEntity<?> logOut() throws Exception {
