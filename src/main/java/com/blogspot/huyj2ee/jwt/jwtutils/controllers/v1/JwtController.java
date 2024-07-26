@@ -1,4 +1,4 @@
-package com.blogspot.huyj2ee.jwt.jwtutils.controllers;
+package com.blogspot.huyj2ee.jwt.jwtutils.controllers.v1;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -13,13 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.TokenManager;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRefreshTokenRequestModel;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRegisterRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtSignInRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtResponseModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
@@ -32,6 +32,7 @@ import com.blogspot.huyj2ee.jwt.jwtutils.services.RefreshTokenService;
 
 @RestController
 @CrossOrigin
+@RequestMapping(path = "${jwtPrefix}/v1")
 public class JwtController {
   private static final int ATTEMPTS_LIMIT = 3;
 
@@ -50,17 +51,7 @@ public class JwtController {
   @Autowired
   private RefreshTokenService refreshTokenService;
 
-  @PreAuthorize("hasRole('ROLE_admin')")
-  @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody JwtRegisterRequestModel request) throws Exception {
-    User user = new User();
-    user.setUsername(request.getUsername());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setAccountNonLocked(true);
-    userRepository.save(user);
-    return ResponseEntity.ok("ok");
-  }
-
+  @PreAuthorize("isAuthenticated()")
   @PostMapping("/signout")
   public ResponseEntity<?> logOut() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

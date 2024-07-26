@@ -41,12 +41,7 @@ public class WebSecurityConfig {
   protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
       .exceptionHandling(exp -> exp.authenticationEntryPoint(authenticationEntryPoint))
-      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-      .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/signin").permitAll()
-        .requestMatchers("/refreshtoken").permitAll()
-        .anyRequest().authenticated()
-      );
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
