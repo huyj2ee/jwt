@@ -12,7 +12,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,14 +52,14 @@ public class JwtController {
   private RefreshTokenService refreshTokenService;
 
   @PreAuthorize("isAuthenticated()")
-  @PutMapping("/signout")
+  @PostMapping("/signout")
   public ResponseEntity<?> logOut() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
     User user = userDetails.getUser();
     user.setLastLogout(Instant.now());
     userRepository.save(user);
-    return ResponseEntity.ok("ok");
+    return ResponseEntity.noContent().build();
   }
 
   @PostMapping("/signin")
