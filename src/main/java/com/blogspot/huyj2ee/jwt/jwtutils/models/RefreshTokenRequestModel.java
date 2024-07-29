@@ -2,14 +2,14 @@ package com.blogspot.huyj2ee.jwt.jwtutils.models;
 
 import java.io.Serializable;
 
-public class JwtRefreshTokenRequestModel implements Serializable {
+public class RefreshTokenRequestModel implements Serializable {
   private static final long serialVersionUID = 1L;
   private String refreshToken;
 
-  public JwtRefreshTokenRequestModel() {
+  public RefreshTokenRequestModel() {
   }
 
-  public JwtRefreshTokenRequestModel(String refreshToken) {
+  public RefreshTokenRequestModel(String refreshToken) {
     super();
     this.refreshToken = refreshToken;
   }

@@ -19,10 +19,10 @@ import org.springframework.security.core.Authentication;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.TokenManager;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRefreshTokenRequestModel;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtSignInRequestModel;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtResponseModel;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.RefreshTokenRequestModel;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.TokenResponseModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.UserPrincipal;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.UserRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.Attempts;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.RefreshToken;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.User;
@@ -63,7 +63,7 @@ public class JwtController {
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<?> createToken(@RequestBody JwtSignInRequestModel request) throws Exception {
+  public ResponseEntity<?> createToken(@RequestBody UserRequestModel request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findByUsername(username).orElseThrow(
@@ -82,14 +82,14 @@ public class JwtController {
       }
       RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
       final String jwtToken = tokenManager.generateJwtToken(userDetails);
-      return ResponseEntity.ok(new JwtResponseModel(jwtToken, refreshToken.getToken()));
+      return ResponseEntity.ok(new TokenResponseModel(jwtToken, refreshToken.getToken()));
     }
     processFailedAttempts(username, user);
     throw new BadCredentialsException("Invalid password.");
   }
 
   @PostMapping("/refreshtoken")
-  public ResponseEntity<?> refreshtoken(@RequestBody JwtRefreshTokenRequestModel request) throws Exception {
+  public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequestModel request) throws Exception {
     String requestRefreshToken = request.getRefreshToken();
     return refreshTokenService.findByToken(requestRefreshToken)
       .map(refreshTokenService::verifyExpiration)
@@ -97,7 +97,7 @@ public class JwtController {
       .map(user -> {
         UserPrincipal userDetail = new UserPrincipal(user);
         String token = tokenManager.generateJwtToken(userDetail);
-        return ResponseEntity.ok(new JwtResponseModel(token, requestRefreshToken));
+        return ResponseEntity.ok(new TokenResponseModel(token, requestRefreshToken));
       }).orElseThrow(
         () -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database.")
       );

@@ -1,6 +1,6 @@
 package com.blogspot.huyj2ee.jwt.jwtutils.models;
 
-public class JwtRegisterRequestModel {
+public class UserRequestModel {
   private String username;
   private String password;
 

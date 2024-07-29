@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blogspot.huyj2ee.jwt.jwtutils.models.JwtRegisterRequestModel;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.UserRequestModel;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.User;
 import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 
@@ -26,7 +26,7 @@ public class UserController {
   private PasswordEncoder passwordEncoder;
 
   @PostMapping("/users")
-  public ResponseEntity<?> register(@RequestBody JwtRegisterRequestModel request) throws Exception {
+  public ResponseEntity<?> register(@RequestBody UserRequestModel request) throws Exception {
     User user = new User();
     user.setUsername(request.getUsername());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
