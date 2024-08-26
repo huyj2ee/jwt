@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Domain Model" version="4">
+  <OBJECT>
+    <ID name="Domain Model" mc="Standard.Package" uid="651682b0-e5f0-4cbf-8bc3-be0dc86516fd"/>
+    <PID name="BA" mc="Standard.Package" uid="e8e8ce55-093c-4905-9fb7-437e4d9a28a0"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Domain Model]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="User" mc="Standard.Class" uid="c48d843c-6e24-498a-bb2d-faee8fddbf96"/>
+        <COMPID name="Role" mc="Standard.Class" uid="6cb41c71-ac5c-4c64-bf36-a3ca4b3dcd7a"/>
+        <COMPID name="Access Token" mc="Standard.Class" uid="f61ca8ef-db54-4974-b8e6-b24f0343592b"/>
+        <COMPID name="Refresh Token" mc="Standard.Class" uid="c39c865c-37c1-42e3-8de7-3bc70f228832"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Class diagram" mc="Standard.ClassDiagram" uid="8dbcc9ac-23ff-4640-b594-a1e497d59cfd"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

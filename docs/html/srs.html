@@ -1,0 +1,4859 @@
+<h1>
+    1. Source code and build
+</h1>
+<h2>
+    1.1 Clone source code
+</h2>
+<p>
+    git clone <a href="https://github.com/huyj2ee/jwt.git">https://github.com/huyj2ee/jwt.git</a>
+</p>
+<h2>
+    &nbsp;
+</h2>
+<h2>
+    1.2. Build and run
+</h2>
+<h3>
+    1.2.1. Build
+</h3>
+<p>
+    cd jwt
+</p>
+<p>
+    mvn clean package
+</p>
+<h3>
+    &nbsp;
+</h3>
+<h3>
+    1.2.2. Run
+</h3>
+<p>
+    java -jar target/jwt-0.0.1-SNAPSHOT.jar
+</p>
+<h1>
+    &nbsp;
+</h1>
+<h1>
+    2. SRS – Software requirements specification
+</h1>
+<h2>
+    2.1. Introduction
+</h2>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.1.1. Purpose
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.1.2. Document Convention
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.1.3. Intended Audience and Reading Suggestions
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.1.4. Product Scope
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.1.5. References
+</h3>
+<p>
+    T.B.D.
+</p>
+<h2>
+    &nbsp;
+</h2>
+<h2>
+    2.2. Overall Description
+</h2>
+<p>
+    T.B.D.
+</p>
+<h3>
+    &nbsp;
+</h3>
+<h3>
+    2.2.1. Product Perspective
+</h3>
+<p>
+    JWT is an identity and access management library implement JSON Web Tokens built on Spring Boot Framework. The library includes an admin web interfaces and REST API interfaces to manage users and roles. It defines an authentication process which uses JWT (JSON Web Tokens) with its own authentication filters. The library supports Spring Boot method security with RBAC (Role-based access control), developers can implement to control access to their API by using Spring Boot Method Security annotation.
+</p>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.2.1.1. REST API interfaces
+</h4>
+<p>
+    JWT supports REST API interfaces, developers can implement authentication functions such as sign in, refresh token, sign out, change password or users roles management functions such as create user, delete user, enable/disable user, unlock user, set password, add role, revoke role by leveraging these REST API interfaces or end user can make request by an application likes Postman to the server.
+</p>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.2.1.2. GUI interfaces
+</h4>
+<p>
+    JWT also supports GUI interfaces, GUI interfaces aim at users roles management functions but they are also available for authentication functions. Admin can access GUI interface pages for his/her use case. User also can access GUI interfaces but this is not useful because JWT does not include any other pages for user functions.
+</p>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.2.1.3. Domain model class diagram
+</h4>
+<p>
+    The domain model class diagram of system is as below:
+</p>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMwMoT01AgTrnY13igDad4q0FTVthwJdoz5-zPuRYpN2yrsCpsoa0ecHg6WB1uzE7QSy3fpzwPrsu2rD1YCw2FsNfrog0TN8cBcPP4j6NaHN46zfdJAhQoYAK1fCrNrMReJkCuUtdT2ttvSGPhNdY5mQ6KZbYBVGjT1P5cOlPKo09QpDHzHKuD7bvlfn3i/s16000/domain_model_class_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.2.1.3. <i>Domain model class diagram</i>
+    </figcaption>
+</figure>
+<h3>
+    &nbsp;
+</h3>
+<h3>
+    2.2.2. Product Functions
+</h3>
+<p>
+    Product functions are depicted by below use case diagram:
+</p>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPk98swwrAMXfyfziS8GcZ4FWGdb0EjSBbtjhH-OLoXoCCRn1STxMDi9A23-XIMzBXu4QC8vW6d_-hMOuO2hDlnLbnQAtSJpxkhOaDSRnGlmFo1le42FLg1n7j0FyGVbBSfMWaUuWZ4TVfaqDCxmnu1rjKfarRXoeJXa_8rEGvhZ4y4hiRx17vz9M6942O/s16000/use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.2.2. <i>Use case diagram</i>
+    </figcaption>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.2.2.1. User
+</h4>
+<p>
+    Operations that are supported by system for user is as below:
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Sign in
+</h5>
+<p>
+    Sign in will create a new access token and refresh token for user.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Refresh token
+</h5>
+<p>
+    In case the access toke expires, user could refresh token by using refresh token to request new access token, this will re-create a new access token.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Sign out
+</h5>
+<p>
+    User could sign out to invalidate all previous access token and refresh token.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Change password
+</h5>
+<p>
+    Change password will update user credentials to database.
+</p>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.2.2.2. Admin
+</h4>
+<p>
+    Operations that are supported by system for admin is as below:
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Create user
+</h5>
+<p>
+    Create user will add a new user object into database.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Delete user
+</h5>
+<p>
+    Delete user will remove user object from database.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Set password
+</h5>
+<p>
+    Set password allows admin to update other user credentials to database.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Unlock user
+</h5>
+<p>
+    If user enters wrong password to sign in with attempts exceed &nbsp;maximum attempts allow, user will be locked. Unlock user allows admin to unlock a user in such case.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Enable/disable user
+</h5>
+<p>
+    User state could be enable or disable. Disable state means that user is not in use. Admin could enable or disable a user to make that user is usable or unusable.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Assign role
+</h5>
+<p>
+    Assign role is adding a role to user, this make user has permissions for that role.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Revoke role
+</h5>
+<p>
+    Revoke role is removing a role from user, this revokes permissions for that role from user.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    Browse user
+</h5>
+<p>
+    Browse user will list users from database with pagination support, this allow admin select a target user for other operations.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    List assigned roles
+</h5>
+<p>
+    List assigned roles will list all assigned role for a user. Admin could select an assigned role from this list for revoke role operation.
+</p>
+<h5>
+    &nbsp;
+</h5>
+<h5>
+    List all roles
+</h5>
+<p>
+    List all roles will list all role from database. This operation supports to compute unassigned roles of a user. Admin could select an unassigned role from this list for assign role operation.
+</p>
+<h3>
+    &nbsp;
+</h3>
+<h3>
+    2.2.3. User Classes and Characteristics
+</h3>
+<h4>
+    User
+</h4>
+<p>
+    User uses system for their operations, user should have knowledge about PC using.
+</p>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    Admin
+</h4>
+<p>
+    Admin uses system for administrate users and roles operations. Admin should have knowledge about PC using.
+</p>
+<h3>
+    &nbsp;
+</h3>
+<h3>
+    2.2.4. Operating Environment
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.2.5. Design and Implementation Constraints
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.2.6. User Documentation
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.2.7. Assumptions and Dependencies
+</h3>
+<p>
+    T.B.D.
+</p>
+<h2>
+    &nbsp;
+</h2>
+<h2>
+    2.3. External Interface Requirements
+</h2>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.3.1. User Interfaces
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.3.2. Hardware Interfaces
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.3.3. Software Interfaces
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.3.4. Communications Interfaces
+</h3>
+<p>
+    T.B.D.
+</p>
+<h2>
+    &nbsp;
+</h2>
+<h2>
+    2.4. System Features
+</h2>
+<h3>
+    2.4.1. User
+</h3>
+<h4>
+    2.4.1.1. Sign in
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBn2STK4AclgBweOJtAwksvHb2o2TnH0A4FUOtvgPNaNn7LC1eeqE39BXmN4tmJqPm_kJ34mW-zgrg9XQdwAShaOi7eGOOP39BYywmmYmWEI0TDFw1mvMF-ZzT8DSUgCptcMf2B6dY5pPbTaq31K8mwkwNrqo_3zyGZj2a2mQAvc4bLl6eJ93L3PUqbUQ2/s16000/sign_in_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.1.1. <i>Sign in use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    sign_in
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    sign in
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    28/07/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows user to sign in.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    User
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    User make post request to endpoint jwt/v1/signin or user submits credentials at home page in sign out state.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. An access token and a refresh token for target user is generated.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. User makes post request to endpoint jwt/v1/signin with a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: user name of target user
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: password of target user
+                        </li>
+                    </ul>
+                    <p>
+                        2. System successfully finds target user by provided username parameter.
+                    </p>
+                    <p>
+                        3. System checks that user is none clocked.
+                    </p>
+                    <p>
+                        4. System checks that provided password property is matched with user password.
+                    </p>
+                    <p>
+                        5. System sets user attempt to 0.
+                    </p>
+                    <p>
+                        6. System generates refresh token.
+                    </p>
+                    <p>
+                        7. System generates access token.
+                    </p>
+                    <p>
+                        8. System responses user with status code 200 (OK) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            accessToken: generated access token
+                        </li>
+                        <li style="margin-left:40px;">
+                            refreshToken: generated refresh token
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. User submits credentials at home page in sign out state instead of making post request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. User submits credentials at home page in sign out state.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. System makes a post request to endpoint jwt/v1/signin with a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: credentials user name
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: credentials password
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.3. System successfully finds target user by provided username parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. System checks that user is none clocked.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System checks that provided password property is matched with user password.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6. System sets user attempt to 0.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7. System generates refresh token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8. System generates access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.9. System stores username, access token and refresh token for later use.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System could not finds target user by provided username parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System finds no user by provided username parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 401 (Unauthorized) and json object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “User not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. System checks that user is clocked.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System checks that user is clocked.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 401 (Unauthorized) and json object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Too many invalid attempts. Account is locked!!”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        4A. System checks that provided password property is not matched with user password.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.1. System checks that provided password property is not matched with user password.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.2. System increases attempt by 1 value.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.3. System checks that attempt does not exceed attempts limit.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.4. System responses user with status code 401 (Unauthorized) and json object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Invalid password.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        4A.3A. System checks that attempt exceeds attempts limit.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.3A.1. System checks that attempt exceeds attempts limit.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.3A.2. System sets accountNonLocked for user with value <i>false</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.3A.3. System responses user with status code 401 (Unauthorized) and json object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Too many invalid attempts. Account is locked!!”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.3A. System could not finds target user by provided username parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3A.1. System finds no user by provided username parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3A.2. System displays error message “User not found.”.
+                    </p>
+                    <p>
+                        1A.4A. System checks that user is clocked.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.1. System checks that user is clocked.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.2. System displays error message “Too many invalid attempts. Account is locked!!”.
+                    </p>
+                    <p>
+                        1A.5A. System checks that provided password property is not matched with user password.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.1. System checks that provided password property is not matched with user password.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.2. System increases attempt by 1 value.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.3. System checks that attempt exceeds attempts limit.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.4. System sets accountNonLocked for user with value <i>false</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.5. System displays error message “Too many invalid attempts. Account is locked!!”
+                    </p>
+                    <p>
+                        1A.5A.3A. System checks that attempt does not exceed attempts limit.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.3A.1. System checks that attempt does not exceed attempts limit.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.3A.2. System displays error message “Invalid password.”
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.1.2. Sign out
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi31ydmm-i8Q66H-d89264IeWP8h2OjnQtPx4YNsDFsPD-0SKgXd78aACwtKLAcz1yFCDjO6W5VVNojJ0M_NS4KEbXjWFLZ8680GRUlIsIuejWnW4S0zB5NCFQ9iMO7rv4cb3_jkJFYTLwsmYUrvQayqBkf6jl7M91puRJIlbhsgiJ0vR7hgWQ6c_-gWf-5/s16000/sign_out_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.1.2. <i>Sign out use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    sign_out
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    sign out
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    28/07/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows user to sign out.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    User
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    User makes post request to endpoint jwt/v1/signout or user commands to sign out at home page in sign in state.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in and has a valid access token.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. All previous user access tokens and a refresh tokens are expired.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. User makes post request to endpoint jwt/v1/signout with authorization Bearer Token is user's access token.
+                    </p>
+                    <p>
+                        2. System checks that user is authenticated.
+                    </p>
+                    <p>
+                        3. System makes all previous user access tokens and refresh tokens is expired.
+                    </p>
+                    <p>
+                        4. System responses user with status code 204 (No Content).
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        A1. User commands to sign out at home page in sign in state instead of making post request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.1. User commands to sign out at home page in sign in state.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.2. System makes post request to endpoint jwt/v1/signout with authorization Bearer Token is user's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.3. System checks that user is authenticated.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.4. System makes all previous user access tokens and refresh tokens are expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.5. System displays homepage in sign out state.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that user is not authenticated.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that user is not authenticated.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 401 (Unauthorized) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Full authentication is required to access this resource”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        A1.3A. System checks that user is not authenticated since access token is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.3A.1. System checks that user is not authenticated since access token is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.3A.2. System makes all previous user refresh tokens are expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        A1.3A.3. Use case resumes at alternative flows step A1.5.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.1.3. Refresh token
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVVS6tk8dUgSxlx1alxQps0GZgg88DkNqWlWMxfuE_GyohO1UQz6jObtGBzJ3fyPXZpb36ze9Qw3whw8A0Tdf_iTeFGts0OaRGz5AoKMxeY1wwFc7Ek_qZsLdnN9bkFiVnrZ_DkR29cL58tbZQAKmJXmS4fsgoh-nZkjaoWI5kAxXhfIrbxD9ytcofj3yj/s16000/refresh_token_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.1.3. <i>Refresh token use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    refresh_token
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    refresh token
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    28/07/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows user to obtain new access token by provided refresh token in the case of access token is expired.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    User
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    User makes a post request to endpoint jwt/v1/refreshtoken or operation is error because user access token is expired.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in and has a valid refresh token.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. A new access token for target user is generated.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. User makes post request to endpoint jwt/v1/refreshtoken with a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            refreshToken: a valid refresh token of user
+                        </li>
+                    </ul>
+                    <p>
+                        2. System finds refresh token in database.
+                    </p>
+                    <p>
+                        3. System verifies expiration with result is not expired.
+                    </p>
+                    <p>
+                        4. System retrieves user from refresh token.
+                    </p>
+                    <p>
+                        5. System generates new access token for user retrieved at step 4.
+                    </p>
+                    <p>
+                        6. System responses user with status code 200 (OK) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            accessToken: generated access token at step 5
+                        </li>
+                        <li style="margin-left:40px;">
+                            refreshToken: provided refresh token
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Operation is error because user access token is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Operation performs error because user access token is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. System makes post request to endpoint jwt/v1/refreshtoken with a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            refreshToken: a valid refresh token of user
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.3. System finds refresh token in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. System verifies expiration with result is not expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System retrieves user from refresh token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6. System generates new access token for user retrieved at step 1A.5.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7. System store updated access token for future use.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8. System resumes at error operation with updated access token.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System could not find refresh token in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System could not find refresh token in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Failed for &lt;target refresh token&gt;: Refresh token is not in database.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. System verifies expiration with result is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System verifies expiration with result is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Failed for &lt;target refresh token&gt;: Refresh token was expired. Please make a new sign in request.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.3A. System could not find refresh token in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3A.1. System could not find refresh token in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3A.2. System displays home page in sign out state.
+                    </p>
+                    <p>
+                        1A.4A. System verifies expiration with result is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.1. System verifies expiration with result is expired.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.2. System displays home page in sign out state.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.1.4. Change password
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXK_6FtJY0KtFUOjO4Ec-_2eMHymGe6JpBosw-ecaaitrc-pNHl9T4ZONYgtioHYnrUkaj8cdiFVMRcuG8CgEeW0vaDGywuKHr15AKetcxG-hCqyHwgmVraRUN19FRHGcX8DDV1zHkDFolKHdmVddCPUqRvrmdxr9El9PHjWjRTCGHgy08mGFemE3wHt9q/s16000/change_password_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.1.4. <i>Change password use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    change_password
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    change password
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    29/07/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows user to change password.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    User
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    User makes a put request to endpoint jwt/v1/password or user commands to change password at home page in sign in state.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in and has a valid access token.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User password is updated.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. User makes a put request to endpoint jwt/v1/password with authorization Bearer Token is user's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: same with signed in username (encoded in access token)
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: new password
+                        </li>
+                    </ul>
+                    <p>
+                        2. System checks signed in username is same with username property.
+                    </p>
+                    <p>
+                        3. System retrieves user from database by username.
+                    </p>
+                    <p>
+                        4. System updates user's password and persist to database.
+                    </p>
+                    <p>
+                        5. System responses user with status code 200 (OK) and a user represented by json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: target username
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: <i>null</i>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. User commands to change password at home page in sign in state instead of making a put request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. User commands to change password at home page in sign in state.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. System shows change password form.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. User enters new password and confirm new password.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. System checks that new password and confirm new password is matched.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System makes a put request to endpoint jwt/v1/password with authorization Bearer Token is user's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: stored user name
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: new password
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.6. System checks signed in username is same with username property.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7. System retrieves user from database by username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8. System updates user's password and persist to database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.9. System displays message “Password is changed.”
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks signed in username is not same with username property.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks signed in username is not same with username property.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Can not change password for other user”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. User with target username is not found in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System could not retrieve user from database by username since username is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 401 (Unauthorized) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “User not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.6A. System checks signed in username is not same with username property.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6A.1. System checks signed in username is not same with username property.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6A.2. System displays error message “Some thing is failed.”
+                    </p>
+                    <p>
+                        1A.7A. System retrieves no user from database by username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7A.1. System retrieves no user from database by username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7A.2. System displays error message “Some thing is failed.”
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h3>
+    &nbsp;
+</h3>
+<h3>
+    2.4.2. Admin
+</h3>
+<h4>
+    2.4.2.1. Create user
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEd68iYnWqszQhfBC6AsSQ1uoejibob06dDc9hv2_BzgdfWspa5YHbntmtY5ZavqXrB7O8uTDBuop_pTcc9ps9NYztt8BSbz1LzUIycnEeDnnMyjoBuJOzg3LQhPlgBTo4It00EOOgFbCX2mlXfplbMzz7zslo1i7s4nXu0Mk_lEp6VuCQaHlZ8ejwZxJ6/s16000/create_user_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.1. <i>Create user use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    create_user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    create user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    29/07/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to create a new user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a post request to endpoint jwt/v1/users or admin commands to create user at home page in signed in state.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. New user is created.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a post request to endpoint jwt/v1/users with authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: user name of new user
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: password of new user
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: flag indicates that if user is locked, this property is set to <i>true</i> or <i>null </i>or not provided.
+                        </li>
+                    </ul>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System creates new user with provided username, password, enabled.
+                    </p>
+                    <p>
+                        4. System checks that accountNonLocked is set to <i>true</i> or <i>null </i>or not provided.
+                    </p>
+                    <p>
+                        5. System updates new user with accountNonLocked is <i>true</i>.
+                    </p>
+                    <p>
+                        6. System persists new user to database.
+                    </p>
+                    <p>
+                        7. System responses user with status code 200 (OK) and created user represented by a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: created user's username
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: <i>null</i>
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: created user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: created user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to create user at home page in signed in state instead of making a post request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin commands to create user at home page in signed in state.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. System shows create user page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. Admin submits username, password and enable state.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. System checks that username and password is not empty.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System makes a post request to endpoint jwt/v1/users with authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: provided user name
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: provided password
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: provided enable state
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: this property is not provided.
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.6. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7. System creates new user with provided username, password, enabled.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8. System checks that accountNonLocked is not provided<i>.</i>
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.9. System updates new user with accountNonLocked is <i>true</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.10. System persists new user to database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.11. System displays “User created” message and confirm created user details as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            user name of created user
+                        </li>
+                        <li style="margin-left:80px;">
+                            enable state of created user
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to create new user.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        4A. System checks that accountNonLocked is provided and set to <i>false.</i>
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.1. System checks that accountNonLocked is provided and set to <i>false.</i>
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.2. System responses user with status code 400 (Bad Request) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “accountNonLocked must be <i>null</i> or <i>true </i>or not provided”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        6A. System fails to persist new user to database because provided username or password or enable is <i>null</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        6A.1. System fails to persists new user to database because provided username or password or enable is <i>null</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        6A.2. System responses user with status code 400 (Bad Request) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “username or password or enable is <i>null</i>”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        6B. System fails to persist new user to database because provided username already exists.
+                    </p>
+                    <p style="margin-left:40px;">
+                        6B.1. System fails to persists new user to database because provided username already exists.
+                    </p>
+                    <p style="margin-left:40px;">
+                        6B.2. System responses user with status code 400 (Bad Request) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “username &lt;username&gt; already exists”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.4A. System checks that username or password is empty.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.1. System checks that username or password is empty.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.2. System displays error message “this field is required”.
+                    </p>
+                    <p>
+                        1A.6A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6A.2. System displays error message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.8A. System checks that accountNonLocked is provided and set to <i>false.</i>
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8A.1. System checks that accountNonLocked is provided and set to <i>false.</i>
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8A.2. System displays error message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.10A. System fails to persist new user to database because provided username or password or enable is <i>null</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.10A.1. System fails to persist new user to database because provided username or password or enable is <i>null</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.10A.2. System displays error message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.10B. System fails to persist new user to database because provided username already exists.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.10B.1. System fails to persist new user to database because provided username already exists.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.10B.2. System displays error message “Username &lt;username&gt; already exists, please choose a different username”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.2. Browse user
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjjhIbFBiEcNZSj4sghEoBauZrDZhS9PqgtjLuNfKewyDyhMghZusQ4Q93EwsnG2OIj-KYJTmM2ED14QV-3YszZ-PIglKLDahFprMTk5b53_e1GXQ1BNJhxM26ZL-mwihyphenhyphenUcWDTklwmoMvfEPYE4A69-M_lXshO7Gcj0eBCK2PfgWriaaA6ASqMmmzGHCy6/s16000/browse_user_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.2. <i>Browse user use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    browse_user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    browse user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    07/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to browse user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a get request to endpoint jwt/v1/users or admin access user list page.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User list is retrieved.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a get request to endpoint jwt/v1/users with page query parameter, accountNonLocked query parameter and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System loads user list from database ordered by username include entry in the position from (page - 1) * 20 to page * 20 (where page is page query parameter) and column accountNonLocked value is same with accountNonLocked query parameter.
+                    </p>
+                    <p>
+                        4. System responses user with status code 200 (OK) and a body is encoded json list of &nbsp;user retrieved at step 3, which each user is represented by a object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: user's username
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: this property is set to <i>null</i>
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin does not include accountNonLocked query parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin makes a get request to endpoint jwt/v1/users with page query parameter and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. System loads user list from database ordered by username include entry in the position from (page - 1) * 20 to page * 20 (where page is page query parameter).
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. Use case resumes at step 4.
+                    </p>
+                    <p>
+                        1B. Admin includes path parameter {username} in request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.1. Admin makes a get request to endpoint jwt/v1/users/{username} with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.2. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.3. System successfully loads user from database by path parameter {username}.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.4. System responses user with status code 200 (OK) and user retrieved by step 1C.3. represented by a json object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: user's username
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: this property is set to <i>null</i>
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                    <p>
+                        1C. Admin accesses user list page instead of making a get request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.1. Admin access user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.2. System makes a get request to endpoint jwt/v1/users with page query parameter equals to 1 and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.3. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.4. System loads user list from database ordered by username include entry in the position from (page - 1) * 20 to page * 20 (where page is page query parameter whose value is 1).
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.5. System displays user list page loaded by step 1D.4. which each user information is as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: user's username
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1C.6. (Extension point: view next page)
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.7. (Extension point: view previous page)
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8. (Extension point: enters username)
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9. (Extension point: get only locked user)
+                    </p>
+                    <p>
+                        1C.6. View next page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.6.1. Admin commands to view next page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.6.2. System makes a get request to endpoint jwt/v1/users with page query parameter increased by 1 and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.6.3. Use case resume at step 1C.3.
+                    </p>
+                    <p>
+                        1C.7. View previous page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.7.1. Admin commands to view previous page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.7.2. System makes a get request to endpoint jwt/v1/users with page query parameter decreased by 1 and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.7.3. Use case resume at step 1C.3.
+                    </p>
+                    <p>
+                        1C.8. Enters username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.1. Admin enters username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.2. System makes a get request to endpoint jwt/v1/users/{username} with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.3. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.4. System successfully loads user from database by path parameter {username}.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.5. System displays user loaded by step 1D.8.4. which user information is as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: user's username
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                    <p>
+                        1C.9. Get only locked user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.1. Admin commands to get only locked user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.2. System makes a get request to endpoint jwt/v1/users with page query parameter is current page, accountNonLocked query parameter is <i>false</i> and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.3. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.4. System loads user list from database ordered by username include entry in the position from (page - 1) * 20 to page * 20 (where page is page query parameter) and column accountNonLocked value is <i>false</i>.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.5. System displays user list page loaded by step 1D.9.4. which each user information is as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: user's username
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1D. Admin does not include page query parameter.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1D.1. Admin makes a get request to endpoint jwt/v1/users with accountNonLocked query parameter and authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1D.2. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1D.3. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “page query parameter is required, access all user list at a time is prohibited”.
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to get user list.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to get user list.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1B.2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to get user.”&nbsp;
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1B.3A. User with path parameter {username} is not found in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.3A.1. System finds no user with path parameter {username} in database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1B.3A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Username &lt;username&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1C.3A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.3A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.3A.2. System displays error message “Some error occurred.”.
+                    </p>
+                    <p>
+                        &nbsp;1C.8.3A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.3A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.3A.2. System displays error message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1C.8.4A. User with username presented by path parameter {username} is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.4. System fails to load user from database by path parameter {username} with error username is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.8.3A.2. System displays error message “User is not found”.
+                    </p>
+                    <p>
+                        1C.9.3A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.3A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1C.9.3A.2. System displays error message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.3. Delete user
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEzJHK71Uc2dZzDqOIudovQf8ELZKbMQBi7rP9lA_gpfTwVg4jVTD62FQiotIQHMBw4tEL2Z6Kr6B6SdD8uWZXjU9wxM_rrvxAepYujDKtx-ELqqd8gN5uXkRKl_4_jRjJcHHe6KDExqMW4fghaniodtmXQ-EiX1b0HnaHXi3xc2FXOfyikh9aHfDGgCqL/s16000/delete_user_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.3. <i>Delete user use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    delete_user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    delete user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    04/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to delete a user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a delete request to endpoint jwt/v1/users/&lt;username&gt; or admin commands to delete target user in user list page.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user is deleted.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a delete request to endpoint jwt/v1/users/&lt;username&gt; with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System deletes user from database.
+                    </p>
+                    <p>
+                        4. System responses user with status code 204 (No Content).
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to delete target user in user list page instead of making a delete request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin triggers “browse user” use case by accessing user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. Admin commands to delete target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. System makes a delete request to endpoint jwt/v1/users/&lt;username&gt; with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System delete user from database.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6. System shows user list page.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to delete user.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. System could not delete user from database because user with provided username is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System could not delete user from database because user with provided username is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Username &lt;username&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.4A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.5A. System could not delete user from database because user with provided username is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.1. System could not delete user from database because user with provided username is not found.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.2. System displays message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.4. Edit user
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnGUpRrB8BH16b-EZ-dNLbGGb8_WBAi_dX_dmX-ZNxTWXaYHzGgqayiXriegC_ydhp6JT68jbQcwUX3Ai6QAxJYpxyQ6Cuaf4pBuT3_q3rL_dB2DN0Mj-sMSoX8wDxiKnuK66J9SllJyUSti1FyVK0NcSmJV9ugR1tlgbbDV3aDA691fv-WJHEp2KJf5Mw/s16000/edit_user_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.4. <i>Edit user use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    edit_user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    edit user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    05/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to update user details data.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a put request to endpoint jwt/v1/users/{username}.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user details is updated.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a put request to endpoint jwt/v1/users/{username} with authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: updated password or <i>null</i> if not change
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: updated enabled flag or <i>null</i> if not change
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: updated flag indicates that if user is locked or <i>null</i> if not change
+                        </li>
+                    </ul>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System checks that path parameter {username} is same with json object's property username.
+                    </p>
+                    <p>
+                        4. System successfully load user by path parameter {username}.
+                    </p>
+                    <p>
+                        5. System updates loaded user with provided properties that is not <i>null</i>.
+                    </p>
+                    <p>
+                        6. System persists updated user to database.
+                    </p>
+                    <p>
+                        7. System responses user with status code 200 (OK) and updated user represented by a json object with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: updated user's username
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: null
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: updated user's flag indicates that if user is enable
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: updated user's flag indicates that if user is locked
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to edit user.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. System checks that path parameter {username} is not same with json object encoded body property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 400 (Bad Request) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “property username is not same with path parameter {username}”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        4A. System fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.1. System fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Username &lt;username&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.5. Set password
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgocMWKqyvEhPCw32buccDejmyk1ZOUI_jET5E-ZmYdqTNADo6LXSy4ce3EN-6pSVx0sq6FoTJK8hhmeXTaRdMNBfQ3BPty1uNveJsxanX46RSrvDM0ah_tk3uulcOOtsG9rYuK10mC3stfRScOGFay7m28OtthjTB-vOnQ2c8L6Hts-EFBV9AkX2nf9yWD/s16000/set_password_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.5. <i>Set password use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    set_password
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    set password
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    06/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to set password for a user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a put request to endpoint jwt/v1/users/{username} or admin commands to set password target user in user list page.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user password is updated.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin triggers “edit user” use case by making a put request to endpoint jwt/v1/users/{username} with authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: new password
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: this property is not provided
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: this property is not provided
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to set password target user in user list page instead of making a put request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin triggers “browse user” use case by accessing user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. Admin commands to set password target user in user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. System displays set password form.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. Admin submits set password form.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System checks that password and confirm password is matched.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6. System triggers “edit user” use case on admin's behalf by making a put request to endpoint jwt/v1/users/{username} with path parameter {username} is target username, authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: this value is retrieve from password input form
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: this property is not provided
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: this property is not provided
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.7. “Edit user” use case successfully ends.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.8. System displays user list page.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A.5A. System checks that password and confirm password is not matched.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.1. System checks that password and confirm password is not matched.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.2. System displays error message “Passwords don’t match.”.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5A.2. Use case resumes at step 1A.3.
+                    </p>
+                    <p>
+                        1A.7A. “Edit user” use case fails because system checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7A.1. “Edit user” use case fails because system checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.7B. “Edit user” use case fails because system checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7B.1. “Edit user” use case fails because system checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7B.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.7C. “Edit user” use case fails because system fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7C.1. “Edit user” use case fails because system fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7C.2. System displays message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.6. Unlock user
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZjF48BL4ACbnZuujw3ec_F5nhX9H_gvKPM4Ddp60vBFN-4MLSOXQfjddhk2OS9XZH3QtWO1BwMQAgkiaYwnZvzjSr7DBPQaS7JMOV-CehdycGCbPnzH8ZXrCJmO89gwWXPAwrDugqIJuX25M1LcaMwSMvNQbYMlIpqBesvIdJ_JGak-iJjppjDT2rXu6F/s16000/unlock_user_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.6. <i>Unlock user use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    unlock_user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    unlock user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    13/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to unlock a locked user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a put request to endpoint jwt/v1/users/{username} or admin commands to unlock target user in user list page.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user accountNonLocked state is set to <i>true</i>.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin triggers “edit user” use case by making a put request to endpoint jwt/v1/users/{username} with authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: this property is not provided
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: this property is not provided
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: this property is set to <i>true</i>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to unlock target user in user list page instead of making a put request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin triggers “browse user” use case by accessing user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. Admin commands to unlock target user in user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. System triggers “edit user” use case on admin's behalf by making a put request to endpoint jwt/v1/users/{username} with path parameter {username} is target username, authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: this property is not provided
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: this property is not provided
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: this property is set to <i>true</i>
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.4. “Edit user” use case successfully ends.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System displays user list page.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A.4A. “Edit user” use case fails because system checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.1. “Edit user” use case fails because system checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.4B. “Edit user” use case fails because system checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7B.1. “Edit user” use case fails because system checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7B.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.4C. “Edit user” use case fails because system fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4C.1. “Edit user” use case fails because system fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4C.2. System displays message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.7. Enable/disable user
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiL1Y1eZpysRNeEpefI8VDoUTgdrg0KGaC3PsYwEQ9EQlKj5cCFISPc34Eu3F0DbaG7gGmNncOkxFPIajEEpAEVWszSgvflD9RZcxiMqWn5nnOFoswDX_wCo0gboX8ZPSIEJadb0QWpvz_mn9a1FPIT7wKdYAiSQtcoOzeVLSAcPZI5Wl9_LRKfoNdD3fcK/s16000/enable_disable_user_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.7. <i>Enable/disable user use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    enable_disable_user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    enable/disable user
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    13/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to enable or disable a user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a put request to endpoint jwt/v1/users/{username} or admin commands to enable/disable target user in user list page.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user enable state is updated.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin triggers “edit user” use case by making a put request to endpoint jwt/v1/users/{username} with authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:40px;">
+                            password: this property is not provided
+                        </li>
+                        <li style="margin-left:40px;">
+                            enabled: this property is set to <i>true</i> in the case of enable operation or set to <i>false</i> in the case of disable operation.
+                        </li>
+                        <li style="margin-left:40px;">
+                            accountNonLocked: this property is not provided
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to enable/disable target user in user list page instead of making a put request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin triggers “browse user” use case by accessing user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. Admin commands to enable/disable target user in user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. System triggers “edit user” use case on admin's behalf by making a put request to endpoint jwt/v1/users/{username} with path parameter {username} is target username, authorization Bearer Token is admin's access token and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            username: same with path parameter {username}
+                        </li>
+                        <li style="margin-left:80px;">
+                            password: this property is not provided
+                        </li>
+                        <li style="margin-left:80px;">
+                            enabled: this property is set to <i>true</i> in the case of enable operation or set to <i>false</i> in the case of disable operation.
+                        </li>
+                        <li style="margin-left:80px;">
+                            accountNonLocked: this property is not provided
+                        </li>
+                    </ul>
+                    <p style="margin-left:40px;">
+                        1A.4. “Edit user” use case successfully ends.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. System displays user list page.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A.4A. “Edit user” use case fails because system checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.1. “Edit user” use case fails because system checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.4B. “Edit user” use case fails because system checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7B.1. “Edit user” use case fails because system checks that path parameter {username} is not same with json object's property username.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7B.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.4C. “Edit user” use case fails because system fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4C.1. “Edit user” use case fails because system fails to load user by path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4C.2. System displays message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.8. List all roles
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg87cwYtXwsn_ZBpigLmhgfFUWl4UYPL137aud9UOYz0Uw4fnvxZUJpulMhSOGuHBxuREL7W2J0MhBo9TExgdmgao-Zd6v9vJG62_eARxchM6JtbJfGdaC_-JW5MrxF-50DTRNlCoEr5mqVeH7nOOwlyf3RHh-7u-q24iwCQNIDvAuP35dPJpbEngasL4PZ/s16000/list_all_roles_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.8. <i>List all roles use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    list_all_roles
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    list all roles
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    14/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to list all roles.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a get request to endpoint jwt/v1/roles.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. List of all roles is retrieved.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a get request to endpoint jwt/v1/roles with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System loads all roles from database.
+                    </p>
+                    <p>
+                        4. System responses user with status code 200 (OK) and a list of all roles retrieved by step 3. represented by json object encoded body which is an array that each item has properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            role: role name
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to get all roles list.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.9. List assigned roles
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK45JY1V-umLU5sZl_kY2zFsjrROBwrlK2ne5b7UPprFmT5in8HCKZdQyHBNL9QVHiJyCRACAl00y9E7SOdqW2H1gb4M_P9FS2Ox6cB7NGDWeI3BJaTu84VPHNlwVRn8VfzkEdOQBAMdAzJ5t7S2ixr3FNnhD6xgqmXJqjYiA-HHD9XmdDzmt_D1QHMVJC/s16000/list_assigned_roles_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.9. <i>List assigned roles use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    list_assigned_roles
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    list assigned roles
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    14/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to list all assigned roles of a user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a get request to endpoint jwt/v1/users/{username}/roles.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. List of all assigned roles of a user is retrieved.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a get request to endpoint jwt/v1/users/{username}/roles with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System loads user and assigned roles by username is path parameter {username}.
+                    </p>
+                    <p>
+                        4. System responses user with status code 200 (OK) and a list of all assigned roles retrieved by step 3. represented by json object encoded body which is an array that each item has properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            role: role name
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to get all roles list.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.10. Assign role
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhKl6OIkAM4DqVrLWlrVV-5Tf0LNMhO9efFrmgpfonqe9m-m_NOiIEBS1wcJ38XgRTQgu6B4sBvVjhc3KMe4XVacfo0YSYVo_LRCk_gMTh28OPwckZbM2MibvnyltuX9AWnkenSGWZhvHbrvjjOqvEivIDNavS-HySRlElmpzLKpaIkK45q1zTQzLLuayIN/s16000/assign_role_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.10. <i>Assign role use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    assign_role
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    assign role
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    14/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to assign a role to a user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a put request to endpoint jwt/v1/users/{username}/roles/{role}.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user assigned roles are update with new role inserted.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a put request to endpoint jwt/v1/users/{username}/roles/{role} with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System loads user and assigned roles by username is path parameter {username}.
+                    </p>
+                    <p>
+                        4. System loads role by role property is path parameter {role}.
+                    </p>
+                    <p>
+                        5. System add role loaded at step 4. to assigned roles loaded at step 3.
+                    </p>
+                    <p>
+                        6. System persists updated assigned roles.
+                    </p>
+                    <p>
+                        6. System responses user with status code 200 (OK) and a json object encoded body with property as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:40px;">
+                            role: new assigned role name
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to assign/revoke roles for target user in user list page instead of making a put request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin triggers “browse user” use case by accessing user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. Admin accesses assign/revoke role page for target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. Systems triggers “list all roles” use case on admin's behalf.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. Systems triggers “list assigned roles” use case on admin's behalf for target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. Systems computes unassigned roles list from all roles list retrieved at step 1A.3. and assigned roles list retrieved at step 1A.4.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6. System displays assigned roles list and unassigned roles list.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7. (Extension point: assign role)
+                    </p>
+                    <p>
+                        1A.7. Assign role.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.1. Admin commands to assign a target role in unassigned roles list for target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.2. System makes a put request to endpoint jwt/v1/users/{username}/roles/{role} on admin's behalf with authorization Bearer Token is admin's access token with path parameter {username} is target user's username and path parameter {role} is target role.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.3. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.4. System loads user and assigned roles by username is path parameter {username}.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.5. System loads role by role property is path parameter {role}.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.6. System add role loaded at step 1A.7.5. to assigned roles loaded at step 1A.7.4.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.7. System persists updated assigned roles.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.8. Use case resumes at step 1A.3.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to assign role.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Username &lt;username&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        4A. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.1. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Role &lt;role&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.7.3A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.3A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.3A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.7.4A. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.4A.1. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.4A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.7.5A. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.5A.1. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.5A.2. System displays message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h4>
+    &nbsp;
+</h4>
+<h4>
+    2.4.2.11. Revoke role
+</h4>
+<figure class="image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhpAvKvFUkdgZv75RqAsP3x4wpU6m1Ll-uUJ0I4vkKBLtjDF_moYBIiLs7ndNInM588g2idl-eSz6hS5uILQl5s4acpg_hR5aGIygmvcDFmrveToS8XXFFvINJ5JDsZC7cEBYmF0jh9lK1VLTbk_JazyDRdbdDzKWvL3HMcIZRHTSQREdzToccqbBYCV9ov/s16000/revoke_role_use_case_diagram.png">
+    <figcaption>
+        <strong>Figure</strong> 2.4.2.11. <i>Revoke role use case diagram</i>
+    </figcaption>
+</figure>
+<p>
+    &nbsp;
+</p>
+<figure class="table" style="width:79.45%;">
+    <table class="ck-table-resized">
+        <colgroup><col style="width:24.35%;"><col style="width:75.65%;"></colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case ID</strong>
+                    </p>
+                </td>
+                <td>
+                    revoke_role
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Use Case Name</strong>
+                    </p>
+                </td>
+                <td>
+                    revoke role
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Created By</strong>
+                    </p>
+                </td>
+                <td>
+                    Huy Pham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Date Created</strong>
+                    </p>
+                </td>
+                <td>
+                    14/08/2024
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Priority</strong>
+                    </p>
+                </td>
+                <td>
+                    normal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Description</strong>
+                    </p>
+                </td>
+                <td>
+                    This use case allows admin to revoke a role from a user.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Primary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Secondary Actor</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Trigger</strong>
+                    </p>
+                </td>
+                <td>
+                    Admin makes a delete request to endpoint jwt/v1/users/{username}/roles/{role}.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Preconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. User is signed in with an account has role admin.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Postconditions</strong>
+                    </p>
+                </td>
+                <td>
+                    1. Target user assigned roles are update with target role removed.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Main Flow</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1. Admin makes a delete request to endpoint jwt/v1/users/{username}/roles/{role} with authorization Bearer Token is admin's access token.
+                    </p>
+                    <p>
+                        2. System checks that Admin has role admin.
+                    </p>
+                    <p>
+                        3. System loads user and assigned roles by username is path parameter {username}.
+                    </p>
+                    <p>
+                        4. System loads role by role property is path parameter {role}.
+                    </p>
+                    <p>
+                        5. System removes role loaded at step 4. from assigned roles loaded at step&nbsp;
+                    </p>
+                    <p>
+                        6. System persists updated assigned roles.
+                    </p>
+                    <p>
+                        7. System responses user with status code 204 (No Content).
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Alternative Flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        1A. Admin commands to assign/revoke roles for target user in user list page instead of making a put request.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.1. Admin triggers “browse user” use case by accessing user list page.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.2. Admin accesses assign/revoke role page for target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.3. Systems triggers “list all roles” use case on admin's behalf.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.4. Systems triggers “list assigned roles” use case on admin's behalf for target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.5. Systems computes unassigned roles list from all roles list retrieved at step 1A.3. and assigned roles list retrieved at step 1A.4.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.6. System displays assigned roles list and unassigned roles list.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7. (Extension point: revoke role)
+                    </p>
+                    <p>
+                        1A.7. Revoke role.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.1. Admin commands to revoke a target role in assigned roles list for target user.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.2. System makes a delete request to endpoint jwt/v1/users/{username}/roles/{role} on admin's behalf with authorization Bearer Token is admin's access token with path parameter {username} is target user's username and path parameter {role} is target role.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.3. System checks that Admin has role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.4. System loads user and assigned roles by username is path parameter {username}.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.5. System loads role by role property is path parameter {role}.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.6. System removes role loaded at step 1A.7.5. from assigned roles loaded at step 1A.7.4.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.7. System persists updated assigned roles.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.8. Use case resumes at step 1A.3.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Exception flows</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        2A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        2A.2. System responses user with status code 403 (Forbidden) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Admin role is required to revoke role.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        3A. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.1. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        3A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Username &lt;username&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        4A. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.1. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        4A.2. System responses user with status code 404 (Not Found) and a json object encoded body with properties as below:
+                    </p>
+                    <ul>
+                        <li style="margin-left:80px;">
+                            error
+                            <ul>
+                                <li style="margin-left:80px;">
+                                    message: “Role &lt;role&gt; is not found.”
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        1A.7.3A. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.3A.1. System checks that Admin does not have role admin.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.3A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.7.4A. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.4A.1. System fails to load user and assigned roles by username is path parameter {username} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.4A.2. System displays message “Some error occurred.”.
+                    </p>
+                    <p>
+                        1A.7.5A. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.5A.1. System fails to load role by role property is path parameter {role} with not found error.
+                    </p>
+                    <p style="margin-left:40px;">
+                        1A.7.5A.2. System displays message “Some error occurred.”.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="text-align:right;">
+                        <strong>Other</strong>
+                    </p>
+                </td>
+                <td>
+                    none
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h2>
+    &nbsp;
+</h2>
+<h2>
+    2.5. Other Nonfunctional Requirements
+</h2>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.5.1. Performance Requirements
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.5.2. Safety Requirements
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.5.3. Security Requirements
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.5.4. Software Quality Attributes
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.5.5. Business Rules
+</h3>
+<p>
+    T.B.D.
+</p>
+<h3>
+    2.5.6. User documentation
+</h3>
+<p>
+    T.B.D.
+</p>

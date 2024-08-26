@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="BA" version="4">
+  <OBJECT>
+    <ID name="BA" mc="Standard.Package" uid="e8e8ce55-093c-4905-9fb7-437e4d9a28a0"/>
+    <PID name="uml" mc="Standard.Package" uid="3f257540-e0e6-4484-81bd-5d20e6f46db5"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[BA]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Use Case" mc="Standard.Package" uid="c7b00b30-f027-46ad-a3f1-3ab68d7ff4ea"/>
+        <COMPID name="Domain Model" mc="Standard.Package" uid="651682b0-e5f0-4cbf-8bc3-be0dc86516fd"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

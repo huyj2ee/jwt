@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="JWT" version="4">
+  <OBJECT>
+    <ID name="JWT" mc="Standard.Package" uid="d5ac93c6-aa9f-4d2f-b638-55f5912ffb54"/>
+    <PID name="Use Case" mc="Standard.Package" uid="c7b00b30-f027-46ad-a3f1-3ab68d7ff4ea"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[JWT]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="User" mc="Standard.Actor" uid="70ab02d2-973b-43f1-a021-a93cb2ddef60"/>
+        <COMPID name="Admin" mc="Standard.Actor" uid="803bb691-9f1e-4a6d-b9f3-2f8c9e54f77e"/>
+        <COMPID name="sign in" mc="Standard.UseCase" uid="fdad568e-f195-47ed-b822-d450d27d09d3"/>
+        <COMPID name="sign out" mc="Standard.UseCase" uid="12cb5041-5081-4085-9b8e-7c24c675b559"/>
+        <COMPID name="refresh token" mc="Standard.UseCase" uid="9e34f58e-c95b-4066-aafc-3ae99749d634"/>
+        <COMPID name="create user" mc="Standard.UseCase" uid="f16f2190-6808-46f8-9ae9-5ce9261df74b"/>
+        <COMPID name="set password" mc="Standard.UseCase" uid="466fd43f-3dca-4856-8c4e-714d9c0113f4"/>
+        <COMPID name="delete user" mc="Standard.UseCase" uid="4ea0867d-f6d1-4bca-a311-c12792344d9c"/>
+        <COMPID name="change password" mc="Standard.UseCase" uid="02779e33-1df7-4195-891a-7d1dc3b57c19"/>
+        <COMPID name="edit user" mc="Standard.UseCase" uid="724b44ca-8090-4920-9664-cceffd0e6c96"/>
+        <COMPID name="unlock user" mc="Standard.UseCase" uid="45b90c6c-3b10-4ea7-9594-cb97dd123fc3"/>
+        <COMPID name="enable/disable user" mc="Standard.UseCase" uid="a84a9ebc-24e4-4350-847e-f980c834b48b"/>
+        <COMPID name="assign role" mc="Standard.UseCase" uid="41153476-d802-4aae-8e84-3fbf7dd5de8f"/>
+        <COMPID name="browse users" mc="Standard.UseCase" uid="9e56a5aa-1aa3-4f6d-bf58-d98c743511e2"/>
+        <COMPID name="list assigned roles" mc="Standard.UseCase" uid="f258bfd9-c72b-4dcf-9d77-9e4ba5a5467c"/>
+        <COMPID name="list all roles" mc="Standard.UseCase" uid="30abae2d-8861-4b32-b62d-d63d6999713a"/>
+        <COMPID name="revoke role" mc="Standard.UseCase" uid="e493b187-16fa-4722-8872-6559c02a6b2e"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Use Case diagram" mc="Standard.UseCaseDiagram" uid="dc684c88-e6b2-40fb-a2e5-fdd367d7e48d"/>
+        <COMPID name="Sign In Use Case diagram" mc="Standard.UseCaseDiagram" uid="fade760f-17cc-4841-a039-54e77985562d"/>
+        <COMPID name="Sign Out Use Case diagram" mc="Standard.UseCaseDiagram" uid="f4d8cc3c-9948-415f-bc71-f4f84888833b"/>
+        <COMPID name="Refresh Token Use Case diagram" mc="Standard.UseCaseDiagram" uid="05a6c575-5fc2-42a2-80a5-a90aa3658edf"/>
+        <COMPID name="Change Password Use Case diagram" mc="Standard.UseCaseDiagram" uid="3fde8c79-6a58-4974-9075-c913902d403e"/>
+        <COMPID name="Create User Use Case diagram" mc="Standard.UseCaseDiagram" uid="18ada6be-9d50-4a90-aaee-c00db8c222e7"/>
+        <COMPID name="Browse User Use Case diagram" mc="Standard.UseCaseDiagram" uid="332a00a8-9cf2-4744-8c06-5808cfcbf33b"/>
+        <COMPID name="Delete User Use Case diagram" mc="Standard.UseCaseDiagram" uid="25690790-c55e-4628-8842-3909523a86d0"/>
+        <COMPID name="Edit User Use Case diagram" mc="Standard.UseCaseDiagram" uid="5e4aaee2-29d8-4893-a546-2f502a6411ef"/>
+        <COMPID name="Set Password Use Case diagram" mc="Standard.UseCaseDiagram" uid="7783c29a-d3e8-43c5-9038-b06ed2dc8eb8"/>
+        <COMPID name="Unlock User Use Case diagram" mc="Standard.UseCaseDiagram" uid="50ac938c-410f-4e09-b8a9-e47845086ccc"/>
+        <COMPID name="Enable/Disable User Use Case diagram" mc="Standard.UseCaseDiagram" uid="00ea4a30-7bd3-47f5-9ba6-40df3ee5c5e1"/>
+        <COMPID name="List All Roles Use Case diagram" mc="Standard.UseCaseDiagram" uid="869160fe-f537-4cfe-b58f-459e4172aea1"/>
+        <COMPID name="List Assigned Roles Use Case diagram" mc="Standard.UseCaseDiagram" uid="977f633b-40a3-43c8-8b94-f7a3fba5307f"/>
+        <COMPID name="Assign Role Use Case diagram" mc="Standard.UseCaseDiagram" uid="bb4c0a33-af58-4547-988d-c61195121be1"/>
+        <COMPID name="Revoke Role Use Case diagram" mc="Standard.UseCaseDiagram" uid="8fcd67bc-2241-4d1c-908e-0207b17174f9"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Boundary" version="4">
+  <OBJECT>
+    <ID name="Boundary" mc="Infrastructure.Stereotype" uid="6015ed6f-4952-4732-988e-f90293042e42"/>
+    <PID name="LocalProfile" mc="Infrastructure.Profile" uid="587dd209-80b4-4d01-818e-d0756b8cc06e"/>
+    <ATTRIBUTES>
+      <ATT name="Image"><![CDATA[boundary48.png]]></ATT>
+      <ATT name="Icon"><![CDATA[boundary24.png]]></ATT>
+      <ATT name="IsHidden">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="LabelKey"><![CDATA[Boundary]]></ATT>
+      <ATT name="BaseClassName"><![CDATA[Infrastructure.ModelElement]]></ATT>
+      <ATT name="Name"><![CDATA[Boundary]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

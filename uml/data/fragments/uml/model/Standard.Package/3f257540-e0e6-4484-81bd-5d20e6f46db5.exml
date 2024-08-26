@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="uml" version="4">
+  <OBJECT>
+    <ID name="uml" mc="Standard.Package" uid="3f257540-e0e6-4484-81bd-5d20e6f46db5"/>
+    <PID name="uml" mc="Standard.Project" uid="8eafd967-2400-4a77-8a83-def13e090ee2"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[uml]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="BA" mc="Standard.Package" uid="e8e8ce55-093c-4905-9fb7-437e4d9a28a0"/>
+        <COMPID name="TA" mc="Standard.Package" uid="1966b655-1e7b-49cd-aa2a-ba7f5f3001bb"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
