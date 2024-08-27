@@ -53,7 +53,7 @@ public class JwtController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/signout")
-  public ResponseEntity<?> logOut() throws Exception {
+  public ResponseEntity<?> signOut() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
     User user = userDetails.getUser();
@@ -63,7 +63,7 @@ public class JwtController {
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<?> createToken(@RequestBody UserRequestModel request) throws Exception {
+  public ResponseEntity<?> signIn(@RequestBody UserRequestModel request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findByUsername(username).orElseThrow(
