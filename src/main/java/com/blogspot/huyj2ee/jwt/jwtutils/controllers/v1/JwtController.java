@@ -74,7 +74,7 @@ public class JwtController {
       throw new LockedException("Too many invalid attempts. Account is locked!!");
     }
     if (passwordEncoder.matches(password, user.getPassword())) {
-      Optional<Attempts> userAttempts = attemptsRepository.findAttemptsByUsername(username);
+      Optional<Attempts> userAttempts = attemptsRepository.findByUsername(username);
       if (userAttempts.isPresent()) {
         Attempts attempts = userAttempts.get();
         attempts.setAttempts(0);
@@ -104,7 +104,7 @@ public class JwtController {
   }
 
   private void processFailedAttempts(String username, User user) {
-    Optional<Attempts> userAttempts = attemptsRepository.findAttemptsByUsername(username);
+    Optional<Attempts> userAttempts = attemptsRepository.findByUsername(username);
     if (userAttempts.isEmpty()) {
       Attempts attempts = new Attempts();
       attempts.setUsername(username);

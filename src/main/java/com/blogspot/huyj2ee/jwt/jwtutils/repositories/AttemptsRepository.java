@@ -8,5 +8,5 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.Attempts;
 
 @Repository
 public interface AttemptsRepository extends JpaRepository<Attempts, Integer> {
-  Optional<Attempts> findAttemptsByUsername(String username);
+  Optional<Attempts> findByUsername(String username);
 }
