@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
@@ -19,6 +20,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class WebSecurityConfig {
   @Autowired
   private JwtAuthenticationEntryPoint authenticationEntryPoint;
+
+  @Autowired
+  private JwtFilter filter;
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -35,6 +39,8 @@ public class WebSecurityConfig {
     http.csrf(csrf -> csrf.disable())
       .exceptionHandling(exp -> exp.authenticationEntryPoint(authenticationEntryPoint))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
     return http.build();
   }
 }

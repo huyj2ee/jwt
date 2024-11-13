@@ -1,12 +1,16 @@
 package com.blogspot.huyj2ee.jwt.jwtutils.controllers.v1;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,6 +73,17 @@ public class JwtController {
     }
     processFailedAttempts(username, user);
     throw new BadCredentialsException("Invalid password.");
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/signout")
+  public ResponseEntity<?> signOut() throws Exception {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+    User user = userDetails.getUser();
+    user.setLastSignout(Instant.now());
+    userRepository.save(user);
+    return ResponseEntity.noContent().build();
   }
 
   private void processFailedAttempts(String username, User user) {
