@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.CredentialRequestResponse;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.web.RefreshTokenRequest;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.Attempts;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
@@ -72,7 +74,7 @@ public class JwtController {
         attemptsRepository.save(attempts);
       }
       RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
-      final String jwtToken = jwtTokenService.generateJwtToken(userDetails);
+      final String jwtToken = jwtTokenService.generate(userDetails);
       return ResponseEntity.ok(new TokenResponse(jwtToken, refreshToken.getToken()));
     }
     processFailedAttempts(username, user);
@@ -88,6 +90,28 @@ public class JwtController {
     user.setLastSignout(Instant.now());
     userRepository.save(user);
     return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/refreshtoken")
+  public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequest request) throws Exception {
+    String requestRefreshToken = request.getRefreshToken();
+    Optional<RefreshToken> refreshToken = refreshTokenService.findByToken(requestRefreshToken);
+    if (!refreshToken.isPresent()) {
+      throw new TokenRefreshException(requestRefreshToken, "Refresh token is not in database.");
+    }
+    RefreshToken refreshTokenObj = refreshToken.get();
+    User user = refreshTokenObj.getUser();
+    if (!user.getAccountNonLocked()) {
+      throw new LockedException("Too many invalid attempts. Account is locked!!");
+    }
+    if (!user.getEnabled()) {
+      throw new DisabledException("Account is disabled.");
+    }
+    refreshTokenService.verifyExpiration(refreshTokenObj);
+    UserPrincipal userDetail = new UserPrincipal(user);
+    String token = jwtTokenService.generate(userDetail);
+
+    return ResponseEntity.ok(new TokenResponse(token, requestRefreshToken));
   }
 
   private void processFailedAttempts(String username, User user) {

@@ -1,12 +1,14 @@
 package com.blogspot.huyj2ee.jwt.jwtutils.services;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
 import com.blogspot.huyj2ee.jwt.jwtutils.repositories.RefreshTokenRepository;
@@ -42,6 +44,21 @@ public class RefreshTokenService {
       refreshTokenRepository.deleteByUser(user);
     }
     refreshTokenRepository.save(token);
+    return token;
+  }
+
+  public Optional<RefreshToken> findByToken(String token) {
+    return refreshTokenRepository.findByToken(token);
+  }
+
+  public RefreshToken verifyExpiration(RefreshToken token) {
+    User user = token.getUser();
+    boolean isExpired = user.getLastSignout() != null && user.getLastSignout().isAfter(token.getIssuedAt());
+    isExpired = isExpired || token.getExpiration().compareTo(Instant.now()) < 0;
+    if (isExpired) {
+      refreshTokenRepository.delete(token);
+      throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new login request.");
+    }
     return token;
   }
 }

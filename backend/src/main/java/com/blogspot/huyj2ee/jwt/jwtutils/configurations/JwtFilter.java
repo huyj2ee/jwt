@@ -55,7 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
       if (!userDetails.isEnabled()) {
         throw new DisabledException("Account is disabled.");
       }
-      if (jwtTokenService.validateJwtToken(token, userDetails)) {
+      if (jwtTokenService.validate(token, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
           userDetails, null,
           userDetails.getAuthorities());

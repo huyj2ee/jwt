@@ -25,7 +25,7 @@ public class JwtTokenService {
     return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
   }
 
-  public String generateJwtToken(UserPrincipal userDetails) {
+  public String generate(UserPrincipal userDetails) {
     return Jwts.builder()
       .claims()
       .subject(userDetails.getUsername())
@@ -45,7 +45,7 @@ public class JwtTokenService {
     return claims.getSubject();
   }
 
-  public Boolean validateJwtToken(String token, UserPrincipal userDetails) {
+  public Boolean validate(String token, UserPrincipal userDetails) {
     String username = getUsernameFromToken(token);
     Claims claims = Jwts.parser()
       .verifyWith(getSecretKey())
