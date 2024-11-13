@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -59,6 +60,9 @@ public class JwtController {
     final UserPrincipal userDetails = new UserPrincipal(user);
     if (!user.getAccountNonLocked()) {
       throw new LockedException("Too many invalid attempts. Account is locked!!");
+    }
+    if (!user.getEnabled()) {
+      throw new DisabledException("Account is disabled.");
     }
     if (passwordEncoder.matches(password, user.getPassword())) {
       Optional<Attempts> userAttempts = attemptsRepository.findByUsername(username);

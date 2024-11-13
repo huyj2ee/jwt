@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import java.io.IOException;
 import org.springframework.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -51,6 +52,9 @@ public class JwtFilter extends OncePerRequestFilter {
     }
     if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserPrincipal userDetails = (UserPrincipal)userDetailsService.loadUserByUsername(username);
+      if (!userDetails.isEnabled()) {
+        throw new DisabledException("Account is disabled.");
+      }
       if (jwtTokenService.validateJwtToken(token, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
           userDetails, null,
