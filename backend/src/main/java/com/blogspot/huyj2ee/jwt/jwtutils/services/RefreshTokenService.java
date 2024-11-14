@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.RefreshTokenException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
 import com.blogspot.huyj2ee.jwt.jwtutils.repositories.RefreshTokenRepository;
@@ -57,7 +57,7 @@ public class RefreshTokenService {
     isExpired = isExpired || token.getExpiration().compareTo(Instant.now()) < 0;
     if (isExpired) {
       refreshTokenRepository.delete(token);
-      throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new login request.");
+      throw new RefreshTokenException(token.getToken(), "Refresh token was expired. Please make a new login request.");
     }
     return token;
   }

@@ -25,7 +25,7 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.ChangePasswordException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.NotFoundException;
-import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.RefreshTokenException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.Attempts;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
@@ -100,7 +100,7 @@ public class JwtController {
     String requestRefreshToken = request.getRefreshToken();
     Optional<RefreshToken> refreshToken = refreshTokenService.findByToken(requestRefreshToken);
     if (!refreshToken.isPresent()) {
-      throw new TokenRefreshException(requestRefreshToken, "Refresh token is not in database.");
+      throw new RefreshTokenException(requestRefreshToken, "Refresh token is not in database.");
     }
     RefreshToken refreshTokenObj = refreshToken.get();
     User user = refreshTokenObj.getUser();
