@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,8 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.web.CredentialRequestResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.RefreshTokenRequest;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.ChangePasswordException;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.NotFoundException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.TokenRefreshException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.Attempts;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
@@ -53,7 +56,7 @@ public class JwtController {
   private RefreshTokenService refreshTokenService;
 
   @PostMapping("/signin")
-  public ResponseEntity<?> signIn(@RequestBody CredentialRequestResponse request) throws Exception {
+  public ResponseEntity<TokenResponse> signIn(@RequestBody CredentialRequestResponse request) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findByUsername(username).orElseThrow(
@@ -93,7 +96,7 @@ public class JwtController {
   }
 
   @PostMapping("/refreshtoken")
-  public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequest request) throws Exception {
+  public ResponseEntity<TokenResponse> refreshToken(@RequestBody RefreshTokenRequest request) throws Exception {
     String requestRefreshToken = request.getRefreshToken();
     Optional<RefreshToken> refreshToken = refreshTokenService.findByToken(requestRefreshToken);
     if (!refreshToken.isPresent()) {
@@ -112,6 +115,22 @@ public class JwtController {
     String token = jwtTokenService.generate(userDetail);
 
     return ResponseEntity.ok(new TokenResponse(token, requestRefreshToken));
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PutMapping("/password")
+  public ResponseEntity<CredentialRequestResponse> changePassword(@RequestBody CredentialRequestResponse request) throws Exception {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+    if (userDetails.getUsername().compareTo(request.getUsername()) != 0) {
+      throw new ChangePasswordException("Can not change password for other user.");
+    }
+    User user = userRepository.findByUsername(request.getUsername()).orElseThrow(
+      () -> new NotFoundException(String.format("User with username %s is not found.", request.getUsername()))
+    );
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+    userRepository.save(user);
+    return ResponseEntity.ok(request);
   }
 
   private void processFailedAttempts(String username, User user) {
