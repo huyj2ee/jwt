@@ -23,10 +23,10 @@ public class User {
 
   private String password;
 
+  private boolean enabled;
+
   @Column(name = "account_non_locked")
   private boolean accountNonLocked;
-
-  private boolean enabled;
 
   @Column(
     name = "last_logout",
@@ -53,9 +53,10 @@ public class User {
     this.roles = new HashSet<Role>();
   }
 
-  public User(String username, String password, boolean accountNonLocked) {
+  public User(String username, String password, boolean enabled, boolean accountNonLocked) {
     this.username = username;
     this.password = password;
+    this.enabled = enabled;
     this.accountNonLocked = accountNonLocked;
     this.roles = new HashSet<Role>();
   }
@@ -76,20 +77,20 @@ public class User {
     this.password = password;
   }
 
-  public void setAccountNonLocked(Boolean accountNonLocked) {
-    this.accountNonLocked = accountNonLocked;
-  }
-
-  public boolean getAccountNonLocked() {
-    return accountNonLocked;
-  }
-
   public boolean getEnabled() {
     return enabled;
   }
 
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
+  }
+
+  public void setAccountNonLocked(boolean accountNonLocked) {
+    this.accountNonLocked = accountNonLocked;
+  }
+
+  public boolean getAccountNonLocked() {
+    return accountNonLocked;
   }
 
   public Instant getLastSignout() {
