@@ -70,7 +70,7 @@ public class UserController {
 
   @GetMapping("/users")
   @AccessDeniedMessage("Admin role is required to get user list.")
-  public ResponseEntity<List<UserRequestResponse>> browseUser(
+  public ResponseEntity<List<UserRequestResponse>> browse(
     @RequestParam(value = "page", required = false)
     Integer page,
 
@@ -109,7 +109,7 @@ public class UserController {
 
   @GetMapping("/users/{username}")
   @AccessDeniedMessage("Admin role is required to get user.")
-  public ResponseEntity<UserRequestResponse> filterByUser(
+  public ResponseEntity<UserRequestResponse> filterByUsername(
     @PathVariable("username") String username
   ) {
     User user = userRepository.findByUsername(username).orElseThrow(
