@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -120,5 +121,19 @@ public class UserController {
     UserRequestResponse userResponse = new UserRequestResponse();
     BeanUtils.copyProperties(user, userResponse, "password");
     return ResponseEntity.ok(userResponse);
+  }
+
+  @DeleteMapping("/users/{username}")
+  @AccessDeniedMessage("Admin role is required to delete user.")
+  public ResponseEntity<?> delete(
+    @PathVariable("username") String username
+  ) {
+    if (!userRepository.existsById(username)) {
+      throw new NotFoundException(
+        String.format("User %s is not found.", username)
+      );
+    }
+    userRepository.deleteById(username);
+    return ResponseEntity.noContent().build();
   }
 }
