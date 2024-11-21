@@ -3,10 +3,12 @@ package com.blogspot.huyj2ee.jwt.jwtutils.controllers.v1;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -70,5 +72,31 @@ public class RoleController {
     user.getRoles().add(roleObj);
     userRepository.save(user);
     return ResponseEntity.ok(roleObj);
+  }
+
+  @DeleteMapping("/users/{username}/roles/{role}")
+  @AccessDeniedMessage("Admin role is required to revoke role.")
+  public ResponseEntity<?> revoke(
+    @PathVariable("username") String username,
+    @PathVariable("role") String role
+  ) throws Exception {
+    User user = userRepository.findByUsername(username).orElseThrow(
+      () -> new NotFoundException(
+        String.format("Username %s is not found.", username)
+      )
+    );
+    Role roleObj = roleRepository.findById(role).orElseThrow(
+      () -> new NotFoundException(
+        String.format("Role %s is not found.", role)
+      )
+    );
+    if (!user.getRoles().contains(roleObj)) {
+      throw new BadRequestException(
+        String.format("Role %s is not an assigned role of user.", role)
+      );
+    }
+    user.getRoles().remove(roleObj);
+    userRepository.save(user);
+    return ResponseEntity.noContent().build();
   }
 }
