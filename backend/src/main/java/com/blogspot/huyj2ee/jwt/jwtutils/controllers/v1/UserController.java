@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,7 +113,7 @@ public class UserController {
   @AccessDeniedMessage("Admin role is required to get user.")
   public ResponseEntity<UserRequestResponse> filterByUsername(
     @PathVariable("username") String username
-  ) {
+  ) throws Exception {
     User user = userRepository.findByUsername(username).orElseThrow(
       () -> new NotFoundException(
         String.format("User with username %s is not found.", username)
@@ -127,7 +128,7 @@ public class UserController {
   @AccessDeniedMessage("Admin role is required to delete user.")
   public ResponseEntity<?> delete(
     @PathVariable("username") String username
-  ) {
+  ) throws Exception {
     if (!userRepository.existsById(username)) {
       throw new NotFoundException(
         String.format("User %s is not found.", username)
@@ -135,5 +136,34 @@ public class UserController {
     }
     userRepository.deleteById(username);
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping("/users/{username}")
+  @AccessDeniedMessage("Admin role is required to edit user.")
+  public ResponseEntity<UserRequestResponse> edit(
+    @PathVariable("username") String username,
+    @RequestBody UserRequestResponse request
+  ) throws Exception {
+    UserRequestResponse result = new UserRequestResponse();
+    if (username.compareTo(request.getUsername()) != 0) {
+      throw new BadRequestException("Property username is not same with path variable {username}.");
+    }
+    User user = userRepository.findByUsername(username).orElseThrow(
+      () -> new NotFoundException(
+        String.format("Username %s is not found", username)
+      )
+    );
+    if (request.getPassword() != null) {
+      user.setPassword(passwordEncoder.encode(request.getPassword()));
+    }
+    if (request.getEnabled() != null) {
+      user.setEnabled(request.getEnabled());
+    }
+    if (request.getAccountNonLocked() != null) {
+      user.setAccountNonLocked(request.getAccountNonLocked());
+    }
+    userRepository.save(user);
+    BeanUtils.copyProperties(user, result, "password");
+    return ResponseEntity.ok(result);
   }
 }
