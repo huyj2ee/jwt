@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,5 +49,26 @@ public class RoleController {
       )
     );
     return ResponseEntity.ok(user.getRoles().stream().collect(Collectors.toList()));
+  }
+
+  @PutMapping("/users/{username}/roles/{role}")
+  @AccessDeniedMessage("Admin role is required to assign role.")
+  public ResponseEntity<Role> assign(
+    @PathVariable("username") String username,
+    @PathVariable("role") String role
+  ) throws Exception {
+    User user = userRepository.findByUsername(username).orElseThrow(
+      () -> new NotFoundException(
+        String.format("Username %s is not found.", username)
+      )
+    );
+    Role roleObj = roleRepository.findById(role).orElseThrow(
+      () -> new NotFoundException(
+        String.format("Role %s is not found.", role)
+      )
+    );
+    user.getRoles().add(roleObj);
+    userRepository.save(user);
+    return ResponseEntity.ok(roleObj);
   }
 }
