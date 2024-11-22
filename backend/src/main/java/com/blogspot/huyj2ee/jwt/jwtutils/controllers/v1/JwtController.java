@@ -23,6 +23,7 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.web.CredentialRequestResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.RefreshTokenRequest;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
+import com.blogspot.huyj2ee.jwt.jwtutils.annotations.AccessDeniedMessage;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.ChangePasswordException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.NotFoundException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.RefreshTokenException;
@@ -33,6 +34,8 @@ import com.blogspot.huyj2ee.jwt.jwtutils.repositories.AttemptsRepository;
 import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 import com.blogspot.huyj2ee.jwt.jwtutils.services.JwtTokenService;
 import com.blogspot.huyj2ee.jwt.jwtutils.services.RefreshTokenService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin
@@ -86,6 +89,10 @@ public class JwtController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/signout")
+  @AccessDeniedMessage(
+    value = "You must login to execute sign out operation.",
+    status = HttpServletResponse.SC_UNAUTHORIZED
+  )
   public ResponseEntity<?> signOut() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
@@ -119,6 +126,10 @@ public class JwtController {
 
   @PreAuthorize("isAuthenticated()")
   @PutMapping("/password")
+  @AccessDeniedMessage(
+    value = "You must login to execute change password operation.",
+    status = HttpServletResponse.SC_UNAUTHORIZED
+  )
   public ResponseEntity<CredentialRequestResponse> changePassword(@RequestBody CredentialRequestResponse request) throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
