@@ -152,7 +152,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     }
   }
 
-  private void printError(HttpServletRequest request, HttpServletResponse response, int status, String error, String msg)
+  public static void printError(HttpServletRequest request, HttpServletResponse response, int status, String error, String msg)
     throws IOException {
     final String formatStr = "{\"timestamp\": \"%s\", \"status\": %d, \"error\": \"%s\", \"message\": \"%s\", \"path\": \"%s\"}";
     ZonedDateTime ts = ZonedDateTime.now(ZoneId.of("GMT+00:00"));

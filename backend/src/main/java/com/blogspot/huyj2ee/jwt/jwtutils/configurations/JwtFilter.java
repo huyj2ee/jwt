@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.springframework.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -52,8 +53,17 @@ public class JwtFilter extends OncePerRequestFilter {
     }
     if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserPrincipal userDetails = (UserPrincipal)userDetailsService.loadUserByUsername(username);
+      if (!userDetails.isAccountNonLocked()) {
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        JwtAuthenticationEntryPoint.printError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized", "Too many invalid attempts. Account is locked!!");
+        return;
+      }
       if (!userDetails.isEnabled()) {
-        throw new DisabledException("Account is disabled.");
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        JwtAuthenticationEntryPoint.printError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized", "Account is disabled.");
+        return;
       }
       if (jwtTokenService.validate(token, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
