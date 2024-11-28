@@ -90,7 +90,7 @@ public class JwtController {
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/signout")
   @AccessDeniedMessage(
-    value = "You must login to execute sign out operation.",
+    value = "You must sign in to execute sign out operation.",
     status = HttpServletResponse.SC_UNAUTHORIZED
   )
   public ResponseEntity<?> signOut() throws Exception {
