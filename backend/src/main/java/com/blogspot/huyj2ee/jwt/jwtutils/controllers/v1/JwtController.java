@@ -127,7 +127,7 @@ public class JwtController {
   @PreAuthorize("isAuthenticated()")
   @PutMapping("/password")
   @AccessDeniedMessage(
-    value = "You must login to execute change password operation.",
+    value = "You must sign in to execute change password operation.",
     status = HttpServletResponse.SC_UNAUTHORIZED
   )
   public ResponseEntity<CredentialRequestResponse> changePassword(@RequestBody CredentialRequestResponse request) throws Exception {
