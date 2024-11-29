@@ -98,16 +98,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
     throws IOException, ServletException {
-    response.setStatus(HttpStatus.UNAUTHORIZED.value());
-    response.setContentType("application/json");
     printError(request, response, HttpStatus.UNAUTHORIZED.value(), "Unauthorized", authException.getMessage());
   }
 
   @ExceptionHandler(value = { AccessDeniedException.class })
   public void commence(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex ) throws IOException {
-    response.setContentType("application/json");
-    response.setStatus(HttpStatus.FORBIDDEN.value());
-
     StackTraceElement[] sts = ex.getStackTrace();
     int len = sts.length;
     for(int i=0; i<len; i++) {
@@ -158,6 +153,8 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     ZonedDateTime ts = ZonedDateTime.now(ZoneId.of("GMT+00:00"));
     String tsStr = ts.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'"));
     String path = request.getServletPath();
+    response.setStatus(status);
+    response.setContentType("application/json");
     response.getWriter().format(formatStr, tsStr, status, error, msg, path);
   }
 }

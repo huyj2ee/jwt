@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -50,16 +51,18 @@ public class JwtFilter extends OncePerRequestFilter {
       }
     }
     if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
-      UserPrincipal userDetails = (UserPrincipal)userDetailsService.loadUserByUsername(username);
+      UserPrincipal userDetails = null;
+      try {
+        userDetails = (UserPrincipal)userDetailsService.loadUserByUsername(username);
+      } catch (UsernameNotFoundException e) {
+        JwtAuthenticationEntryPoint.printError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized", e.getMessage());
+        return;
+      }
       if (!userDetails.isAccountNonLocked()) {
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         JwtAuthenticationEntryPoint.printError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized", "Too many invalid attempts. Account is locked!!");
         return;
       }
       if (!userDetails.isEnabled()) {
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         JwtAuthenticationEntryPoint.printError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized", "Account is disabled.");
         return;
       }
