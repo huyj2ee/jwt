@@ -104,12 +104,11 @@ public class JwtController {
 
   @PostMapping("/refreshtoken")
   public ResponseEntity<TokenResponse> refreshToken(@RequestBody RefreshTokenRequest request) throws Exception {
-    String requestRefreshToken = request.getRefreshToken();
-    Optional<RefreshToken> refreshToken = refreshTokenService.findByToken(requestRefreshToken);
-    if (!refreshToken.isPresent()) {
-      throw new RefreshTokenException(requestRefreshToken, "Refresh token is not in database.");
-    }
-    RefreshToken refreshTokenObj = refreshToken.get();
+    String refreshToken = request.getRefreshToken();
+    RefreshToken refreshTokenObj = refreshTokenService.findByToken(refreshToken).orElseThrow(
+      () -> new RefreshTokenException(refreshToken, "Refresh token is not in database.")
+    );
+    refreshTokenService.verifyExpiration(refreshTokenObj);
     User user = refreshTokenObj.getUser();
     if (!user.getAccountNonLocked()) {
       throw new LockedException("Too many invalid attempts. Account is locked!!");
@@ -117,11 +116,10 @@ public class JwtController {
     if (!user.getEnabled()) {
       throw new DisabledException("Account is disabled.");
     }
-    refreshTokenService.verifyExpiration(refreshTokenObj);
     UserPrincipal userDetail = new UserPrincipal(user);
     String token = jwtTokenService.generate(userDetail);
 
-    return ResponseEntity.ok(new TokenResponse(token, requestRefreshToken));
+    return ResponseEntity.ok(new TokenResponse(token, refreshToken));
   }
 
   @PreAuthorize("isAuthenticated()")
