@@ -25,8 +25,8 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.annotations.AccessDeniedMessage;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.ChangePasswordException;
-import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.NotFoundException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.RefreshTokenException;
+import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.UnexpectedException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.Attempts;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
@@ -135,7 +135,7 @@ public class JwtController {
       throw new ChangePasswordException("Can not change password for other user.");
     }
     User user = userRepository.findByUsername(request.getUsername()).orElseThrow(
-      () -> new NotFoundException(String.format("User with username %s is not found.", request.getUsername()))
+      () -> new UnexpectedException("Unexpected Error has occurred.")
     );
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     userRepository.save(user);
