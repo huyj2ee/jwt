@@ -139,6 +139,7 @@ public class JwtController {
     );
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     userRepository.save(user);
+    request.setPassword(null);
     return ResponseEntity.ok(request);
   }
 
