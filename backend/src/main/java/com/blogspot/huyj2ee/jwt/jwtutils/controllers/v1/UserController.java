@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,34 +82,33 @@ public class UserController {
     @RequestParam(value = "accountNonLocked", required = false)
     Boolean accountNonLocked
   ) throws Exception {
-    List<UserRequestResponse> users = null;
+    Page<User> userPage = null;
+    HttpHeaders headers = new HttpHeaders();
     if (page == null) {
       throw new ProhibitedActionException("Page query parameter is required, access all user list at a time is prohibited.");
     }
     if (accountNonLocked == null) {
-      users = userRepository.findAll(
+      userPage = userRepository.findAll(
         PageRequest.of(page, 20, Sort.by(Sort.Direction.ASC, "username"))
-      ).getContent().stream().map(
-        (user) -> {
-          UserRequestResponse userResponse = new UserRequestResponse();
-          BeanUtils.copyProperties(user, userResponse, "password");
-          return userResponse;
-        }
-      ).collect(Collectors.toList());
+      );
     }
     else {
-      users = userRepository.findByAccountNonLocked(
+      userPage = userRepository.findByAccountNonLocked(
         accountNonLocked,
         PageRequest.of(page, 20, Sort.by(Sort.Direction.ASC, "username"))
-      ).stream().map(
-        (user) -> {
-          UserRequestResponse userResponse = new UserRequestResponse();
-          BeanUtils.copyProperties(user, userResponse, "password");
-          return userResponse;
-        }
-      ).collect(Collectors.toList());
+      );
     }
-    return ResponseEntity.ok(users);
+    List<UserRequestResponse> users = userPage.getContent().stream().map(
+      (user) -> {
+        UserRequestResponse userResponse = new UserRequestResponse();
+        BeanUtils.copyProperties(user, userResponse, "password");
+        return userResponse;
+      }
+    ).collect(Collectors.toList());
+    headers.add("Pagination-Count", String.valueOf(userPage.getTotalPages()));
+    headers.add("Pagination-Page", String.valueOf(userPage.getNumber()));
+    headers.add("Pagination-Limit", String.valueOf(userPage.getSize()));
+    return new ResponseEntity<>(users, headers, HttpStatus.OK);
   }
 
   @GetMapping("/users/{username}")
