@@ -87,6 +87,9 @@ public class UserController {
     if (page == null) {
       throw new ProhibitedActionException("Page query parameter is required, access all user list at a time is prohibited.");
     }
+    if (page < 0) {
+      throw new BadRequestException("Page parameter must not be less than zero.");
+    }
     if (accountNonLocked == null) {
       userPage = userRepository.findAll(
         PageRequest.of(page, 20, Sort.by(Sort.Direction.ASC, "username"))
