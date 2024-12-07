@@ -29,7 +29,9 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserRequestResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.annotations.AccessDeniedMessage;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.NotFoundException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.ProhibitedActionException;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.Attempts;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
+import com.blogspot.huyj2ee.jwt.jwtutils.repositories.AttemptsRepository;
 import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 
 @RestController
@@ -39,6 +41,9 @@ import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 public class UserController {
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private AttemptsRepository attemptsRepository;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -155,7 +160,7 @@ public class UserController {
     }
     User user = userRepository.findByUsername(username).orElseThrow(
       () -> new NotFoundException(
-        String.format("Username %s is not found", username)
+        String.format("Username %s is not found.", username)
       )
     );
     if (request.getPassword() != null) {
@@ -166,6 +171,13 @@ public class UserController {
     }
     if (request.getAccountNonLocked() != null) {
       user.setAccountNonLocked(request.getAccountNonLocked());
+    }
+    if (Boolean.TRUE.equals(request.getAccountNonLocked())) {
+      Attempts attempts = attemptsRepository.findByUsername(username).orElse(null);
+      if (attempts != null) {
+        attempts.setAttempts(0);
+        attemptsRepository.save(attempts);
+      }
     }
     userRepository.save(user);
     BeanUtils.copyProperties(user, result, "password");
