@@ -13,6 +13,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserRequestResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.annotations.AccessDeniedMessage;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.NotFoundException;
@@ -139,10 +142,15 @@ public class UserController {
   public ResponseEntity<?> delete(
     @PathVariable("username") String username
   ) throws Exception {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
     if (!userRepository.existsById(username)) {
       throw new NotFoundException(
         String.format("User %s is not found.", username)
       );
+    }
+    if (userDetails.getUsername().equals(username)) {
+      throw new BadRequestException("Can not delete signed in user.");
     }
     userRepository.deleteById(username);
     return ResponseEntity.noContent().build();
@@ -154,6 +162,8 @@ public class UserController {
     @PathVariable("username") String username,
     @RequestBody UserRequestResponse request
   ) throws Exception {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
     UserRequestResponse result = new UserRequestResponse();
     if (username.compareTo(request.getUsername()) != 0) {
       throw new BadRequestException("Property username is not same with path variable {username}.");
@@ -167,6 +177,9 @@ public class UserController {
       user.setPassword(passwordEncoder.encode(request.getPassword()));
     }
     if (request.getEnabled() != null) {
+      if (Boolean.FALSE.equals(request.getEnabled()) && userDetails.getUsername().equals(username)) {
+        throw new BadRequestException("Can not disable signed in user.");
+      }
       user.setEnabled(request.getEnabled());
     }
     if (request.getAccountNonLocked() != null) {
