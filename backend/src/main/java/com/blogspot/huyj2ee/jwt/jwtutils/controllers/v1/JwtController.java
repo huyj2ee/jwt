@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.CredentialRequestResponse;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.web.RefreshTokenRequest;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.annotations.AccessDeniedMessage;
@@ -35,7 +34,9 @@ import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 import com.blogspot.huyj2ee.jwt.jwtutils.services.JwtTokenService;
 import com.blogspot.huyj2ee.jwt.jwtutils.services.RefreshTokenService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 
 @RestController
 @CrossOrigin
@@ -59,13 +60,16 @@ public class JwtController {
   private RefreshTokenService refreshTokenService;
 
   @PostMapping("/signin")
-  public ResponseEntity<TokenResponse> signIn(@RequestBody CredentialRequestResponse request) throws Exception {
+  public ResponseEntity<TokenResponse> signIn(@RequestBody CredentialRequestResponse request, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findByUsername(username).orElseThrow(
       () -> new BadCredentialsException("User not found.")
     );
     final UserPrincipal userDetails = new UserPrincipal(user);
+    String path = servletRequest.getServletPath();
+    path = path.substring(0, path.lastIndexOf("/")) + "/refreshtoken";
+
     if (!user.getAccountNonLocked()) {
       throw new LockedException("Too many invalid attempts. Account is locked!!");
     }
@@ -81,7 +85,13 @@ public class JwtController {
       }
       RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
       final String jwtToken = jwtTokenService.generate(userDetails);
-      return ResponseEntity.ok(new TokenResponse(jwtToken, refreshToken.getToken()));
+      Cookie cookie = new Cookie("refreshToken", refreshToken.getToken());
+      cookie.setHttpOnly(true);
+      cookie.setSecure(true);
+      cookie.setPath(path);
+      cookie.setMaxAge((int) RefreshTokenService.TOKEN_VALIDITY);
+      servletResponse.addCookie(cookie);
+      return ResponseEntity.ok(new TokenResponse(username, jwtToken));
     }
     processFailedAttempts(username, user);
     throw new BadCredentialsException("Invalid password.");
@@ -103,11 +113,22 @@ public class JwtController {
   }
 
   @PostMapping("/refreshtoken")
-  public ResponseEntity<TokenResponse> refreshToken(@RequestBody RefreshTokenRequest request) throws Exception {
-    String refreshToken = request.getRefreshToken();
-    RefreshToken refreshTokenObj = refreshTokenService.findByToken(refreshToken).orElseThrow(
-      () -> new RefreshTokenException(refreshToken, "Refresh token is not in database.")
-    );
+  public ResponseEntity<TokenResponse> refreshToken(HttpServletRequest servletRequest) throws Exception {
+    RefreshToken refreshTokenObj = null;
+    Cookie[] cookies = servletRequest.getCookies();
+    if (cookies != null) {
+      for(Cookie cookie : cookies) {
+        if (cookie.getName().compareTo("refreshToken") == 0) {
+          String refreshToken = cookie.getValue();
+          refreshTokenObj = refreshTokenService.findByToken(refreshToken).orElseThrow(
+            () -> new RefreshTokenException(refreshToken, "Refresh token is not in database.")
+          );
+        }
+      }
+    }
+    if (refreshTokenObj == null) {
+      throw new RefreshTokenException("null", "Refresh token is not in database.");
+    }
     refreshTokenService.verifyExpiration(refreshTokenObj);
     User user = refreshTokenObj.getUser();
     if (!user.getAccountNonLocked()) {
@@ -119,7 +140,7 @@ public class JwtController {
     UserPrincipal userDetail = new UserPrincipal(user);
     String token = jwtTokenService.generate(userDetail);
 
-    return ResponseEntity.ok(new TokenResponse(token, refreshToken));
+    return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
   }
 
   @PreAuthorize("isAuthenticated()")

@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class TokenResponse implements Serializable {
   private static final long serialVersionUID = 1L;
+  private final String username;
   private final String accessToken;
-  private final String refreshToken;
 
-  public TokenResponse(String accessToken, String refreshToken) {
+  public TokenResponse(String username, String accessToken) {
+    this.username = username;
     this.accessToken = accessToken;
-    this.refreshToken = refreshToken;
   }
 
   public String getAccessToken() {
     return accessToken;
   }
 
-  public String getRefreshToken() {
-    return refreshToken;
+  public String getUsername() {
+    return username;
   }
 }
