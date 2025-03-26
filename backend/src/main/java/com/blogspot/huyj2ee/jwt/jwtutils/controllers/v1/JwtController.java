@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -85,12 +87,14 @@ public class JwtController {
       }
       RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
       final String jwtToken = jwtTokenService.generate(userDetails);
-      Cookie cookie = new Cookie("refreshToken", refreshToken.getToken());
-      cookie.setHttpOnly(true);
-      cookie.setSecure(true);
-      cookie.setPath(path);
-      cookie.setMaxAge((int) RefreshTokenService.TOKEN_VALIDITY);
-      servletResponse.addCookie(cookie);
+      ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken.getToken())
+        .httpOnly(true)
+        .secure(true)
+        .path(path)
+        .maxAge(RefreshTokenService.TOKEN_VALIDITY)
+        .sameSite("Strict")
+        .build();
+      servletResponse.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
       return ResponseEntity.ok(new TokenResponse(username, jwtToken));
     }
     processFailedAttempts(username, user);
