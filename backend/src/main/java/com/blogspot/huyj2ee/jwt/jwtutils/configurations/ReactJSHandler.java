@@ -18,20 +18,21 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ReactJSHandler {
   @ExceptionHandler({NoHandlerFoundException.class})
   public ResponseEntity<String> reactJSHandler(NoHandlerFoundException ex, HttpServletRequest request) {
+    ClassLoader cl = this.getClass().getClassLoader();
+    String path = request.getServletPath();
     MediaType mt = MediaType.TEXT_HTML;
-    if (request.getServletPath().endsWith(".js")) {
+    if (path.endsWith(".js")) {
       mt = new MediaType("application", "javascript");
     }
-    if (request.getServletPath().endsWith(".css")) {
+    else if (path.endsWith(".css")) {
       mt = new MediaType("text", "css");
     }
     String result = "";
-    URL url = this.getClass().getResource("/static" + request.getServletPath());
-    if (url == null || request.getServletPath().compareTo("/") == 0) {
-      url = this.getClass().getResource("/static/index.html");
+    InputStream is = cl.getResourceAsStream("/static" + path);
+    if (is == null || path.compareTo("/") == 0) {
+      is = cl.getResourceAsStream("/static/index.html");
     }
     try {
-      InputStream is = url.openStream();
       byte[] bytes = is.readAllBytes();
       result = new String(bytes, StandardCharsets.UTF_8);
       is.close();
