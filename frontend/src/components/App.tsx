@@ -11,12 +11,12 @@ const App : React.FunctionComponent = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/password" element={<ChangePassword />} />
-        <Route path="/user" element={<NewUser />} />
-        <Route path="/users" element={<UserList />} />
-        <Route path="/setpassword" element={<SetPassword />} />
-        <Route path="/roles" element={<AssignRevokeRole />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/password' element={<ChangePassword />} />
+        <Route path='/user' element={<NewUser />} />
+        <Route path='/users' element={<UserList />} />
+        <Route path='/setpassword' element={<SetPassword />} />
+        <Route path='/roles' element={<AssignRevokeRole />} />
       </Routes>
     </Router>
   );
