@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppDispatch, RootState } from '../app/store'
-import { signInAsync } from './user/userSlice';
+import { signInAsync, refreshTokenAsync } from './user/userSlice';
 
 const SignedOutHome : React.FunctionComponent = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -36,8 +36,11 @@ const SignedInHome : React.FunctionComponent = () => {
 }
 
 const Home : React.FunctionComponent = () => {
+  const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-
+  if (user.doesRefreshToken == false && user.username == null) {
+    dispatch(refreshTokenAsync());
+  }
   return (
     user.username == null ? <SignedOutHome /> : <SignedInHome />
   );

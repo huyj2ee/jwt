@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SignInEndpoint } from './setting';
+import { SignInEndpoint, RefreshTokenEndpoint } from './setting';
 
 export interface Credential {
   username: string,
@@ -7,6 +7,7 @@ export interface Credential {
 };
 
 export interface User {
+  doesRefreshToken: boolean,
   username: string,
   accessToken: string,
 }
@@ -19,3 +20,12 @@ export const signIn = async (credential: Credential) => {
     throw error;
   }
 };
+
+export const refreshToken = async () => {
+  try {
+    const response = await axios.post(RefreshTokenEndpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
