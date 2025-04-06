@@ -38,11 +38,12 @@ const SignedInHome : React.FunctionComponent = () => {
 const Home : React.FunctionComponent = () => {
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-  if (user.doesRefreshToken == false && user.username == null) {
+  const doesRefreshToken = user.doesRefreshToken;
+  if (user.doesRefreshToken === false && user.username === null) {
     dispatch(refreshTokenAsync());
   }
   return (
-    user.username == null ? <SignedOutHome /> : <SignedInHome />
+    user.username === null ? (doesRefreshToken === false ? '': <SignedOutHome />) : <SignedInHome />
   );
 };
 

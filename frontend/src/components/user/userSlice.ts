@@ -43,7 +43,6 @@ const userSlice = createSlice({
         state.accessToken = null;
       })
       .addCase(refreshTokenAsync.pending, (state: User) => {
-        state.doesRefreshToken = true;
         state.username = null;
         state.accessToken = null;
       })
