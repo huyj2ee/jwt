@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppDispatch, RootState } from '../app/store'
 import { signInAsync, refreshTokenAsync } from './user/userSlice';
+import { User } from '../app/api';
 
 const SignedOutHome : React.FunctionComponent = () => {
+  const user: User = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +19,7 @@ const SignedOutHome : React.FunctionComponent = () => {
       <input id='username' onChange={e => setUsername(e.target.value)} value={username}></input>
       <label htmlFor='password'>Password</label>
       <input id='password' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
+      <div>{user.errorMessage === null ? '' : user.errorMessage}</div>
       <button type='submit' onClick={handleSignIn}>Sign in</button>
     </>
   );
@@ -37,7 +40,7 @@ const SignedInHome : React.FunctionComponent = () => {
 
 const Home : React.FunctionComponent = () => {
   const dispatch: AppDispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
+  const user:User = useSelector((state: RootState) => state.user);
   const doesRefreshToken = user.doesRefreshToken;
   if (user.doesRefreshToken === false && user.username === null) {
     dispatch(refreshTokenAsync());

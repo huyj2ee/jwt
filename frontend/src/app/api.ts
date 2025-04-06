@@ -10,22 +10,23 @@ export interface User {
   doesRefreshToken: boolean,
   username: string,
   accessToken: string,
+  errorMessage: string
 }
 
-export const signIn = async (credential: Credential) => {
+export const signIn = async (credential: Credential, { rejectWithValue }: any) => {
   try {
     const response = await axios.post(SignInEndpoint, credential);
     return response.data;
   } catch (error) {
-    throw error;
+    return rejectWithValue(error.response.data);
   }
 };
 
-export const refreshToken = async () => {
+export const refreshToken = async ({ rejectWithValue }: any) => {
   try {
     const response = await axios.post(RefreshTokenEndpoint);
     return response.data;
   } catch (error) {
-    throw error;
+    return rejectWithValue(error.response.data);
   }
 }
