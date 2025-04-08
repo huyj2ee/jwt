@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SignInEndpoint, RefreshTokenEndpoint } from './setting';
+import { SignInEndpoint, RefreshTokenEndpoint, SignOutEndpoint } from './setting';
 
 export interface Credential {
   username: string,
@@ -25,6 +25,18 @@ export const signIn = async (credential: Credential, { rejectWithValue }: any) =
 export const refreshToken = async ({ rejectWithValue }: any) => {
   try {
     const response = await axios.post(RefreshTokenEndpoint);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+}
+
+export const signOut = async (accessToken: string, { rejectWithValue }: any) => {
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    const response = await axios.post(SignOutEndpoint, undefined, config);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
-import { signIn, refreshToken, Credential, User } from '../../app/api';
+import { signIn, signOut, refreshToken, Credential, User } from '../../app/api';
 
 export const signInAsync = createAsyncThunk(
   'signin',
@@ -13,6 +13,14 @@ export const refreshTokenAsync = createAsyncThunk(
   'refreshtoken',
   async (param, thunkAPI) => {
     const response = await refreshToken(thunkAPI);
+    return response;
+  }
+);
+
+export const signOutAsync = createAsyncThunk(
+  'signout',
+  async (accessToken: string, thunkAPI) => {
+    const response = await signOut(accessToken, thunkAPI);
     return response;
   }
 );
@@ -31,6 +39,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder: ActionReducerMapBuilder<User>) => {
     builder
+      // signin
       .addCase(signInAsync.pending, (state: User) => {
         state.errorMessage = null;
         state.username = null;
@@ -46,6 +55,7 @@ const userSlice = createSlice({
         state.username = null;
         state.accessToken = null;
       })
+      // refreshtoken
       .addCase(refreshTokenAsync.pending, (state: User) => {
         state.username = null;
         state.accessToken = null;
@@ -57,6 +67,17 @@ const userSlice = createSlice({
       })
       .addCase(refreshTokenAsync.rejected, (state: User, action: PayloadAction<any>) => {
         state.doesRefreshToken = true;
+        state.username = null;
+        state.accessToken = null;
+      })
+      // signout
+      .addCase(signOutAsync.pending, (state: User) => {
+      })
+      .addCase(signOutAsync.fulfilled, (state: User, action: PayloadAction<any>) => {
+        state.username = null;
+        state.accessToken = null;
+      })
+      .addCase(signOutAsync.rejected, (state: User, action: PayloadAction<any>) => {
         state.username = null;
         state.accessToken = null;
       });
