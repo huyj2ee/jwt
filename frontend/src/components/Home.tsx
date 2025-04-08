@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { AppDispatch, RootState } from '../app/store'
 import { signInAsync, refreshTokenAsync } from './user/userSlice';
 import { User } from '../app/api';
+import Layout from './Layout';
 
 const SignedOutHome : React.FunctionComponent = () => {
   const user: User = useSelector((state: RootState) => state.user);
@@ -27,14 +27,9 @@ const SignedOutHome : React.FunctionComponent = () => {
 
 const SignedInHome : React.FunctionComponent = () => {
   return (
-    <div>
-      Home<br />
-      <Link to='/password'>password</Link><br />
-      <Link to='/user'>user</Link><br />
-      <Link to='/users'>users</Link><br />
-      <Link to='/setpassword'>setpassword</Link><br />
-      <Link to='/roles'>roles</Link><br />
-    </div>
+    <Layout>
+      <div>Welcome JWT</div>
+    </Layout>
   );
 }
 
