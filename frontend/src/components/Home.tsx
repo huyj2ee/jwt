@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../app/store'
+import { AppDispatch, RootState } from '../app/store';
 import { signInAsync, refreshTokenAsync } from './user/userSlice';
 import { User } from '../app/api';
 import Layout from './Layout';
