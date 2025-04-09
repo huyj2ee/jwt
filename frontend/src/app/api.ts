@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { AppDispatch } from './store';
+import { clearOps, nextOp, refreshTokenAsync, signOutAsync } from '../components/user/userSlice';
+
 import {
     SignInEndpoint,
     RefreshTokenEndpoint,
@@ -12,11 +15,34 @@ export interface Credential {
 };
 
 export interface User {
+  ops: Array<string>,
+  curOp: number,
   doesRefreshToken: boolean,
   username: string,
   accessToken: string,
   errorMessage: string
 }
+
+export function processChain(user: User, dispatch: AppDispatch) {
+  if (user.ops.length > 0) {
+    if (user.curOp < user.ops.length) {
+      switch(user.ops[user.curOp]) {
+        case 'refreshtoken':
+          dispatch(nextOp());
+          dispatch(refreshTokenAsync());
+          break;
+
+        case 'signout':
+          dispatch(nextOp());
+          dispatch(signOutAsync(user.accessToken));
+          break;
+      }
+    }
+    else {
+      dispatch(clearOps());
+    }
+  }
+};
 
 export const signIn = async (credential: Credential, { rejectWithValue }: any) => {
   try {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { User } from '../app/api';
+import { User, processChain } from '../app/api';
 import { signOutAsync } from './user/userSlice';
 
 interface LayoutProperties {
@@ -13,9 +13,15 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
   const navigate = useNavigate();
   const user:User = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
-  function handleSignOut() {
-    dispatch(signOutAsync(user.accessToken));
-    navigate('/');
+  let handleSignOut = function() {};
+  if (user.ops.length === 0) {
+    handleSignOut = function () {
+      dispatch(signOutAsync(user.accessToken));
+      navigate('/');
+    }
+  }
+  else {
+    processChain(user, dispatch);
   }
 
   return (
