@@ -1,5 +1,12 @@
 import { createSlice, createAsyncThunk, ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
-import { signIn, signOut, refreshToken, Credential, User } from '../../app/api';
+import {
+    signIn,
+    signOut,
+    refreshToken,
+    changePassword,
+    Credential,
+    User
+  } from '../../app/api';
 
 export const signInAsync = createAsyncThunk(
   'signin',
@@ -21,6 +28,14 @@ export const signOutAsync = createAsyncThunk(
   'signout',
   async (accessToken: string, thunkAPI) => {
     const response = await signOut(accessToken, thunkAPI);
+    return response;
+  }
+);
+
+export const changePasswordAsync = createAsyncThunk(
+  'password',
+  async (param: {accessToken: string, credential: Credential}, thunkAPI) => {
+    const response = await changePassword(param, thunkAPI);
     return response;
   }
 );
@@ -80,7 +95,18 @@ const userSlice = createSlice({
       .addCase(signOutAsync.rejected, (state: User, action: PayloadAction<any>) => {
         state.username = null;
         state.accessToken = null;
-      });
+      })
+      // password
+      .addCase(changePasswordAsync.pending, (state: User) => {
+        state.errorMessage = null;
+      })
+      .addCase(changePasswordAsync.fulfilled, (state: User, action: PayloadAction<any>) => {
+        state.errorMessage = '';
+      })
+      .addCase(changePasswordAsync.rejected, (state: User, action: PayloadAction<any>) => {
+        state.errorMessage = action.payload.message;
+      })
+      ;
   }
 });
 
