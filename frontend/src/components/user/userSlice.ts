@@ -54,8 +54,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setAccessToken: (state, action) => {
-      state.accessToken = action.payload;
+    setSignInObject: (state, action) => {
+      state.doesRefreshToken = true;
+      state.username = action.payload.username;
+      state.accessToken = action.payload.accessToken;
     },
     nextOp: (state) => {
       if (state.curOp < state.ops.length) {
@@ -96,11 +98,6 @@ const userSlice = createSlice({
         state.username = null;
         state.accessToken = null;
       })
-      .addCase(refreshTokenAsync.fulfilled, (state: User, action: PayloadAction<any>) => {
-        state.doesRefreshToken = true;
-        state.username = action.payload.username;
-        state.accessToken = action.payload.accessToken;
-      })
       .addCase(refreshTokenAsync.rejected, (state: User, action: PayloadAction<any>) => {
         state.doesRefreshToken = true;
         state.username = null;
@@ -131,5 +128,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setAccessToken, nextOp, setOps, clearOps } = userSlice.actions
+export const { setSignInObject, nextOp, setOps, clearOps } = userSlice.actions
 export default userSlice.reducer;

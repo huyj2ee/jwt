@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-    setAccessToken,
+    setSignInObject,
     clearOps,
     nextOp,
     setOps,
@@ -43,18 +43,21 @@ export const signIn = async (credential: Credential, { rejectWithValue }: any) =
 export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any) => {
   try {
     const response = await axios.post(RefreshTokenEndpoint);
+    const signInObj = {
+      accessToken: response.data.accessToken,
+      username: response.data.username
+    };
+    dispatch(setSignInObject(signInObj));
     const user: User = getState().user;
     if (user.ops.length > 0) {
       if (user.curOp === user.ops.length) {
         dispatch(clearOps());
       }
       else if (user.ops[user.curOp] === 'signout') {
-        dispatch(setAccessToken(response.data.accessToken));
         dispatch(nextOp());
         dispatch(signOutAsync());
       }
       else if (user.ops[user.curOp] === 'changepassword') {
-        dispatch(setAccessToken(response.data.accessToken));
         dispatch(nextOp());
         dispatch(changePasswordAsync(JSON.parse(user.params[user.curOp])));
       }
