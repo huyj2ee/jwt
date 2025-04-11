@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+    setAccessToken,
     clearOps,
     nextOp,
     refreshTokenAsync,
@@ -47,8 +48,9 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         dispatch(clearOps());
       }
       else if (user.ops[user.curOp] === 'signout') {
+        dispatch(setAccessToken(response.data.accessToken));
         dispatch(nextOp());
-        dispatch(signOutAsync(response.data.accessToken));
+        dispatch(signOutAsync());
       }
     }
     return response.data;
@@ -57,7 +59,9 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
   }
 }
 
-export const signOut = async (accessToken: string, { rejectWithValue, dispatch, getState }: any) => {
+export const signOut = async ({ rejectWithValue, dispatch, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
+  console.log(accessToken);
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };

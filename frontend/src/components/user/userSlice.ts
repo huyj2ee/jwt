@@ -26,8 +26,8 @@ export const refreshTokenAsync = createAsyncThunk(
 
 export const signOutAsync = createAsyncThunk(
   'signout',
-  async (accessToken: string, thunkAPI) => {
-    const response = await signOut(accessToken, thunkAPI);
+  async (param, thunkAPI) => {
+    const response = await signOut(thunkAPI);
     return response;
   }
 );
@@ -54,6 +54,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setAccessToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
     nextOp: (state) => {
       if (state.curOp < state.ops.length) {
         state.curOp = state.curOp + 1;
@@ -128,5 +131,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { nextOp, setOps, clearOps } = userSlice.actions
+export const { setAccessToken, nextOp, setOps, clearOps } = userSlice.actions
 export default userSlice.reducer;

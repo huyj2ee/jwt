@@ -14,7 +14,7 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
   const user:User = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   function handleSignOut () {
-    dispatch(signOutAsync(user.accessToken));
+    dispatch(signOutAsync());
     navigate('/');
   }
 
