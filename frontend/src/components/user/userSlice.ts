@@ -42,6 +42,7 @@ export const changePasswordAsync = createAsyncThunk(
 
 const initialState: User = {
   ops: [],
+  params: [],
   curOp: 0,
   doesRefreshToken: false,
   username: null,
@@ -58,8 +59,14 @@ const userSlice = createSlice({
         state.curOp = state.curOp + 1;
       }
     },
+    setOps: (state, action) => {
+      state.ops = action.payload.ops;
+      state.params = action.payload.params;
+      state.curOp = 0;
+    },
     clearOps: (state) => {
       state.ops = [];
+      state.params = [];
       state.curOp = 0;
     }
   },
@@ -104,14 +111,8 @@ const userSlice = createSlice({
         state.accessToken = null;
       })
       .addCase(signOutAsync.rejected, (state: User, action: PayloadAction<any>) => {
-        if (action.payload.message === 'You must sign in to execute sign out operation.') {
-          state.ops = ['refreshtoken', 'signout'];
-          state.curOp = 0;
-        }
-        else {
-          state.username = null;
-          state.accessToken = null;
-        }
+        state.username = null;
+        state.accessToken = null;
       })
       // password
       .addCase(changePasswordAsync.pending, (state: User) => {
@@ -127,5 +128,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { nextOp, clearOps } = userSlice.actions
+export const { nextOp, setOps, clearOps } = userSlice.actions
 export default userSlice.reducer;

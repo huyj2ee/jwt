@@ -1,6 +1,11 @@
 import axios from 'axios';
-import { AppDispatch } from './store';
-import { clearOps, nextOp, refreshTokenAsync, signOutAsync } from '../components/user/userSlice';
+import {
+    clearOps,
+    nextOp,
+    refreshTokenAsync,
+    setOps,
+    signOutAsync
+  } from '../components/user/userSlice';
 
 import {
     SignInEndpoint,
@@ -16,33 +21,13 @@ export interface Credential {
 
 export interface User {
   ops: Array<string>,
+  params: Array<Object>,
   curOp: number,
   doesRefreshToken: boolean,
   username: string,
   accessToken: string,
   errorMessage: string
 }
-
-export function processChain(user: User, dispatch: AppDispatch) {
-  if (user.ops.length > 0) {
-    if (user.curOp < user.ops.length) {
-      switch(user.ops[user.curOp]) {
-        case 'refreshtoken':
-          dispatch(nextOp());
-          dispatch(refreshTokenAsync());
-          break;
-
-        case 'signout':
-          dispatch(nextOp());
-          dispatch(signOutAsync(user.accessToken));
-          break;
-      }
-    }
-    else {
-      dispatch(clearOps());
-    }
-  }
-};
 
 export const signIn = async (credential: Credential, { rejectWithValue }: any) => {
   try {
@@ -53,16 +38,26 @@ export const signIn = async (credential: Credential, { rejectWithValue }: any) =
   }
 };
 
-export const refreshToken = async ({ rejectWithValue }: any) => {
+export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any) => {
   try {
     const response = await axios.post(RefreshTokenEndpoint);
+    const user: User = getState().user;
+    if (user.ops.length > 0) {
+      if (user.curOp === user.ops.length) {
+        dispatch(clearOps());
+      }
+      else if (user.ops[user.curOp] === 'signout') {
+        dispatch(nextOp());
+        dispatch(signOutAsync(response.data.accessToken));
+      }
+    }
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
 }
 
-export const signOut = async (accessToken: string, { rejectWithValue }: any) => {
+export const signOut = async (accessToken: string, { rejectWithValue, dispatch, getState }: any) => {
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
@@ -70,6 +65,10 @@ export const signOut = async (accessToken: string, { rejectWithValue }: any) => 
     const response = await axios.post(SignOutEndpoint, undefined, config);
     return response.data;
   } catch (error) {
+    if (error.response.data.message === 'You must sign in to execute sign out operation.') {
+      dispatch(setOps({ops:['signout'], params:[null]}));
+      dispatch(refreshTokenAsync());
+    }
     return rejectWithValue(error.response.data);
   }
 }
