@@ -34,8 +34,8 @@ export const signOutAsync = createAsyncThunk(
 
 export const changePasswordAsync = createAsyncThunk(
   'password',
-  async (param: {accessToken: string, credential: Credential}, thunkAPI) => {
-    const response = await changePassword(param, thunkAPI);
+  async (credential: Credential, thunkAPI) => {
+    const response = await changePassword(credential, thunkAPI);
     return response;
   }
 );

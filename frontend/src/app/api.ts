@@ -77,12 +77,13 @@ export const signOut = async ({ rejectWithValue, dispatch, getState }: any) => {
   }
 }
 
-export const changePassword = async (param: {accessToken: string, credential: Credential}, { rejectWithValue }: any) => {
+export const changePassword = async (credential: Credential, { rejectWithValue, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
   const config = {
-    headers: { Authorization: `Bearer ${param.accessToken}` }
+    headers: { Authorization: `Bearer ${accessToken}` }
   };
   try {
-    const response = await axios.put(ChangePasswordEndpoint, param.credential, config);
+    const response = await axios.put(ChangePasswordEndpoint, credential, config);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

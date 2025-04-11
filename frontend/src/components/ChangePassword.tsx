@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { User, Credential } from '../app/api';
-import { changePasswordAsync, refreshTokenAsync } from './user/userSlice';
+import { changePasswordAsync } from './user/userSlice';
 
 const ChangePassword : React.FunctionComponent = () => {
   const user: User = useSelector((state: RootState) => state.user);
@@ -19,7 +19,7 @@ const ChangePassword : React.FunctionComponent = () => {
       setErrorMessage('Password and reenter password is not matched.');
     }
     else {
-      dispatch(changePasswordAsync({accessToken: user.accessToken, credential}));
+      dispatch(changePasswordAsync(credential));
     }
   }
   let feedbackMessage: React.ReactNode = '';
