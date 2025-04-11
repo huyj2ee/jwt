@@ -3,9 +3,10 @@ import {
     setAccessToken,
     clearOps,
     nextOp,
-    refreshTokenAsync,
     setOps,
-    signOutAsync
+    refreshTokenAsync,
+    signOutAsync,
+    changePasswordAsync
   } from '../components/user/userSlice';
 
 import {
@@ -22,7 +23,7 @@ export interface Credential {
 
 export interface User {
   ops: Array<string>,
-  params: Array<Object>,
+  params: Array<string>,
   curOp: number,
   doesRefreshToken: boolean,
   username: string,
@@ -52,6 +53,11 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         dispatch(nextOp());
         dispatch(signOutAsync());
       }
+      else if (user.ops[user.curOp] === 'changepassword') {
+        dispatch(setAccessToken(response.data.accessToken));
+        dispatch(nextOp());
+        dispatch(changePasswordAsync(JSON.parse(user.params[user.curOp])));
+      }
     }
     return response.data;
   } catch (error) {
@@ -61,7 +67,6 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
 
 export const signOut = async ({ rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
-  console.log(accessToken);
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
@@ -77,7 +82,7 @@ export const signOut = async ({ rejectWithValue, dispatch, getState }: any) => {
   }
 }
 
-export const changePassword = async (credential: Credential, { rejectWithValue, getState }: any) => {
+export const changePassword = async (credential: Credential, { rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
@@ -86,6 +91,10 @@ export const changePassword = async (credential: Credential, { rejectWithValue, 
     const response = await axios.put(ChangePasswordEndpoint, credential, config);
     return response.data;
   } catch (error) {
+    if (error.response.data.message === 'You must sign in to execute change password operation.') {
+      dispatch(setOps({ops:['changepassword'], params:[error.response.config.data]}));
+      dispatch(refreshTokenAsync());
+    }
     return rejectWithValue(error.response.data);
   }
 };
