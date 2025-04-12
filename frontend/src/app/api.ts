@@ -5,7 +5,8 @@ import {
     setOps,
     refreshTokenAsync,
     signOutAsync,
-    changePasswordAsync
+    changePasswordAsync,
+    setErrorMessage
   } from '../components/user/userSlice';
 
 import {
@@ -63,6 +64,17 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
     }
     return response.data;
   } catch (error) {
+    const signInObj: Object = {
+      username: null,
+      accessToken: null
+    };
+    const user: User = getState().user;
+    const expiredMsg: string = 'Refresh token was expired. Please make a new sign in request.';
+    if (user.doesRefreshToken === true
+      && error.response.data.message.slice(-expiredMsg.length) !== expiredMsg) {
+      dispatch(setErrorMessage('Unexpected Error has occured.'));
+    }
+    dispatch(setSignInObject(signInObj));
     return rejectWithValue(error.response.data);
   }
 }

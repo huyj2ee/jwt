@@ -74,6 +74,9 @@ const userSlice = createSlice({
       state.params = action.payload.params;
       state.curOp = 0;
     },
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload;
+    }
   },
   extraReducers: (builder: ActionReducerMapBuilder<User>) => {
     builder
@@ -95,11 +98,6 @@ const userSlice = createSlice({
       })
       // refreshtoken
       .addCase(refreshTokenAsync.pending, (state: User) => {
-        state.username = null;
-        state.accessToken = null;
-      })
-      .addCase(refreshTokenAsync.rejected, (state: User, action: PayloadAction<any>) => {
-        state.doesRefreshToken = true;
         state.username = null;
         state.accessToken = null;
       })
@@ -128,5 +126,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setSignInObject, nextOp, setOps } = userSlice.actions
+export const { setSignInObject, nextOp, setOps, setErrorMessage } = userSlice.actions
 export default userSlice.reducer;
