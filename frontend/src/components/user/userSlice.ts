@@ -63,17 +63,17 @@ const userSlice = createSlice({
       if (state.curOp < state.ops.length) {
         state.curOp = state.curOp + 1;
       }
+      if (state.curOp === state.ops.length) {
+        state.ops = [];
+        state.params = [];
+        state.curOp = 0;  
+      }
     },
     setOps: (state, action) => {
       state.ops = action.payload.ops;
       state.params = action.payload.params;
       state.curOp = 0;
     },
-    clearOps: (state) => {
-      state.ops = [];
-      state.params = [];
-      state.curOp = 0;
-    }
   },
   extraReducers: (builder: ActionReducerMapBuilder<User>) => {
     builder
@@ -128,5 +128,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setSignInObject, nextOp, setOps, clearOps } = userSlice.actions
+export const { setSignInObject, nextOp, setOps } = userSlice.actions
 export default userSlice.reducer;

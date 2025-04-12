@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
     setSignInObject,
-    clearOps,
     nextOp,
     setOps,
     refreshTokenAsync,
@@ -50,16 +49,16 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
     dispatch(setSignInObject(signInObj));
     const user: User = getState().user;
     if (user.ops.length > 0) {
-      if (user.curOp === user.ops.length) {
-        dispatch(clearOps());
-      }
-      else if (user.ops[user.curOp] === 'signout') {
-        dispatch(nextOp());
-        dispatch(signOutAsync());
-      }
-      else if (user.ops[user.curOp] === 'changepassword') {
-        dispatch(nextOp());
-        dispatch(changePasswordAsync(JSON.parse(user.params[user.curOp])));
+      switch(user.ops[user.curOp]) {
+        case 'signout':
+          dispatch(nextOp());
+          dispatch(signOutAsync());  
+          break;
+
+        case'changepassword':
+          dispatch(nextOp());
+          dispatch(changePasswordAsync(JSON.parse(user.params[user.curOp])));
+          break;
       }
     }
     return response.data;
