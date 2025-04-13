@@ -16,7 +16,7 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
 
 @Service
 public class JwtTokenService {
-  public static final long TOKEN_VALIDITY = 10 * 60 * 60;
+  public static final long TOKEN_VALIDITY = 10 * 1000 * 60 * 60; // 10 hours
 
   @Value("${secret}")
   private String jwtSecret;
@@ -30,7 +30,7 @@ public class JwtTokenService {
       .claims()
       .subject(userDetails.getUsername())
       .issuedAt(new Date(System.currentTimeMillis()))
-      .expiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
+      .expiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
       .and()
       .signWith(getSecretKey(), Jwts.SIG.HS512)
       .compact();

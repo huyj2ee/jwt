@@ -17,7 +17,7 @@ import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 @Service
 @Transactional
 public class RefreshTokenService {
-  public static final long TOKEN_VALIDITY = 360 * 60 * 60;
+  public static final long TOKEN_VALIDITY = 1000 * 60 * 60 * 24 * 7; // a week
 
   @Autowired
   private RefreshTokenRepository refreshTokenRepository;
