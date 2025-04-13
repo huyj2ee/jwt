@@ -91,7 +91,7 @@ public class JwtController {
         .httpOnly(true)
         .secure(true)
         .path(path)
-        .maxAge(RefreshTokenService.TOKEN_VALIDITY)
+        .maxAge(RefreshTokenService.TOKEN_VALIDITY / 1000)
         .sameSite("Strict")
         .build();
       servletResponse.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
