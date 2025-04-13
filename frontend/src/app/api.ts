@@ -70,8 +70,10 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
     };
     const user: User = getState().user;
     const expiredMsg: string = 'Refresh token was expired. Please make a new sign in request.';
+    const notfoundMsg: string = 'Refresh token is not in database.';
     if (user.doesRefreshToken === true
-      && error.response.data.message.slice(-expiredMsg.length) !== expiredMsg) {
+      && error.response.data.message.slice(-expiredMsg.length) !== expiredMsg
+      && error.response.data.message.slice(-notfoundMsg.length) !== notfoundMsg) {
       dispatch(setErrorMessage('Unexpected Error has occured.'));
     }
     dispatch(setSignInObject(signInObj));
