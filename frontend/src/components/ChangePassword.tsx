@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { User, Credential } from '../app/api';
@@ -10,6 +11,11 @@ const ChangePassword : React.FunctionComponent = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  if (user.username === null) {
+    navigate('/');
+    return null;
+  }
   const credential : Credential = {
     username: user.username,
     password
