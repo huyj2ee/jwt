@@ -111,7 +111,7 @@ export const changePassword = async (credential: Credential, { rejectWithValue, 
       dispatch(setOps({ops:['changepassword'], params:[error.response.config.data]}));
       dispatch(refreshTokenAsync());
     }
-    else if (error.response.data.message === 'User is not found') {
+    else if (error.response.data.status === 401) {
       const signInObj: Object = {
         username: null,
         accessToken: null
