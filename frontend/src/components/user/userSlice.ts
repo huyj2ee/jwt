@@ -115,6 +115,9 @@ const userSlice = createSlice({
       // password
       .addCase(changePasswordAsync.pending, (state: User) => {
         state.errorMessage = null;
+      })
+      .addCase(changePasswordAsync.fulfilled, (state: User, action: PayloadAction<any>) => {
+        state.errorMessage = '';
       });
   }
 });
