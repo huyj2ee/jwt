@@ -29,9 +29,16 @@ const ChangePassword : React.FunctionComponent = () => {
       dispatch(changePasswordAsync(credential));
     }
   }
+  function handleBack() {
+    navigate('/');
+  }
   let feedbackMessage: React.ReactNode = '';
+  let changeButton: React.ReactNode = '';
   if (user.errorMessage === '') {
     feedbackMessage = <div>Password is changed.</div>;
+  }
+  else {
+    changeButton = <button type='submit' onClick={handleChangePassword}>Change</button>;
   }
   return (
     <>
@@ -50,7 +57,8 @@ const ChangePassword : React.FunctionComponent = () => {
       {errorMessage === null ? '' : <div>{errorMessage}</div>}
       {feedbackMessage}
       <div>
-        <button type='submit' onClick={handleChangePassword}>Change</button>
+        <button type='button' onClick={handleBack}>Back</button>
+        {changeButton}
       </div>
     </>
   );
