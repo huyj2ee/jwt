@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { User, Credential } from '../app/api';
+import { SignedInUser, Credential } from '../app/api';
 import { changePasswordAsync } from './user/userSlice';
 
 const ChangePassword : React.FunctionComponent = () => {
-  const user: User = useSelector((state: RootState) => state.user);
+  const user: SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

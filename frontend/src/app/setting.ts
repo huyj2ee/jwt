@@ -4,3 +4,4 @@ export const SignInEndpoint: string = ServerAddress + '/' + EndpointPrefix + '/s
 export const RefreshTokenEndpoint: string = ServerAddress + '/' + EndpointPrefix + '/refreshtoken';
 export const SignOutEndpoint: string = ServerAddress + '/' + EndpointPrefix + '/signout';
 export const ChangePasswordEndpoint: string = ServerAddress + '/' + EndpointPrefix + '/password';
+export const UsersEndpoint: string = ServerAddress + '/' + EndpointPrefix + '/users';

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { User } from '../app/api';
+import { SignedInUser } from '../app/api';
 import { signOutAsync } from './user/userSlice';
 
 interface LayoutProperties {
@@ -10,13 +10,19 @@ interface LayoutProperties {
 }
 
 const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutProperties) => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const user:User = useSelector((state: RootState) => state.user);
+  const user:SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   function handleSignOut () {
     dispatch(signOutAsync());
     navigate('/');
   }
+  useEffect(() => {
+    if (user.username === null && location.pathname !== '/') {
+      navigate('/');
+    }
+  }, [user.username]);
 
   return (
     <div>

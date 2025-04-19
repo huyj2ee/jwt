@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { signInAsync, refreshTokenAsync } from './user/userSlice';
-import { User } from '../app/api';
+import { SignedInUser } from '../app/api';
 import Layout from './Layout';
 
 const SignedOutHome : React.FunctionComponent = () => {
-  const user: User = useSelector((state: RootState) => state.user);
+  const user: SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -35,7 +35,7 @@ const SignedInHome : React.FunctionComponent = () => {
 
 const Home : React.FunctionComponent = () => {
   const dispatch: AppDispatch = useDispatch();
-  const user:User = useSelector((state: RootState) => state.user);
+  const user:SignedInUser = useSelector((state: RootState) => state.user);
   const doesRefreshToken = user.doesRefreshToken;
   if (user.doesRefreshToken === false && user.username === null) {
     dispatch(refreshTokenAsync());
