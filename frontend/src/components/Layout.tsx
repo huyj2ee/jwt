@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { SignedInUser } from '../app/api';
@@ -10,7 +10,6 @@ interface LayoutProperties {
 }
 
 const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutProperties) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const user:SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
@@ -19,7 +18,7 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
     navigate('/');
   }
   useEffect(() => {
-    if (user.username === null && location.pathname !== '/') {
+    if (user.username === null) {
       navigate('/');
     }
   }, [user.username]);
