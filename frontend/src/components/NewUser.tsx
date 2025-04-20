@@ -12,29 +12,26 @@ const NewUser : React.FunctionComponent = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [enabled, setEnabled] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string>(null);
+  const [clientErrorMessage, setClientErrorMessage] = useState<string>(null);
   const [usernameIsRequired, setUsernameIsRequired] = useState<React.ReactNode>('');
   const [passwordIsRequired, setPasswordIsRequired] = useState<React.ReactNode>('');
   const [reenterPasswordIsRequired, setReenterPasswordIsRequired] = useState<React.ReactNode>('');
   let feedbackMessage: React.ReactNode = '';
+  let errorMessage: string = '';
   if (user.errorMessage === '') {
     feedbackMessage = <div>User created.</div>;
-    if(errorMessage !== '') {
-      setErrorMessage('');
-    }
   }
-  else if (user.errorMessage !== null
-    && user.errorMessage !== ''
-    && user.errorMessage !== errorMessage
-    && errorMessage !== 'Unexpected Error has occurred.'
-  ) {
+  else if (user.errorMessage !== null) {
     const alreadyExistsUser: string = 'already exists.';
     if (user.errorMessage.slice(-alreadyExistsUser.length) === alreadyExistsUser) {
-      setErrorMessage(user.errorMessage);
+      errorMessage = user.errorMessage;
     }
     else {
-      setErrorMessage('Unexpected Error has occurred.');
+      errorMessage = 'Unexpected Error has occurred.';
     }
+  }
+  else {
+    errorMessage = clientErrorMessage;
   }
   function handleCreate() {
     if (username === '') {
@@ -56,7 +53,7 @@ const NewUser : React.FunctionComponent = () => {
       setReenterPasswordIsRequired('');
     }
     if (password !== confirmPassword) {
-      setErrorMessage('Password and reenter password is not matched.');
+      setClientErrorMessage('Password and reenter password is not matched.');
     }
     else if (username !== '' && password !== '' && confirmPassword !== '') {
       const user: UserObject = {
