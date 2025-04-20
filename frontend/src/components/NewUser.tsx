@@ -23,7 +23,11 @@ const NewUser : React.FunctionComponent = () => {
       setErrorMessage('');
     }
   }
-  else if (user.errorMessage !== null && user.errorMessage !== '' && user.errorMessage !== errorMessage) {
+  else if (user.errorMessage !== null
+    && user.errorMessage !== ''
+    && user.errorMessage !== errorMessage
+    && errorMessage !== 'Unexpected Error has occurred.'
+  ) {
     const alreadyExistsUser: string = 'already exists.';
     if (user.errorMessage.slice(-alreadyExistsUser.length) === alreadyExistsUser) {
       setErrorMessage(user.errorMessage);
