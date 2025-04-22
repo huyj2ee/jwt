@@ -13,6 +13,7 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
   const navigate = useNavigate();
   const user:SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
+  let usersLink: React.ReactNode = '';
   function handleSignOut () {
     dispatch(signOutAsync());
     navigate('/');
@@ -22,7 +23,9 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
       navigate('/');
     }
   }, [user.username]);
-
+  if (user.roles.includes('admin')) {
+    usersLink = <li><Link to='/users'>Users</Link></li>;
+  }
   return (
     <div>
       <nav>
@@ -30,9 +33,7 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
           <li>
             <Link to='/'>Home</Link>
           </li>
-          <li>
-            <Link to='/users'>Users</Link>
-          </li>
+          {usersLink}
         </ul>
       </nav>
       <div>

@@ -95,7 +95,7 @@ public class JwtController {
         .sameSite("Strict")
         .build();
       servletResponse.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-      return ResponseEntity.ok(new TokenResponse(username, jwtToken));
+      return ResponseEntity.ok(new TokenResponse(username, jwtToken, user.getRoles()));
     }
     processFailedAttempts(username, user);
     throw new BadCredentialsException("Invalid password.");
@@ -144,7 +144,7 @@ public class JwtController {
     UserPrincipal userDetail = new UserPrincipal(user);
     String token = jwtTokenService.generate(userDetail);
 
-    return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
+    return ResponseEntity.ok(new TokenResponse(user.getUsername(), token, user.getRoles()));
   }
 
   @PreAuthorize("isAuthenticated()")

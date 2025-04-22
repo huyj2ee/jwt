@@ -30,6 +30,7 @@ export interface SignedInUser {
   doesRefreshToken: boolean,
   username: string,
   accessToken: string,
+  roles: Array<string>,
   errorMessage: string
 };
 
@@ -53,7 +54,8 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
     const response = await axios.post(RefreshTokenEndpoint);
     const signInObj = {
       accessToken: response.data.accessToken,
-      username: response.data.username
+      username: response.data.username,
+      roles: response.data.roles,
     };
     dispatch(setSignInObject(signInObj));
     const user: SignedInUser = getState().user;
@@ -79,7 +81,8 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
   } catch (error) {
     const signInObj: Object = {
       username: null,
-      accessToken: null
+      accessToken: null,
+      roles: []
     };
     const user: SignedInUser = getState().user;
     const expiredMsg: string = 'Refresh token was expired. Please make a new sign in request.';
@@ -127,7 +130,8 @@ export const changePassword = async (credential: Credential, { rejectWithValue, 
     else if (error.response.data.status === 401) {
       const signInObj: Object = {
         username: null,
-        accessToken: null
+        accessToken: null,
+        roles: []
       };
       dispatch(setSignInObject(signInObj));
     }

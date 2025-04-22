@@ -57,6 +57,7 @@ const initialState: SignedInUser = {
   doesRefreshToken: false,
   username: null,
   accessToken: null,
+  roles: [],
   errorMessage: null
 };
 
@@ -68,6 +69,7 @@ const userSlice = createSlice({
       state.doesRefreshToken = true;
       state.username = action.payload.username;
       state.accessToken = action.payload.accessToken;
+      state.roles = action.payload.roles;
     },
     nextOp: (state) => {
       if (state.curOp < state.ops.length) {
@@ -100,6 +102,7 @@ const userSlice = createSlice({
         state.errorMessage = null;
         state.username = action.payload.username;
         state.accessToken = action.payload.accessToken;
+        state.roles = action.payload.roles;
       })
       .addCase(signInAsync.rejected, (state: SignedInUser, action: PayloadAction<any>) => {
         state.errorMessage = action.payload.message;
