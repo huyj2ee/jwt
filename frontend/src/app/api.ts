@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-    setSignInObject,
+    setSignedInObject,
     nextOp,
     setOps,
     refreshTokenAsync,
@@ -52,12 +52,12 @@ export const signIn = async (credential: Credential, { rejectWithValue }: any) =
 export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any) => {
   try {
     const response = await axios.post(RefreshTokenEndpoint);
-    const signInObj = {
+    const signedInObj = {
       accessToken: response.data.accessToken,
       username: response.data.username,
       roles: response.data.roles,
     };
-    dispatch(setSignInObject(signInObj));
+    dispatch(setSignedInObject(signedInObj));
     const user: SignedInUser = getState().user;
     if (user.ops.length > 0) {
       switch(user.ops[user.curOp]) {
@@ -79,7 +79,7 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
     }
     return response.data;
   } catch (error) {
-    const signInObj: Object = {
+    const signedInObj: Object = {
       username: null,
       accessToken: null,
       roles: []
@@ -92,7 +92,7 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
       && error.response.data.message.slice(-notfoundMsg.length) !== notfoundMsg) {
       dispatch(setErrorMessage('Unexpected Error has occured.'));
     }
-    dispatch(setSignInObject(signInObj));
+    dispatch(setSignedInObject(signedInObj));
     return rejectWithValue(error.response.data);
   }
 }
@@ -128,12 +128,12 @@ export const changePassword = async (credential: Credential, { rejectWithValue, 
       dispatch(refreshTokenAsync());
     }
     else if (error.response.data.status === 401) {
-      const signInObj: Object = {
+      const signedInObj: Object = {
         username: null,
         accessToken: null,
         roles: []
       };
-      dispatch(setSignInObject(signInObj));
+      dispatch(setSignedInObject(signedInObj));
     }
     return rejectWithValue(error.response.data);
   }

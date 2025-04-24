@@ -65,7 +65,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setSignInObject: (state, action) => {
+    setSignedInObject: (state, action) => {
       state.doesRefreshToken = true;
       state.username = action.payload.username;
       state.accessToken = action.payload.accessToken;
@@ -138,5 +138,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setSignInObject, nextOp, setOps, setErrorMessage } = userSlice.actions
+export const { setSignedInObject, nextOp, setOps, setErrorMessage } = userSlice.actions
 export default userSlice.reducer;
