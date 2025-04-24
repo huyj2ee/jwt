@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.CredentialRequestResponse;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.web.UserPrincipal;
-import com.blogspot.huyj2ee.jwt.jwtutils.models.web.TokenResponse;
+import com.blogspot.huyj2ee.jwt.jwtutils.models.web.SignedInObject;
 import com.blogspot.huyj2ee.jwt.jwtutils.annotations.AccessDeniedMessage;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.ChangePasswordException;
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.RefreshTokenException;
@@ -62,7 +62,7 @@ public class JwtController {
   private RefreshTokenService refreshTokenService;
 
   @PostMapping("/signin")
-  public ResponseEntity<TokenResponse> signIn(@RequestBody CredentialRequestResponse request, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws Exception {
+  public ResponseEntity<SignedInObject> signIn(@RequestBody CredentialRequestResponse request, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws Exception {
     final String password = request.getPassword();
     final String username = request.getUsername();
     final User user = userRepository.findByUsername(username).orElseThrow(
@@ -95,7 +95,7 @@ public class JwtController {
         .sameSite("Strict")
         .build();
       servletResponse.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-      return ResponseEntity.ok(new TokenResponse(username, jwtToken, user.getRoles()));
+      return ResponseEntity.ok(new SignedInObject(username, jwtToken, user.getRoles()));
     }
     processFailedAttempts(username, user);
     throw new BadCredentialsException("Invalid password.");
@@ -117,7 +117,7 @@ public class JwtController {
   }
 
   @PostMapping("/refreshtoken")
-  public ResponseEntity<TokenResponse> refreshToken(HttpServletRequest servletRequest) throws Exception {
+  public ResponseEntity<SignedInObject> refreshToken(HttpServletRequest servletRequest) throws Exception {
     RefreshToken refreshTokenObj = null;
     Cookie[] cookies = servletRequest.getCookies();
     if (cookies != null) {
@@ -144,7 +144,7 @@ public class JwtController {
     UserPrincipal userDetail = new UserPrincipal(user);
     String token = jwtTokenService.generate(userDetail);
 
-    return ResponseEntity.ok(new TokenResponse(user.getUsername(), token, user.getRoles()));
+    return ResponseEntity.ok(new SignedInObject(user.getUsername(), token, user.getRoles()));
   }
 
   @PreAuthorize("isAuthenticated()")
