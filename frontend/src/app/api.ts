@@ -40,6 +40,20 @@ export interface UserObject {
   enabled: boolean
 };
 
+export interface UserItem {
+  username: string,
+  password: string,
+  enabled: boolean,
+  accountNonLocked: boolean
+};
+
+export interface UsersStore {
+  data: Array<UserItem>,
+  count: number,
+  limit: number,
+  page: number
+};
+
 export const signIn = async (credential: Credential, { rejectWithValue }: any) => {
   try {
     const response = await axios.post(SignInEndpoint, credential);
@@ -157,4 +171,25 @@ export const createUser = async (user: UserObject, { rejectWithValue, dispatch, 
     }
     return rejectWithValue(error.response.data);
   }
-}
+};
+
+export const listUsers = async (page: number, { rejectWithValue, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    params:{
+      page
+    },
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    const response = await axios.get(UsersEndpoint, config);
+    return {
+      data: response.data,
+      count: parseInt(response.headers["pagination-count"]),
+      limit: parseInt(response.headers["pagination-limit"]),
+      page: parseInt(response.headers["pagination-page"])
+    };
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+};
