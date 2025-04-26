@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { SignedInUser } from '../app/api';
-import { signOutAsync } from './user/userSlice';
+import { refreshTokenAsync, signOutAsync } from './user/userSlice';
 
 interface LayoutProperties {
   children?: React.ReactNode;
@@ -19,7 +19,10 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
     navigate('/');
   }
   useEffect(() => {
-    if (user.username === null) {
+    if (user.doesRefreshToken === false && user.username === null) {
+      dispatch(refreshTokenAsync());
+    }
+    else if (user.username === null) {
       navigate('/');
     }
   }, [user.username]);
