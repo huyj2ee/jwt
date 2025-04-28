@@ -17,6 +17,7 @@ import {
     ChangePasswordEndpoint,
     UsersEndpoint
   } from './setting';
+import { listUsersAsync } from '../components/users/usersSlice';
 
 export interface Credential {
   username: string,
@@ -88,6 +89,11 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         case 'createuser':
           dispatch(nextOp());
           dispatch(createUserAsync(JSON.parse(user.params[user.curOp])));
+          break;
+
+        case 'listusers':
+          dispatch(nextOp());
+          dispatch(listUsersAsync(parseInt(user.params[user.curOp])));
           break;
       }
     }
@@ -173,7 +179,7 @@ export const createUser = async (user: UserObject, { rejectWithValue, dispatch, 
   }
 };
 
-export const listUsers = async (page: number, { rejectWithValue, getState }: any) => {
+export const listUsers = async (page: number, { rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
   const config = {
     params:{
@@ -190,6 +196,13 @@ export const listUsers = async (page: number, { rejectWithValue, getState }: any
       page: parseInt(response.headers["pagination-page"])
     };
   } catch (error) {
+    if (error.response.data.message === 'Admin role is required to get user list.') {
+      dispatch(setOps({ops:['listusers'], params:[error.response.config.params.page.toString()]}));
+      dispatch(refreshTokenAsync());
+    }
+    else {
+      dispatch(setErrorMessage(error.response.data.message));
+    }
     return rejectWithValue(error.response.data);
   }
 };

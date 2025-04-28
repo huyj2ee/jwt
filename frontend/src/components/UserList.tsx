@@ -70,7 +70,7 @@ const UserList : React.FunctionComponent = () => {
     if (user.username !== null) {
       dispatch(listUsersAsync(page));
     }
-  }, [dispatch, page, user]);
+  }, [dispatch, page]);
 
   return (
     <Layout>
