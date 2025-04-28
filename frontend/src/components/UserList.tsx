@@ -3,7 +3,7 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { listUsersAsync } from './users/usersSlice';
+import { filterByUsernameAsync, listUsersAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
@@ -53,6 +53,8 @@ const UserList : React.FunctionComponent = () => {
   const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const usernameObj:string = searchParams.get("username");
+  const username:string = usernameObj === null ? '' : usernameObj;
   const pageStr:string = searchParams.get("page");
   const page:number = pageStr === null ? 0 : parseInt(pageStr);
   const prePage:ReactNode = page > 0 ?
@@ -66,6 +68,18 @@ const UserList : React.FunctionComponent = () => {
     navigate('/user');
   }
 
+  function handleFilterByUsername() {
+    if (username !== '') {
+      dispatch(filterByUsernameAsync(username));
+    }
+  }
+
+  function filterByUsernameKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if(e.key === 'Enter') {
+      handleFilterByUsername();
+    }
+  }
+
   useEffect(()=>{
     if (user.username !== null) {
       dispatch(listUsersAsync(page));
@@ -76,6 +90,10 @@ const UserList : React.FunctionComponent = () => {
     <Layout>
       <div>
         <button type='button' onClick={handleCreateUser}>Create user</button>
+      </div>
+      <div>
+        <input type='text' placeholder='Filter by username...' onKeyDown={e => filterByUsernameKeyDown(e)} onChange={e => setSearchParams("username=" + e.target.value)} value={username}></input>
+        <button type='button' onClick={handleFilterByUsername}>Filter</button>
       </div>
       <div>
         {users.data.map((user) => <User user={user}/>)}

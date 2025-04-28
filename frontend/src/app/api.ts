@@ -17,7 +17,7 @@ import {
     ChangePasswordEndpoint,
     UsersEndpoint
   } from './setting';
-import { listUsersAsync } from '../components/users/usersSlice';
+import { filterByUsernameAsync, listUsersAsync } from '../components/users/usersSlice';
 
 export interface Credential {
   username: string,
@@ -94,6 +94,11 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         case 'listusers':
           dispatch(nextOp());
           dispatch(listUsersAsync(parseInt(user.params[user.curOp])));
+          break;
+
+        case 'filterbyusername':
+          dispatch(nextOp());
+          dispatch(filterByUsernameAsync(user.params[user.curOp]));
           break;
       }
     }
@@ -206,3 +211,30 @@ export const listUsers = async (page: number, { rejectWithValue, dispatch, getSt
     return rejectWithValue(error.response.data);
   }
 };
+
+export const filterByUsername = async (username: string, { rejectWithValue, dispatch, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    const response = await axios.get(UsersEndpoint + '/' + username, config);
+    return {
+      data: [response.data],
+      count: 1,
+      limit: 1,
+      page: 0
+    };
+  } catch (error) {
+    const url:string = error.response.config.url;
+    const username:string = url.substring(url.lastIndexOf('/') + 1, url.length);
+    if (error.response.data.message === 'Admin role is required to get user.') {
+      dispatch(setOps({ops:['filterbyusername'], params:[username]}));
+      dispatch(refreshTokenAsync());
+    }
+    else {
+      dispatch(setErrorMessage(error.response.data.message));
+    }
+    return rejectWithValue(error.response.data);
+  }
+}
