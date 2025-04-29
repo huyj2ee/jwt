@@ -82,9 +82,14 @@ const UserList : React.FunctionComponent = () => {
 
   useEffect(()=>{
     if (user.username !== null) {
-      dispatch(listUsersAsync(page));
+      if (username.length > 0) {
+        dispatch(filterByUsernameAsync(username));
+      }
+      else {
+        dispatch(listUsersAsync(page));
+      }
     }
-  }, [dispatch, page]);
+  }, [dispatch, page, user]);
 
   return (
     <Layout>

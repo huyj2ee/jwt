@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { filterByUsername, listUsers, UserItem, UsersStore } from "../../app/api";
+import { filterByUsername, listUsers, UsersStore } from "../../app/api";
 
 export const listUsersAsync = createAsyncThunk(
   'listusers',

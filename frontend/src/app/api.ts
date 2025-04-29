@@ -17,7 +17,6 @@ import {
     ChangePasswordEndpoint,
     UsersEndpoint
   } from './setting';
-import { filterByUsernameAsync, listUsersAsync } from '../components/users/usersSlice';
 
 export interface Credential {
   username: string,
@@ -89,16 +88,6 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         case 'createuser':
           dispatch(nextOp());
           dispatch(createUserAsync(JSON.parse(user.params[user.curOp])));
-          break;
-
-        case 'listusers':
-          dispatch(nextOp());
-          dispatch(listUsersAsync(parseInt(user.params[user.curOp])));
-          break;
-
-        case 'filterbyusername':
-          dispatch(nextOp());
-          dispatch(filterByUsernameAsync(user.params[user.curOp]));
           break;
       }
     }
@@ -202,11 +191,7 @@ export const listUsers = async (page: number, { rejectWithValue, dispatch, getSt
     };
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to get user list.') {
-      dispatch(setOps({ops:['listusers'], params:[error.response.config.params.page.toString()]}));
       dispatch(refreshTokenAsync());
-    }
-    else {
-      dispatch(setErrorMessage(error.response.data.message));
     }
     return rejectWithValue(error.response.data);
   }
@@ -229,11 +214,7 @@ export const filterByUsername = async (username: string, { rejectWithValue, disp
     const url:string = error.response.config.url;
     const username:string = url.substring(url.lastIndexOf('/') + 1, url.length);
     if (error.response.data.message === 'Admin role is required to get user.') {
-      dispatch(setOps({ops:['filterbyusername'], params:[username]}));
       dispatch(refreshTokenAsync());
-    }
-    else {
-      dispatch(setErrorMessage(error.response.data.message));
     }
     return rejectWithValue(error.response.data);
   }
