@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { filterByUsername, listUsers, UsersStore } from "../../app/api";
+import { deleteUser, filterByUsername, listUsers, UsersStore } from "../../app/api";
 
 export const listUsersAsync = createAsyncThunk(
   'listusers',
@@ -13,6 +13,14 @@ export const filterByUsernameAsync = createAsyncThunk(
   'filterbyusername',
   async (username:string, thunkAPI) => {
     const response = await filterByUsername(username, thunkAPI);
+    return response;
+  }
+);
+
+export const deleteUserAsync = createAsyncThunk(
+  'deleteuser',
+  async (username:string, thunkAPI) => {
+    const response = await deleteUser(username, thunkAPI);
     return response;
   }
 );

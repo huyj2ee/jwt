@@ -3,10 +3,12 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { filterByUsernameAsync, listUsersAsync } from './users/usersSlice';
+import { deleteUserAsync, filterByUsernameAsync, listUsersAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
+  const dispatch:AppDispatch = useDispatch();
+
   function unlock(username: string):void {
     alert('unlock ' + username);
   }
@@ -29,7 +31,7 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   function deleteUser(username: string):void {
-    alert('deleteUser ' + username);
+    dispatch(deleteUserAsync(username));
   }
 
   return (

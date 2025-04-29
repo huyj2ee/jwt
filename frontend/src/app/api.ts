@@ -17,6 +17,7 @@ import {
     ChangePasswordEndpoint,
     UsersEndpoint
   } from './setting';
+import { deleteUserAsync } from '../components/users/usersSlice';
 
 export interface Credential {
   username: string,
@@ -88,6 +89,11 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         case 'createuser':
           dispatch(nextOp());
           dispatch(createUserAsync(JSON.parse(user.params[user.curOp])));
+          break;
+
+        case 'deleteuser':
+          dispatch(nextOp());
+          dispatch(deleteUserAsync(user.params[user.curOp]));
           break;
       }
     }
@@ -212,9 +218,27 @@ export const filterByUsername = async (username: string, { rejectWithValue, disp
       page: 0
     };
   } catch (error) {
+    if (error.response.data.message === 'Admin role is required to get user.') {
+      dispatch(refreshTokenAsync());
+    }
+    return rejectWithValue(error.response.data);
+  }
+}
+
+export const deleteUser = async (username: string, { rejectWithValue, dispatch, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    await axios.delete(UsersEndpoint + '/' + username, config);
+    dispatch(refreshTokenAsync());
+    return null;
+  } catch (error) {
     const url:string = error.response.config.url;
     const username:string = url.substring(url.lastIndexOf('/') + 1, url.length);
-    if (error.response.data.message === 'Admin role is required to get user.') {
+    if (error.response.data.message === 'Admin role is required to delete user.') {
+      dispatch(setOps({ops:['deleteuser'], params:[username]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
