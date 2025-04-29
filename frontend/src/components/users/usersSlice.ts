@@ -3,8 +3,8 @@ import { filterByUsername, listUsers, UsersStore } from "../../app/api";
 
 export const listUsersAsync = createAsyncThunk(
   'listusers',
-  async (page:number, thunkAPI) => {
-    const response = await listUsers(page, thunkAPI);
+    async (params: {page:number, nonlocked:boolean}, thunkAPI) => {
+    const response = await listUsers(params, thunkAPI);
     return response;
   }
 );

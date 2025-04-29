@@ -57,12 +57,41 @@ const UserList : React.FunctionComponent = () => {
   const username:string = usernameObj === null ? '' : usernameObj;
   const pageStr:string = searchParams.get("page");
   const page:number = pageStr === null ? 0 : parseInt(pageStr);
+  const nonlockedObj:string = searchParams.get("nonlocked");
+  const nonlocked:boolean = nonlockedObj === null || nonlockedObj.length === 0 ? null : false;
   const prePage:ReactNode = page > 0 ?
-    <span onClick={() => setSearchParams("page=" + (page - 1))}>&lt;</span> :
+    <span onClick={handlePrePageClick}>&lt;</span> :
     <span>&lt;</span>;
   const nextPage:ReactNode = page < users.count - 1 ?
-    <span onClick={() => setSearchParams("page=" + (page + 1))}>&gt;</span> :
+    <span onClick={handleNextPageClick}>&gt;</span> :
     <span>&gt;</span>;
+  const lockButton:ReactNode = nonlocked === null ?
+    <button type='button' onClick={toggleLock}>List locked users</button> : 
+    <button type='button' onClick={toggleLock}>List all users</button>;
+
+  function handlePrePageClick() {
+    searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
+    searchParams.set("page", (page - 1).toString());
+    setSearchParams(searchParams);
+  }
+
+  function handleNextPageClick() {
+    searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
+    searchParams.set("page", (page + 1).toString());
+    setSearchParams(searchParams);
+  }
+
+  function toggleLock() {
+    if (nonlocked === null) {
+      searchParams.set("nonlocked", "false");
+      searchParams.set("page", "0");
+    }
+    else {
+      searchParams.set("nonlocked", "");
+      searchParams.set("page", "0");
+    }
+    setSearchParams(searchParams);
+  }
 
   function handleCreateUser() {
     navigate('/user');
@@ -86,13 +115,16 @@ const UserList : React.FunctionComponent = () => {
         dispatch(filterByUsernameAsync(username));
       }
       else {
-        dispatch(listUsersAsync(page));
+        dispatch(listUsersAsync({page, nonlocked}));
       }
     }
-  }, [dispatch, page, user]);
+  }, [dispatch, page, nonlocked, user]);
 
   return (
     <Layout>
+      <div>
+        {lockButton}
+      </div>
       <div>
         <button type='button' onClick={handleCreateUser}>Create user</button>
       </div>

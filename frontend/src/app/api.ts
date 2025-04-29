@@ -173,11 +173,12 @@ export const createUser = async (user: UserObject, { rejectWithValue, dispatch, 
   }
 };
 
-export const listUsers = async (page: number, { rejectWithValue, dispatch, getState }: any) => {
+export const listUsers = async (params: {page:number, nonlocked:boolean}, { rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
   const config = {
     params:{
-      page
+      page: params.page,
+      accountNonLocked: params.nonlocked
     },
     headers: { Authorization: `Bearer ${accessToken}` }
   };
