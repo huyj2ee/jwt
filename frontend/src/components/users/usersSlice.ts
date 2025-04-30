@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteUser, filterByUsername, listUsers, setPassword, UsersStore } from "../../app/api";
+import { deleteUser, filterByUsername, listUsers, setPassword, unlockUser, UsersStore } from "../../app/api";
 
 export const listUsersAsync = createAsyncThunk(
   'listusers',
@@ -29,6 +29,14 @@ export const setPasswordAsync = createAsyncThunk(
   'setpassword',
   async (params: {username: string, password: string}, thunkAPI) => {
     const response = await setPassword(params, thunkAPI);
+    return response;
+  }
+);
+
+export const unlockUserAsync = createAsyncThunk(
+  'unlockuser',
+  async (username:string, thunkAPI) => {
+    const response = await unlockUser(username, thunkAPI);
     return response;
   }
 );

@@ -17,7 +17,7 @@ import {
     ChangePasswordEndpoint,
     UsersEndpoint
   } from './setting';
-import { deleteUserAsync, setPasswordAsync } from '../components/users/usersSlice';
+import { deleteUserAsync, setPasswordAsync, unlockUserAsync } from '../components/users/usersSlice';
 
 export interface Credential {
   username: string,
@@ -100,6 +100,11 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         case 'setpassword':
           dispatch(nextOp());
           dispatch(setPasswordAsync(JSON.parse(user.params[user.curOp])));
+          break;
+
+        case 'unlockuser':
+          dispatch(nextOp());
+          dispatch(unlockUserAsync(user.params[user.curOp]));
           break;
       }
     }
@@ -262,6 +267,27 @@ export const setPassword = async (params: {username: string, password: string}, 
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to edit user.') {
       dispatch(setOps({ops:['setpassword'], params:[error.response.config.data]}));
+      dispatch(refreshTokenAsync());
+    }
+    return rejectWithValue(error.response.data);
+  }
+}
+
+export const unlockUser = async (username: string, { rejectWithValue, dispatch, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    const params = {username, accountNonLocked: true};
+    await axios.put(UsersEndpoint + '/' + username, params, config);
+    dispatch(refreshTokenAsync());
+    return null;
+  } catch (error) {
+    const url:string = error.response.config.url;
+    const username:string = url.substring(url.lastIndexOf('/') + 1, url.length);
+    if (error.response.data.message === 'Admin role is required to edit user.') {
+      dispatch(setOps({ops:['unlockuser'], params:[username]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);

@@ -3,7 +3,7 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync } from './users/usersSlice';
+import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, unlockUserAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
@@ -11,7 +11,7 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   const navigate = useNavigate();
 
   function unlock(username: string):void {
-    alert('unlock ' + username);
+    dispatch(unlockUserAsync(username));
   }
 
   function setEnabled(username: string, enabled: boolean):void {
