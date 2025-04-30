@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteUser, filterByUsername, listUsers, UsersStore } from "../../app/api";
+import { deleteUser, filterByUsername, listUsers, setPassword, UsersStore } from "../../app/api";
 
 export const listUsersAsync = createAsyncThunk(
   'listusers',
@@ -25,7 +25,16 @@ export const deleteUserAsync = createAsyncThunk(
   }
 );
 
+export const setPasswordAsync = createAsyncThunk(
+  'setpassword',
+  async (params: {username: string, password: string}, thunkAPI) => {
+    const response = await setPassword(params, thunkAPI);
+    return response;
+  }
+);
+
 const initialState: UsersStore = {
+  targetUsername: null,
   data: [],
   count: 0,
   limit: 0,
@@ -36,6 +45,9 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    clearTargetUsername: (state) => {
+      state.targetUsername = null;
+    }
   },
   extraReducers: (builder: ActionReducerMapBuilder<UsersStore>) => {
     builder
@@ -60,8 +72,13 @@ const usersSlice = createSlice({
         state.page = action.payload.page;
       })
       .addCase(filterByUsernameAsync.rejected, (state: UsersStore, action: PayloadAction<any>) => {
+      })
+      // setpassword
+      .addCase(setPasswordAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
+        state.targetUsername = action.payload.username;
       });
   }
 });
 
+export const { clearTargetUsername } = usersSlice.actions;
 export default usersSlice.reducer;

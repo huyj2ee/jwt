@@ -3,11 +3,12 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { deleteUserAsync, filterByUsernameAsync, listUsersAsync } from './users/usersSlice';
+import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   const dispatch:AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   function unlock(username: string):void {
     alert('unlock ' + username);
@@ -23,7 +24,8 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   function setPassword(username: string):void {
-    alert('setPassword ' + username);
+    dispatch(clearTargetUsername());
+    navigate('/setpassword?username=' + username);
   }
 
   function setRoles(username: string):void {
