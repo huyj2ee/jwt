@@ -3,7 +3,7 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, unlockUserAsync } from './users/usersSlice';
+import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
@@ -15,12 +15,7 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   function setEnabled(username: string, enabled: boolean):void {
-    if (enabled) {
-      alert('enable ' + username);
-    }
-    else {
-      alert('disable ' + username);
-    }
+    dispatch(setEnabledAsync({username, enabled}));
   }
 
   function setPassword(username: string):void {
