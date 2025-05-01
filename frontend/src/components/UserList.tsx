@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
+import { clearRoles } from './roles/rolesSlice';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   const dispatch:AppDispatch = useDispatch();
@@ -24,7 +25,8 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   function setRoles(username: string):void {
-    alert('setRoles ' + username);
+    dispatch(clearRoles());
+    navigate('/roles?username=' + username);
   }
 
   function deleteUser(username: string):void {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import {
     setSignedInObject,
     nextOp,
@@ -15,9 +15,11 @@ import {
     RefreshTokenEndpoint,
     SignOutEndpoint,
     ChangePasswordEndpoint,
-    UsersEndpoint
+    UsersEndpoint,
+    RolesEndpoint
   } from './setting';
 import { deleteUserAsync, setEnabledAsync, setPasswordAsync, unlockUserAsync } from '../components/users/usersSlice';
+import { assignRevokeRoleAsync, getAllRolesAsync, getAssignedRolesAsync } from '../components/roles/rolesSlice';
 
 export interface Credential {
   username: string,
@@ -54,6 +56,11 @@ export interface UsersStore {
   count: number,
   limit: number,
   page: number
+};
+
+export interface RolesStore {
+  roles: Array<string>,
+  assignedRoles: Array<string>
 };
 
 export const signIn = async (credential: Credential, { rejectWithValue }: any) => {
@@ -110,6 +117,21 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
         case 'setenabled':
           dispatch(nextOp());
           dispatch(setEnabledAsync(JSON.parse(user.params[user.curOp])));
+          break;
+
+        case 'getallroles':
+          dispatch(nextOp());
+          dispatch(getAllRolesAsync());
+          break;
+
+        case 'getassignedroles':
+          dispatch(nextOp());
+          dispatch(getAssignedRolesAsync(user.params[user.curOp]));
+          break;
+
+        case 'assignrevokerole':
+          dispatch(nextOp());
+          dispatch(assignRevokeRoleAsync(JSON.parse(user.params[user.curOp])));
           break;
       }
     }
@@ -311,6 +333,69 @@ export const setEnabled = async (params: {username: string, enabled: boolean}, {
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to edit user.') {
       dispatch(setOps({ops:['setenabled'], params:[error.response.config.data]}));
+      dispatch(refreshTokenAsync());
+    }
+    return rejectWithValue(error.response.data);
+  }
+}
+
+export const getAllRoles = async ({ rejectWithValue, dispatch, getState }: any) => {
+  const ops: Array<string> = getState().user.ops;
+  const params: Array<string> = getState().user.params;
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    const response = await axios.get(RolesEndpoint, config);
+    return response.data;
+  } catch (error) {
+    if (error.response.data.message === 'Admin role is required to get all roles list.') {
+      dispatch(setOps({ops:[...ops, 'getallroles'], params:[...params, null]}));
+      dispatch(refreshTokenAsync());
+    }
+    return rejectWithValue(error.response.data);
+  }
+}
+
+export const getAssignedRoles = async (username: string, { rejectWithValue, dispatch, getState }: any) => {
+  const ops: Array<string> = getState().user.ops;
+  const params: Array<string> = getState().user.params;
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    const response = await axios.get(UsersEndpoint + '/' + username + '/roles', config);
+    return response.data;
+  } catch (error) {
+    if (error.response.data.message === 'Admin role is required to get assigned roles list.') {
+      dispatch(setOps({ops:[...ops, 'getassignedroles'], params:[...params, username]}));
+      dispatch(refreshTokenAsync());
+    }
+    return rejectWithValue(error.response.data);
+  }
+}
+
+export const assignRevokeRole = async (params: {username: string, role: string, isAssigned: boolean}, { rejectWithValue, dispatch, getState }: any) => {
+  const accessToken: string = getState().user.accessToken;
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  };
+  try {
+    let response: AxiosResponse<any, any> = null;
+    const url = UsersEndpoint + '/' + params.username + '/roles/' + params.role;
+    if (params.isAssigned) {
+      response = await axios.put(url, undefined, config);
+    }
+    else {
+      response = await axios.delete(url, config);
+    }
+    dispatch(getAssignedRolesAsync(params.username));
+    return response.data;
+  } catch (error) {
+    if (error.response.data.message === 'Admin role is required to assign role.') {
+      dispatch(setOps({ops:['assignrevokerole'], params:[JSON.stringify(params)]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
