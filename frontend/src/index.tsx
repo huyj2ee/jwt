@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import '@fontsource/roboto';
 import App from './components/App';
 import './app.css';
 import { store } from './app/store';
