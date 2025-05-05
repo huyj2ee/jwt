@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.blogspot.huyj2ee.jwt.jwtutils.exceptions.RefreshTokenException;
 import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.RefreshToken;
@@ -17,13 +18,19 @@ import com.blogspot.huyj2ee.jwt.jwtutils.repositories.UserRepository;
 @Service
 @Transactional
 public class RefreshTokenService {
-  public static final long TOKEN_VALIDITY = 1000 * 60 * 60 * 24 * 7; // a week
+  public static long TOKEN_VALIDITY;
 
   @Autowired
   private RefreshTokenRepository refreshTokenRepository;
 
   @Autowired
   private UserRepository userRepository;
+
+  public RefreshTokenService(
+    @Value("${refreshtoken.validity}") long refreshtokenValidity
+  ) {
+    RefreshTokenService.TOKEN_VALIDITY = refreshtokenValidity;
+  }
 
   public RefreshToken createRefreshToken(String username) {
     User user = userRepository.findByUsername(username).orElse(null);

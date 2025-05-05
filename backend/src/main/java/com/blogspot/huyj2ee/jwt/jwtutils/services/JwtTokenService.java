@@ -16,7 +16,8 @@ import com.blogspot.huyj2ee.jwt.jwtutils.models.jpa.User;
 
 @Service
 public class JwtTokenService {
-  public static final long TOKEN_VALIDITY = 10 * 1000 * 60 * 60; // 10 hours
+  @Value("${accesstoken.validity}")
+  public long TOKEN_VALIDITY;
 
   @Value("${secret}")
   private String jwtSecret;
