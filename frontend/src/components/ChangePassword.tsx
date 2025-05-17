@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { SignedInUser, Credential } from '../app/api';
-import { changePasswordAsync } from './user/userSlice';
+import { changePasswordAsync, setErrorMessage } from './user/userSlice';
 
 const ChangePassword : React.FunctionComponent = () => {
   const user: SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [clientErrorMessage, setClientErrorMessage] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     if (user.username === null) {
@@ -23,13 +23,14 @@ const ChangePassword : React.FunctionComponent = () => {
   };
   function handleChangePassword() {
     if (password != confirmPassword) {
-      setErrorMessage('Password and reenter password is not matched.');
+      setClientErrorMessage('Password and reenter password is not matched.');
     }
     else {
       dispatch(changePasswordAsync(credential));
     }
   }
   function handleBack() {
+    dispatch(setErrorMessage(null));
     navigate('/');
   }
   let feedbackMessage: React.ReactNode = '';
@@ -54,7 +55,7 @@ const ChangePassword : React.FunctionComponent = () => {
         <label htmlFor='reenterPassword'>Reenter password</label>
         <input id='reenterPassword' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
       </div>
-      {errorMessage === null ? '' : <div>{errorMessage}</div>}
+      {clientErrorMessage === null ? '' : <div>{clientErrorMessage}</div>}
       {feedbackMessage}
       <div>
         <button type='button' onClick={handleBack}>Back</button>
