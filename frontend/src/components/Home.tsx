@@ -35,7 +35,7 @@ const SignedOutHome : React.FunctionComponent = () => {
           <label htmlFor='password' className='inline-block min-w-[147px] text-[16px]'>Password</label>
           <input id='password' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
         </div>
-        {user.errorMessage === null ? null : (
+        {user.errorMessage === null || user.errorMessage === '' ? null : (
           <div className='flex items-center w-[418px] h-[32px] mt-[11px] mb-[32px] ml-[53px] bg-[#f9e4dd] text-[#6c0101]'>
             <FontAwesomeIcon className='ml-[11px] mr-[13px] w-[15px] h-[17px] text-[#db2f2f]' icon={faTriangleExclamation}/> {user.errorMessage}
           </div>
