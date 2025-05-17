@@ -55,7 +55,7 @@ const ChangePassword : React.FunctionComponent = () => {
         <label htmlFor='reenterPassword'>Reenter password</label>
         <input id='reenterPassword' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
       </div>
-      {clientErrorMessage === null ? '' : <div>{clientErrorMessage}</div>}
+      {clientErrorMessage === null || user.errorMessage === '' ? '' : <div>{clientErrorMessage}</div>}
       {feedbackMessage}
       <div>
         <button type='button' onClick={handleBack}>Back</button>
