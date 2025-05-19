@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 import { AppDispatch, RootState } from '../app/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { createUserAsync } from './user/userSlice';
+import { createUserAsync, setErrorMessage } from './user/userSlice';
 import { SignedInUser, UserObject } from '../app/api';
 
 const NewUser : React.FunctionComponent = () => {
+  const navigate = useNavigate();
   const user: SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
   const [username, setUsername] = useState<string>('');
@@ -16,10 +18,24 @@ const NewUser : React.FunctionComponent = () => {
   const [usernameIsRequired, setUsernameIsRequired] = useState<React.ReactNode>('');
   const [passwordIsRequired, setPasswordIsRequired] = useState<React.ReactNode>('');
   const [reenterPasswordIsRequired, setReenterPasswordIsRequired] = useState<React.ReactNode>('');
+  let button: React.ReactNode = (
+    <div>
+      <button type='button' onClick={handleCreate}>Create</button>
+    </div>
+  );
+  function handleBack() {
+    navigate('/');
+    dispatch(setErrorMessage(null));
+  }
   let feedbackMessage: React.ReactNode = '';
   let errorMessage: string = '';
   if (user.errorMessage === '') {
     feedbackMessage = <div>User created.</div>;
+    button = (
+    <div>
+      <button type='button' onClick={handleBack}>Back</button>
+    </div>
+  );
   }
   else if (user.errorMessage !== null) {
     const alreadyExistsUser: string = 'already exists.';
@@ -89,9 +105,7 @@ const NewUser : React.FunctionComponent = () => {
       </div>
       {errorMessage === null ? '' : <div>{errorMessage}</div>}
       {feedbackMessage}
-      <div>
-        <button type='button' onClick={handleCreate}>Create</button>
-      </div>
+      {button}
     </Layout>
   );
 };
