@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { SignedInUser } from '../app/api';
-import { refreshTokenAsync, signOutAsync } from './user/userSlice';
+import { refreshTokenAsync, signOutAsync, setErrorMessage } from './user/userSlice';
 
 interface LayoutProperties {
   children?: React.ReactNode;
@@ -26,6 +26,9 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
       navigate('/');
     }
   }, [user.username]);
+  useEffect(() => {
+    dispatch(setErrorMessage(null));
+  }, []);
   if (user.roles.includes('admin')) {
     usersLink = <li><Link to='/users'>Users</Link></li>;
   }
