@@ -24,8 +24,7 @@ const NewUser : React.FunctionComponent = () => {
     </div>
   );
   function handleBack() {
-    navigate('/');
-    dispatch(setErrorMessage(null));
+    navigate('/users');
   }
   let feedbackMessage: React.ReactNode = '';
   let errorMessage: string = '';
