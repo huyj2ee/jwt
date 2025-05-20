@@ -84,14 +84,21 @@ const usersSlice = createSlice({
       })
       // filterbyusername
       .addCase(filterByUsernameAsync.pending, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
       })
       .addCase(filterByUsernameAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
         state.data = action.payload.data;
         state.count = action.payload.count;
         state.limit = action.payload.limit;
         state.page = action.payload.page;
       })
       .addCase(filterByUsernameAsync.rejected, (state: UsersStore, action: PayloadAction<any>) => {
+        state.data = [];
+        state.count = 0;
+        state.limit = 0;
+        state.page = 0;
+        state.errorMessage = action.payload.message;
       })
       // setpassword
       .addCase(setPasswordAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
