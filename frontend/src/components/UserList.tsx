@@ -133,6 +133,7 @@ const UserList : React.FunctionComponent = () => {
         <input type='text' placeholder='Filter by username...' onKeyDown={e => filterByUsernameKeyDown(e)} onChange={e => setSearchParams("username=" + e.target.value)} value={username}></input>
         <button type='button' onClick={handleFilterByUsername}>Filter</button>
       </div>
+      {users.errorMessage === null ? null : <div>Unexpected Error has occurred.</div>}
       <div>
         {users.data.map((user) => <User user={user}/>)}
       </div>

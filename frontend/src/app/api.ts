@@ -55,7 +55,8 @@ export interface UsersStore {
   data: Array<UserItem>,
   count: number,
   limit: number,
-  page: number
+  page: number,
+  errorMessage: string
 };
 
 export interface RolesStore {

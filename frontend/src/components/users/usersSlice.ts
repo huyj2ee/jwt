@@ -54,7 +54,8 @@ const initialState: UsersStore = {
   data: [],
   count: 0,
   limit: 0,
-  page: 0
+  page: 0,
+  errorMessage: null
 };
 
 const usersSlice = createSlice({
@@ -69,16 +70,19 @@ const usersSlice = createSlice({
     builder
       // listusers
       .addCase(listUsersAsync.pending, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
       })
       .addCase(listUsersAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
         state.data = action.payload.data;
         state.count = action.payload.count;
         state.limit = action.payload.limit;
         state.page = action.payload.page;
       })
       .addCase(listUsersAsync.rejected, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = action.payload.message;
       })
-      // listusers
+      // filterbyusername
       .addCase(filterByUsernameAsync.pending, (state: UsersStore, action: PayloadAction<any>) => {
       })
       .addCase(filterByUsernameAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
