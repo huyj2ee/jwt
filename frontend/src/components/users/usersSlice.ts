@@ -80,6 +80,10 @@ const usersSlice = createSlice({
         state.page = action.payload.page;
       })
       .addCase(listUsersAsync.rejected, (state: UsersStore, action: PayloadAction<any>) => {
+        state.data = [];
+        state.count = 0;
+        state.limit = 0;
+        state.page = 0;
         state.errorMessage = action.payload.message;
       })
       // filterbyusername
