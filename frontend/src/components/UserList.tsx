@@ -8,6 +8,7 @@ import { SignedInUser, UserItem, UsersStore } from '../app/api';
 import { clearRoles } from './roles/rolesSlice';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
+  const signedInUser:SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +44,11 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
       }
       <span onClick={() => setPassword(user.username)}>password</span>
       <span onClick={() => setRoles(user.username)}>roles</span>
-      <span onClick={() => deleteUser(user.username)}>delete</span>
+      {
+        user.username === signedInUser.username ?
+        <span>delete</span> :
+        <span onClick={() => deleteUser(user.username)}>delete</span>
+      }
     </div>
   );
 };
