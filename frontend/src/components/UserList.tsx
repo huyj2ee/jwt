@@ -3,7 +3,7 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
+import { clearTargetUsername, setRefreshRequest, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 import { clearRoles } from './roles/rolesSlice';
 
@@ -54,7 +54,6 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
 };
 
 const UserList : React.FunctionComponent = () => {
-  const user:SignedInUser = useSelector((state: RootState) => state.user);
   const users:UsersStore = useSelector((state: RootState) => state.users);
   const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -116,15 +115,16 @@ const UserList : React.FunctionComponent = () => {
   }
 
   useEffect(()=>{
-    if (user.username !== null) {
+    if (users.refreshRequest) {
       if (username.length > 0) {
         dispatch(filterByUsernameAsync(username));
       }
       else {
         dispatch(listUsersAsync({page, nonlocked}));
       }
+      dispatch(setRefreshRequest(false));
     }
-  }, [dispatch, page, nonlocked, user]);
+  }, [dispatch, page, nonlocked, users]);
 
   return (
     <Layout>

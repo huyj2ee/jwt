@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { SignedInUser } from '../app/api';
 import { refreshTokenAsync, signOutAsync, setErrorMessage } from './user/userSlice';
+import { setRefreshRequest } from './users/usersSlice';
 
 interface LayoutProperties {
   children?: React.ReactNode;
@@ -30,7 +31,10 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
     dispatch(setErrorMessage(null));
   }, []);
   if (user.roles.includes('admin')) {
-    usersLink = <li><Link to='/users'>Users</Link></li>;
+    function handleUsersLink() {
+      dispatch(setRefreshRequest(true));
+    }
+    usersLink = <li><Link to='/users' onClick={handleUsersLink}>Users</Link></li>;
   }
   return (
     <div>

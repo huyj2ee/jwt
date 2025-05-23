@@ -55,7 +55,8 @@ const initialState: UsersStore = {
   count: 0,
   limit: 0,
   page: 0,
-  errorMessage: null
+  errorMessage: null,
+  refreshRequest: false
 };
 
 const usersSlice = createSlice({
@@ -64,6 +65,9 @@ const usersSlice = createSlice({
   reducers: {
     clearTargetUsername: (state) => {
       state.targetUsername = null;
+    },
+    setRefreshRequest: (state, action) => {
+      state.refreshRequest = action.payload;
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<UsersStore>) => {
@@ -111,5 +115,5 @@ const usersSlice = createSlice({
   }
 });
 
-export const { clearTargetUsername } = usersSlice.actions;
+export const { clearTargetUsername, setRefreshRequest } = usersSlice.actions;
 export default usersSlice.reducer;
