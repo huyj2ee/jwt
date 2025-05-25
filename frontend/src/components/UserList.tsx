@@ -75,12 +75,14 @@ const UserList : React.FunctionComponent = () => {
     <button type='button' onClick={toggleLock}>List all users</button>;
 
   function handlePrePageClick() {
+    dispatch(setRefreshRequest(true));
     searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
     searchParams.set("page", (page - 1).toString());
     setSearchParams(searchParams);
   }
 
   function handleNextPageClick() {
+    dispatch(setRefreshRequest(true));
     searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
     searchParams.set("page", (page + 1).toString());
     setSearchParams(searchParams);
