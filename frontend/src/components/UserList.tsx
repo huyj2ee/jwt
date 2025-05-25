@@ -89,6 +89,7 @@ const UserList : React.FunctionComponent = () => {
   }
 
   function toggleLock() {
+    dispatch(setRefreshRequest(true));
     if (nonlocked === null) {
       searchParams.set("nonlocked", "false");
       searchParams.set("page", "0");
