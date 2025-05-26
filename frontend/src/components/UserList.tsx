@@ -25,7 +25,7 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   function setEnabled(username: string, enabled: boolean):void {
-    dispatch(setEnabledAsync({username, enabled}));
+    dispatch(setEnabledAsync({username, enabled, filteredUsername, page, nonlocked}));
   }
 
   function setPassword(username: string):void {

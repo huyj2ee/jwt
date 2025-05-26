@@ -43,7 +43,7 @@ export const unlockUserAsync = createAsyncThunk(
 
 export const setEnabledAsync = createAsyncThunk(
   'setenabled',
-  async (params: {username: string, enabled: boolean}, thunkAPI) => {
+  async (params: {username: string, enabled: boolean, filteredUsername: string, page: number, nonlocked: boolean}, thunkAPI) => {
     const response = await setEnabled(params, thunkAPI);
     return response;
   }

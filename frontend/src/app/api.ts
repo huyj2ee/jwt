@@ -338,18 +338,23 @@ export const unlockUser = async (username: string, { rejectWithValue, dispatch, 
   }
 }
 
-export const setEnabled = async (params: {username: string, enabled: boolean}, { rejectWithValue, dispatch, getState }: any) => {
+export const setEnabled = async (params: {username: string, enabled: boolean, filteredUsername: string, page: number, nonlocked: boolean}, { rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
   try {
     await axios.put(UsersEndpoint + '/' + params.username, params, config);
-    dispatch(refreshTokenAsync());
+    if (params.filteredUsername.length > 0) {
+      dispatch(filterByUsernameAsync(params.filteredUsername));
+    }
+    else {
+      dispatch(listUsersAsync({page: params.page, nonlocked: params.nonlocked}));
+    }
     return null;
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to edit user.') {
-      dispatch(setOps({ops:['setenabled'], params:[error.response.config.data]}));
+      dispatch(setOps({ops:['setenabled'], params:[JSON.stringify(params)]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
