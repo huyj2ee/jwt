@@ -102,7 +102,11 @@ const usersSlice = createSlice({
         state.count = 0;
         state.limit = 0;
         state.page = 0;
-        state.errorMessage = action.payload.message;
+        const prefix:string = 'User with username';
+        const subfix:string = 'is not found.';
+        if (action.payload.message.slice(0, prefix.length) !== prefix || action.payload.message.slice(-subfix.length) !== subfix) {
+          state.errorMessage = action.payload.message;
+        }
       })
       // setpassword
       .addCase(setPasswordAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
