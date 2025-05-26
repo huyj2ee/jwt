@@ -3,11 +3,19 @@ import Layout from './Layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
-import { clearTargetUsername, setRefreshRequest, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
+import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 import { clearRoles } from './roles/rolesSlice';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const usernameObj:string = searchParams.get("username");
+  const filteredUsername:string = usernameObj === null ? '' : usernameObj;
+  const pageStr:string = searchParams.get("page");
+  const page:number = pageStr === null ? 0 : parseInt(pageStr);
+  const nonlockedObj:string = searchParams.get("nonlocked");
+  const nonlocked:boolean = nonlockedObj === null || nonlockedObj.length === 0 ? null : false;
+
   const signedInUser:SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +39,7 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   function deleteUser(username: string):void {
-    dispatch(deleteUserAsync(username));
+    dispatch(deleteUserAsync({username, filteredUsername, page, nonlocked}));
   }
 
   return (
@@ -75,21 +83,18 @@ const UserList : React.FunctionComponent = () => {
     <button type='button' onClick={toggleLock}>List all users</button>;
 
   function handlePrePageClick() {
-    dispatch(setRefreshRequest(true));
     searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
     searchParams.set("page", (page - 1).toString());
     setSearchParams(searchParams);
   }
 
   function handleNextPageClick() {
-    dispatch(setRefreshRequest(true));
     searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
     searchParams.set("page", (page + 1).toString());
     setSearchParams(searchParams);
   }
 
   function toggleLock() {
-    dispatch(setRefreshRequest(true));
     if (nonlocked === null) {
       searchParams.set("nonlocked", "false");
       searchParams.set("page", "0");
@@ -118,16 +123,13 @@ const UserList : React.FunctionComponent = () => {
   }
 
   useEffect(()=>{
-    if (users.refreshRequest) {
-      if (username.length > 0) {
-        dispatch(filterByUsernameAsync(username));
-      }
-      else {
-        dispatch(listUsersAsync({page, nonlocked}));
-      }
-      dispatch(setRefreshRequest(false));
+    if (username.length > 0) {
+      dispatch(filterByUsernameAsync(username));
     }
-  }, [dispatch, page, nonlocked, users]);
+    else {
+      dispatch(listUsersAsync({page, nonlocked}));
+    }
+  }, [dispatch, page, nonlocked]);
 
   return (
     <Layout>

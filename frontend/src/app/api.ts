@@ -18,7 +18,7 @@ import {
     UsersEndpoint,
     RolesEndpoint
   } from './setting';
-import { deleteUserAsync, setEnabledAsync, setPasswordAsync, setRefreshRequest, unlockUserAsync } from '../components/users/usersSlice';
+import { deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, setPasswordAsync, unlockUserAsync } from '../components/users/usersSlice';
 import { assignRevokeRoleAsync, getAllRolesAsync, getAssignedRolesAsync } from '../components/roles/rolesSlice';
 
 export interface Credential {
@@ -56,8 +56,7 @@ export interface UsersStore {
   count: number,
   limit: number,
   page: number,
-  errorMessage: string,
-  refreshRequest: boolean
+  errorMessage: string
 };
 
 export interface RolesStore {
@@ -83,7 +82,6 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
       roles: response.data.roles,
     };
     dispatch(setSignedInObject(signedInObj));
-    dispatch(setRefreshRequest(true));
     const user: SignedInUser = getState().user;
     if (user.ops.length > 0) {
       switch(user.ops[user.curOp]) {
@@ -97,6 +95,15 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
           dispatch(changePasswordAsync(JSON.parse(user.params[user.curOp])));
           break;
 
+        case 'listusers':
+          dispatch(nextOp());
+          dispatch(listUsersAsync(JSON.parse(user.params[user.curOp])));
+          break;
+
+        case 'filterbyusername':
+          dispatch(nextOp());
+          dispatch(filterByUsernameAsync(user.params[user.curOp]));
+          break;
         case 'createuser':
           dispatch(nextOp());
           dispatch(createUserAsync(JSON.parse(user.params[user.curOp])));
@@ -104,7 +111,7 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
 
         case 'deleteuser':
           dispatch(nextOp());
-          dispatch(deleteUserAsync(user.params[user.curOp]));
+          dispatch(deleteUserAsync(JSON.parse(user.params[user.curOp])));
           break;
 
         case 'setpassword':
@@ -207,7 +214,6 @@ export const createUser = async (user: UserObject, { rejectWithValue, dispatch, 
   };
   try {
     const response = await axios.post(UsersEndpoint, user, config);
-    dispatch(setRefreshRequest(true));
     return response.data;
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to create new user.') {
@@ -240,6 +246,7 @@ export const listUsers = async (params: {page:number, nonlocked:boolean}, { reje
     };
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to get user list.') {
+      dispatch(setOps({ops:['listusers'], params:[JSON.stringify(params)]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
@@ -253,7 +260,6 @@ export const filterByUsername = async (username: string, { rejectWithValue, disp
   };
   try {
     const response = await axios.get(UsersEndpoint + '/' + username, config);
-    dispatch(setRefreshRequest(true));
     return {
       data: [response.data],
       count: 1,
@@ -262,30 +268,33 @@ export const filterByUsername = async (username: string, { rejectWithValue, disp
     };
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to get user.') {
+      dispatch(setOps({ops:['filterbyusername'], params:[username]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
   }
 }
 
-export const deleteUser = async (username: string, { rejectWithValue, dispatch, getState }: any) => {
+export const deleteUser = async (params: {username: string, filteredUsername: string, page: number, nonlocked: boolean}, { rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
   try {
-    await axios.delete(UsersEndpoint + '/' + username, config);
-    dispatch(setRefreshRequest(true));
+    await axios.delete(UsersEndpoint + '/' + params.username, config);
+    if (params.filteredUsername.length > 0) {
+      dispatch(filterByUsernameAsync(params.filteredUsername));
+    }
+    else {
+      dispatch(listUsersAsync({page: params.page, nonlocked: params.nonlocked}));
+    }
     return null;
   } catch (error) {
     const url:string = error.response.config.url;
     const username:string = url.substring(url.lastIndexOf('/') + 1, url.length);
     if (error.response.data.message === 'Admin role is required to delete user.') {
-      dispatch(setOps({ops:['deleteuser'], params:[username]}));
+      dispatch(setOps({ops:['deleteuser'], params:[JSON.stringify(params)]}));
       dispatch(refreshTokenAsync());
-    }
-    else {
-      dispatch(setRefreshRequest(true));
     }
     return rejectWithValue(error.response.data);
   }

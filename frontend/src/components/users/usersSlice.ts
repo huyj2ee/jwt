@@ -19,8 +19,8 @@ export const filterByUsernameAsync = createAsyncThunk(
 
 export const deleteUserAsync = createAsyncThunk(
   'deleteuser',
-  async (username:string, thunkAPI) => {
-    const response = await deleteUser(username, thunkAPI);
+  async (params: {username: string, filteredUsername: string, page: number, nonlocked: boolean}, thunkAPI) => {
+    const response = await deleteUser(params, thunkAPI);
     return response;
   }
 );
@@ -55,8 +55,7 @@ const initialState: UsersStore = {
   count: 0,
   limit: 0,
   page: 0,
-  errorMessage: null,
-  refreshRequest: false
+  errorMessage: null
 };
 
 const usersSlice = createSlice({
@@ -65,9 +64,6 @@ const usersSlice = createSlice({
   reducers: {
     clearTargetUsername: (state) => {
       state.targetUsername = null;
-    },
-    setRefreshRequest: (state, action) => {
-      state.refreshRequest = action.payload;
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<UsersStore>) => {
@@ -115,5 +111,5 @@ const usersSlice = createSlice({
   }
 });
 
-export const { clearTargetUsername, setRefreshRequest } = usersSlice.actions;
+export const { clearTargetUsername } = usersSlice.actions;
 export default usersSlice.reducer;
