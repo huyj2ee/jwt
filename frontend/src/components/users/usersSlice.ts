@@ -35,8 +35,8 @@ export const setPasswordAsync = createAsyncThunk(
 
 export const unlockUserAsync = createAsyncThunk(
   'unlockuser',
-  async (username:string, thunkAPI) => {
-    const response = await unlockUser(username, thunkAPI);
+  async (params: {username: string, filteredUsername: string, page: number, nonlocked: boolean}, thunkAPI) => {
+    const response = await unlockUser(params, thunkAPI);
     return response;
   }
 );

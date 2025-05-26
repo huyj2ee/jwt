@@ -104,6 +104,7 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
           dispatch(nextOp());
           dispatch(filterByUsernameAsync(user.params[user.curOp]));
           break;
+
         case 'createuser':
           dispatch(nextOp());
           dispatch(createUserAsync(JSON.parse(user.params[user.curOp])));
@@ -121,7 +122,7 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
 
         case 'unlockuser':
           dispatch(nextOp());
-          dispatch(unlockUserAsync(user.params[user.curOp]));
+          dispatch(unlockUserAsync(JSON.parse(user.params[user.curOp])));
           break;
 
         case 'setenabled':
@@ -317,21 +318,25 @@ export const setPassword = async (params: {username: string, password: string}, 
   }
 }
 
-export const unlockUser = async (username: string, { rejectWithValue, dispatch, getState }: any) => {
+export const unlockUser = async (params: {username: string, filteredUsername: string, page: number, nonlocked: boolean}, { rejectWithValue, dispatch, getState }: any) => {
   const accessToken: string = getState().user.accessToken;
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
   try {
-    const params = {username, accountNonLocked: true};
-    await axios.put(UsersEndpoint + '/' + username, params, config);
-    dispatch(refreshTokenAsync());
+    const httpParams = {username: params.username, accountNonLocked: true};
+    await axios.put(UsersEndpoint + '/' + params.username, httpParams, config);
+    if (params.filteredUsername.length > 0) {
+      dispatch(filterByUsernameAsync(params.filteredUsername));
+    }
+    else {
+      dispatch(listUsersAsync({page: params.page, nonlocked: params.nonlocked}));
+    }
     return null;
   } catch (error) {
     const url:string = error.response.config.url;
-    const username:string = url.substring(url.lastIndexOf('/') + 1, url.length);
     if (error.response.data.message === 'Admin role is required to edit user.') {
-      dispatch(setOps({ops:['unlockuser'], params:[username]}));
+      dispatch(setOps({ops:['unlockuser'], params:[JSON.stringify(params)]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);

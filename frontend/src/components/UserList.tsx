@@ -21,7 +21,7 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   const navigate = useNavigate();
 
   function unlock(username: string):void {
-    dispatch(unlockUserAsync(username));
+    dispatch(unlockUserAsync({username, filteredUsername, page, nonlocked}));
   }
 
   function setEnabled(username: string, enabled: boolean):void {
