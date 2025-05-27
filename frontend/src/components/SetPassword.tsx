@@ -49,6 +49,7 @@ const SetPassword : React.FunctionComponent = () => {
         <input id='reenterPassword' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
       </div>
       {errorMessage === null ? '' : <div>{errorMessage}</div>}
+      {users.errorMessage === null ? null : <div>Unexpected Error has occurred.</div>}
       <div>
         <button type='button' onClick={handleSet}>Set</button>
       </div>

@@ -109,8 +109,17 @@ const usersSlice = createSlice({
         }
       })
       // setpassword
+      .addCase(setPasswordAsync.pending, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+        state.targetUsername = null;
+      })
       .addCase(setPasswordAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
         state.targetUsername = action.payload.username;
+      })
+      .addCase(setPasswordAsync.rejected, (state: UsersStore, action: PayloadAction<any>) => {
+        state.targetUsername = null;
+        state.errorMessage = action.payload.message;
       });
   }
 });
