@@ -61,7 +61,8 @@ export interface UsersStore {
 
 export interface RolesStore {
   roles: Array<string>,
-  assignedRoles: Array<string>
+  assignedRoles: Array<string>,
+  errorMessage: string
 };
 
 export const signIn = async (credential: Credential, { rejectWithValue }: any) => {

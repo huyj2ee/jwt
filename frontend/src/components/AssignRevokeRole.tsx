@@ -57,6 +57,7 @@ const AssignRevokeRole : React.FunctionComponent = () => {
     <Layout>
       {username} roles
       <Roles roles={roles}/>
+      {roles.errorMessage === null ? null : <div>Unexpected Error has occurred.</div>}
       <Link to="/users">Back</Link>
     </Layout>
   );

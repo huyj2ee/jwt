@@ -27,7 +27,8 @@ export const assignRevokeRoleAsync = createAsyncThunk(
 
 const initialState: RolesStore = {
   roles: null,
-  assignedRoles: null
+  assignedRoles: null,
+  errorMessage: null
 };
 
 const rolesSlice = createSlice({
@@ -42,12 +43,40 @@ const rolesSlice = createSlice({
   extraReducers: (builder: ActionReducerMapBuilder<RolesStore>) => {
     builder
       // getallroles
+      .addCase(getAllRolesAsync.pending, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+        state.roles = null;
+      })
       .addCase(getAllRolesAsync.fulfilled, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
         state.roles = action.payload.map((role: any) => role.role);
       })
+      .addCase(getAllRolesAsync.rejected, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = action.payload.message;
+        state.roles = null;
+      })
       // getassignedroles
+      .addCase(getAssignedRolesAsync.pending, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+        state.assignedRoles = null;
+      })
       .addCase(getAssignedRolesAsync.fulfilled, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
         state.assignedRoles = action.payload.map((role: any) => role.role);
+      })
+      .addCase(getAssignedRolesAsync.rejected, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = action.payload.message;
+        state.assignedRoles = null;
+      })
+      // assignrevokeroles
+      .addCase(assignRevokeRoleAsync.pending, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+      })
+      .addCase(assignRevokeRoleAsync.fulfilled, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+      })
+      .addCase(assignRevokeRoleAsync.rejected, (state: RolesStore, action: PayloadAction<any>) => {
+        state.errorMessage = action.payload.message;
       });
     }
 });
