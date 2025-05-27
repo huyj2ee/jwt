@@ -45,13 +45,8 @@ const AssignRevokeRole : React.FunctionComponent = () => {
   const username:string = usernameObj === null ? '' : usernameObj;
 
   useEffect(()=>{
-    if (roles.roles === null) {
-      dispatch(getAllRolesAsync());
-    }
-    if (roles.assignedRoles === null) {
-      dispatch(getAssignedRolesAsync(username));
-    }
-  }, [dispatch, roles]);
+    dispatch(getAssignedRolesAsync(username));
+  }, []);
 
   return (
     <Layout>

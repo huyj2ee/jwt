@@ -379,7 +379,7 @@ export const getAllRoles = async ({ rejectWithValue, dispatch, getState }: any) 
     return response.data;
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to get all roles list.') {
-      dispatch(setOps({ops:[...ops, 'getallroles'], params:[...params, null]}));
+      dispatch(setOps({ops:['getallroles'], params:[null]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
@@ -395,10 +395,13 @@ export const getAssignedRoles = async (username: string, { rejectWithValue, disp
   };
   try {
     const response = await axios.get(UsersEndpoint + '/' + username + '/roles', config);
+    if (getState().roles.roles === null) {
+      dispatch(getAllRolesAsync());
+    }
     return response.data;
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to get assigned roles list.') {
-      dispatch(setOps({ops:[...ops, 'getassignedroles'], params:[...params, username]}));
+      dispatch(setOps({ops:['getassignedroles'], params:[username]}));
       dispatch(refreshTokenAsync());
     }
     return rejectWithValue(error.response.data);
