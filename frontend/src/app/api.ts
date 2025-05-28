@@ -425,7 +425,9 @@ export const assignRevokeRole = async (params: {username: string, role: string, 
     dispatch(getAssignedRolesAsync(params.username));
     return response.data;
   } catch (error) {
-    if (error.response.data.message === 'Admin role is required to assign role.') {
+    if (error.response.data.message === 'Admin role is required to assign role.' ||
+      error.response.data.message === 'Admin role is required to revoke role.'
+    ) {
       dispatch(setOps({ops:['assignrevokerole'], params:[JSON.stringify(params)]}));
       dispatch(refreshTokenAsync());
     }
