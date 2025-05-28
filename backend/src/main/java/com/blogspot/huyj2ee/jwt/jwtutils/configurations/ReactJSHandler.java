@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ReactJSHandler {
   @ExceptionHandler({NoHandlerFoundException.class})
-  public ResponseEntity<String> reactJSHandler(NoHandlerFoundException ex, HttpServletRequest request) {
+  public ResponseEntity<?> reactJSHandler(NoHandlerFoundException ex, HttpServletRequest request) {
     ClassLoader cl = this.getClass().getClassLoader();
     String path = request.getServletPath();
     MediaType mt = MediaType.TEXT_HTML;
@@ -25,6 +26,20 @@ public class ReactJSHandler {
     }
     else if (path.endsWith(".css")) {
       mt = new MediaType("text", "css");
+    }
+    else if (path.endsWith(".png")) {
+      mt = new MediaType("image", "png");
+      InputStream is = cl.getResourceAsStream("/static" + path);
+      byte[] bytes = null;
+      try {
+        bytes = is.readAllBytes();
+        is.close();
+      }
+      catch(Exception e) {
+      }
+      final HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(mt);
+      return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
     }
     String result = "";
     InputStream is = cl.getResourceAsStream("/static" + path);

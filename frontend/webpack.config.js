@@ -56,6 +56,10 @@ module.exports = (env, argv) => {
             filter: (name) => {
               return !name.endsWith("index.html");
             }
+          },
+          {
+            from: "public/imgs",
+            to: "./imgs"
           }
         ]
       })
