@@ -27,19 +27,31 @@ public class ReactJSHandler {
     else if (path.endsWith(".css")) {
       mt = new MediaType("text", "css");
     }
-    else if (path.endsWith(".png")) {
-      mt = new MediaType("image", "png");
-      InputStream is = cl.getResourceAsStream("/static" + path);
-      byte[] bytes = null;
-      try {
-        bytes = is.readAllBytes();
-        is.close();
+    else {
+      boolean isPng = path.endsWith(".png");
+      boolean isJpg = path.endsWith(".jpg");
+      if (isPng || isJpg) {
+        if (isPng) {
+          mt = new MediaType("image", "png");
+        }
+        if (isJpg) {
+          mt = new MediaType("image", "jpeg");
+        }
+        InputStream is = cl.getResourceAsStream("/static" + path);
+        if (is == null) {
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        byte[] bytes = null;
+        try {
+          bytes = is.readAllBytes();
+          is.close();
+        }
+        catch(IOException e) {
+        }
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(mt);
+        return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
       }
-      catch(Exception e) {
-      }
-      final HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(mt);
-      return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
     }
     String result = "";
     InputStream is = cl.getResourceAsStream("/static" + path);
