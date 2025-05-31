@@ -148,6 +148,19 @@ const usersSlice = createSlice({
         state.limit = 0;
         state.page = 0;
         state.errorMessage = action.payload.message;
+      })
+      .addCase(deleteUserAsync.pending, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+      })
+      .addCase(deleteUserAsync.fulfilled, (state: UsersStore, action: PayloadAction<any>) => {
+        state.errorMessage = null;
+      })
+      .addCase(deleteUserAsync.rejected, (state: UsersStore, action: PayloadAction<any>) => {
+        state.data = [];
+        state.count = 0;
+        state.limit = 0;
+        state.page = 0;
+        state.errorMessage = action.payload.message;
       });
   }
 });
