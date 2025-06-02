@@ -46,9 +46,18 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
     <div>
       <span>{user.username}</span>
       {user.accountNonLocked ? '' : <span onClick={() => unlock(user.username)}>unlock</span>}
-      {user.enabled ?
-        <span onClick={() => setEnabled(user.username, false)}>disable</span> :
-        <span onClick={() => setEnabled(user.username, true)}>enable</span>
+      {
+        user.username === signedInUser.username ?
+        (
+          user.enabled ?
+          <span>disable</span> :
+          <span>enable</span>
+        ) :
+        (
+          user.enabled ?
+          <span onClick={() => setEnabled(user.username, false)}>disable</span> :
+          <span onClick={() => setEnabled(user.username, true)}>enable</span>
+        )
       }
       <span onClick={() => setPassword(user.username)}>password</span>
       <span onClick={() => setRoles(user.username)}>roles</span>
