@@ -1,20 +1,111 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../app/store';
 import { SignedInUser } from '../app/api';
 import { refreshTokenAsync, signOutAsync, setErrorMessage } from './user/userSlice';
 import { listUsersAsync } from './users/usersSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesLeft, faAnglesRight, faHouseChimney, faSortDown, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { useLocalStorage } from 'react-use';
 
 interface LayoutProperties {
   children?: React.ReactNode;
+}
+
+const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutProperties) => {
+  const [navExpanded, setNavExpanded] = useLocalStorage('navExpanded', false);
+  const user:SignedInUser = useSelector((state: RootState) => state.user);
+  const dispatch: AppDispatch = useDispatch();
+  const location = useLocation();
+  let homeStyle = location.pathname === '/' ? {background: 'black'} : {};
+  let usersStyle = ['/users', '/roles', '/setpassword'].includes(location.pathname) ? {background: 'black'} : {};
+  let usersLink: React.ReactNode = '';
+  if (user.roles.includes('admin')) {
+    function handleUsersLink() {
+      dispatch(listUsersAsync({page: 0, nonlocked: true}));
+    }
+    usersLink = (
+      <li style={usersStyle} className='hover:bg-black [&:hover>a>span]:block [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
+        <Link to='/users' onClick={handleUsersLink} className='relative flex items-center'>
+          <FontAwesomeIcon icon={faUsers} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
+          {
+            navExpanded ?
+            <span className='ml-[26px] h-full w-[124px] text-[#d9d9d9] text-[16px]'>
+              Users
+            </span> :
+            <span className='absolute left-full top-0 hidden h-full '>
+              <span className='flex items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Users</span>
+            </span>
+          }
+        </Link>
+      </li>
+    );
+  }
+  return navExpanded ?
+  (
+    <div>
+      <nav className='relative w-[200px] h-[calc(100vh-50px)] bg-[#747474] float-left'>
+        <ul className='absolute top-0 left-0'>
+          <li style={homeStyle} className='hover:bg-black [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
+            <Link to='/' className='flex items-center'>
+              <FontAwesomeIcon icon={faHouseChimney} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
+              <span className='ml-[26px] h-full w-[124px] text-[#d9d9d9] text-[16px]'>
+                Home
+              </span>
+            </Link>
+          </li>
+          {usersLink}
+        </ul>
+        <ul className='absolute left-0 bottom-0 w-full'>
+          <div className='w-full h-[1px] mb-[2px] bg-black'/>
+          <li className='flex items-center justify-end [&:hover>div]:font-medium [&:hover>div>svg]:text-[#ffffff]' onClick={(e)=>{setNavExpanded(false)}}>
+            <div className='text-[#fafafa] text-[16px]'>Collapse menu</div>
+            <div className='w-[34px] h-[34px] m-[8px] rounded-[17px] bg-black flex items-center justify-center cursor-pointer'>
+              <FontAwesomeIcon icon={faAnglesLeft} className='w-[19px] h-[16px] mr-[1px] text-[#0099cc]'/>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <main className='w-[calc(100vw-200px)] h-[calc(100vh-50px)] float-right'>
+        {props.children}
+      </main>
+    </div>
+  ) :
+  (
+    <div>
+      <nav className='relative w-[50px] h-[calc(100vh-50px)] bg-[#747474] float-left'>
+        <ul className='absolute top-0 left-0'>
+          <li style={homeStyle} className='hover:bg-black [&:hover>a>span]:block [&:hover>a>svg]:text-[#ffffff]'>
+            <Link to='/' className='relative flex items-center'>
+              <FontAwesomeIcon icon={faHouseChimney} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
+              <span className='absolute left-full top-0 h-full hidden'>
+                <span className='flex items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Home</span>
+              </span>
+            </Link>
+          </li>
+          {usersLink}
+        </ul>
+        <ul className='absolute left-0 bottom-0 w-full'>
+          <div className='w-full h-[1px] mb-[2px] bg-black'/>
+          <li className='flex items-center [&:hover>div>svg]:text-[#ffffff]' onClick={(e)=>{setNavExpanded(true)}}>
+            <div className='w-[34px] h-[34px] m-[8px] rounded-[17px] bg-black flex items-center justify-center cursor-pointer'>
+              <FontAwesomeIcon icon={faAnglesRight} className='w-[19px] h-[16px] text-[#0099cc]'/>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <main className='w-[calc(100vw-50px)] h-[calc(100vh-50px)] float-right'>
+        {props.children}
+      </main>
+    </div>
+  );
 }
 
 const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutProperties) => {
   const navigate = useNavigate();
   const user:SignedInUser = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
-  let usersLink: React.ReactNode = '';
   function handleSignOut () {
     dispatch(signOutAsync());
     navigate('/');
@@ -30,34 +121,25 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
   useEffect(() => {
     dispatch(setErrorMessage(null));
   }, []);
-  if (user.roles.includes('admin')) {
-    function handleUsersLink() {
-      dispatch(listUsersAsync({page: 0, nonlocked: true}));
-    }
-    usersLink = <li><Link to='/users' onClick={handleUsersLink}>Users</Link></li>;
-  }
   return (
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Home</Link>
-          </li>
-          {usersLink}
-        </ul>
-      </nav>
-      <div>
-        <ul>
-          <li>{user.username}</li>
-        </ul>
-        <ul>
-          <li><Link to='/password'>Change password</Link></li>
-        </ul>
-        <ul>
-          <li><span onClick={handleSignOut}>Sign out</span></li>
-        </ul>
-      </div>
-      {props.children}
+      <header className='flex items-center justify-between pl-[5px] bg-[#eeeeee] w-full h-[50px]'>
+        <img src='/imgs/logo.png' alt='logo'/>
+        <div className='relative [&:hover>ul]:block h-[50px] flex items-center'>
+          <div>
+            <FontAwesomeIcon icon={faUser} className='w-[34px] h-[34px]'/>
+            <FontAwesomeIcon icon={faSortDown} className='w-[34px] h-[34px]'/>
+          </div>
+          <ul className='absolute hidden w-[180px] bg-[#ffffff] top-full right-0'>
+            <li className='w-full h-[50px] bg-[#d9d9d9] flex items-center justify-end pr-[20px]'>{user.username}</li>
+            <li className='w-full h-[50px] bg-[#d9d9d9] flex items-center justify-end pr-[20px] mt-[1px]'><Link to='/password'>Change password</Link></li>
+            <li className='w-full h-[50px] bg-[#d9d9d9] flex items-center justify-end pr-[20px] mt-[1px] cursor-pointer'><span onClick={handleSignOut}>Sign out</span></li>
+          </ul>
+        </div>
+      </header>
+      <Body>
+        {props.children}
+      </Body>
     </div>
   );
 }
