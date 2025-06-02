@@ -26,7 +26,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
       dispatch(listUsersAsync({page: 0, nonlocked: true}));
     }
     usersLink = (
-      <li style={usersStyle} className='hover:bg-black [&:hover>a>span]:block [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
+      <li style={usersStyle} className='hover:bg-black [&:hover>a>span]:flex [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
         <Link to='/users' onClick={handleUsersLink} className='relative flex items-center'>
           <FontAwesomeIcon icon={faUsers} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
           {
@@ -34,9 +34,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
             <span className='ml-[26px] h-full w-[124px] text-[#d9d9d9] text-[16px]'>
               Users
             </span> :
-            <span className='absolute left-full top-0 hidden h-full '>
-              <span className='flex items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Users</span>
-            </span>
+            <span className='absolute left-full top-0 hidden items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Users</span>
           }
         </Link>
       </li>
@@ -59,9 +57,9 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
         </ul>
         <ul className='absolute left-0 bottom-0 w-full'>
           <div className='w-full h-[1px] mb-[2px] bg-black'/>
-          <li className='flex items-center justify-end [&:hover>div]:font-medium [&:hover>div>svg]:text-[#ffffff]' onClick={(e)=>{setNavExpanded(false)}}>
+          <li className='flex items-center justify-end [&:hover>div]:font-medium [&:hover>div>svg]:text-[#ffffff] cursor-pointer' onClick={(e)=>{setNavExpanded(false)}}>
             <div className='text-[#fafafa] text-[16px]'>Collapse menu</div>
-            <div className='w-[34px] h-[34px] m-[8px] rounded-[17px] bg-black flex items-center justify-center cursor-pointer'>
+            <div className='w-[34px] h-[34px] m-[8px] rounded-[17px] bg-black flex items-center justify-center'>
               <FontAwesomeIcon icon={faAnglesLeft} className='w-[19px] h-[16px] mr-[1px] text-[#0099cc]'/>
             </div>
           </li>
@@ -76,12 +74,10 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
     <div>
       <nav className='relative w-[50px] h-[calc(100vh-50px)] bg-[#747474] float-left'>
         <ul className='absolute top-0 left-0'>
-          <li style={homeStyle} className='hover:bg-black [&:hover>a>span]:block [&:hover>a>svg]:text-[#ffffff]'>
+          <li style={homeStyle} className='hover:bg-black [&:hover>a>span]:flex [&:hover>a>svg]:text-[#ffffff]'>
             <Link to='/' className='relative flex items-center'>
               <FontAwesomeIcon icon={faHouseChimney} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
-              <span className='absolute left-full top-0 h-full hidden'>
-                <span className='flex items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Home</span>
-              </span>
+              <span className='absolute left-full top-0 hidden items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Home</span>
             </Link>
           </li>
           {usersLink}
