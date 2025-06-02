@@ -51,7 +51,7 @@ const SignedOutHome : React.FunctionComponent = () => {
 const SignedInHome : React.FunctionComponent = () => {
   return (
     <Layout>
-      <div>Welcome JWT</div>
+      <div className='h-full w-full text-[48px] flex items-center justify-center'>Welcome JWT</div>
     </Layout>
   );
 }
