@@ -42,8 +42,8 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
   }
   return navExpanded ?
   (
-    <div>
-      <nav className='relative w-[200px] h-[calc(100vh-50px)] bg-[#747474] float-left'>
+    <div className='relative w-full h-full flex'>
+      <nav className='absolute w-[200px] top-0 bottom-0 min-h-[calc(100vh-50px)] bg-[#747474]'>
         <ul className='absolute top-0 left-0'>
           <li style={homeStyle} className='hover:bg-black [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
             <Link to='/' className='flex items-center'>
@@ -65,14 +65,14 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
           </li>
         </ul>
       </nav>
-      <main className='w-[calc(100vw-200px)] h-[calc(100vh-50px)] float-right'>
+      <main className='ml-[200px] w-[calc(100vw-200px)] min-h-[calc(100vh-50px)]'>
         {props.children}
       </main>
     </div>
   ) :
   (
-    <div>
-      <nav className='relative w-[50px] h-[calc(100vh-50px)] bg-[#747474] float-left'>
+    <div className='relative w-full h-full flex'>
+      <nav className='absolute w-[50px] top-0  bottom-0 min-h-[calc(100vh-50px)] bg-[#747474]'>
         <ul className='absolute top-0 left-0'>
           <li style={homeStyle} className='hover:bg-black [&:hover>a>span]:flex [&:hover>a>svg]:text-[#ffffff]'>
             <Link to='/' className='relative flex items-center'>
@@ -91,7 +91,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
           </li>
         </ul>
       </nav>
-      <main className='w-[calc(100vw-50px)] h-[calc(100vh-50px)] float-right'>
+      <main className='ml-[50px] w-[calc(100vw-50px)] min-h-[calc(100vh-50px)]'>
         {props.children}
       </main>
     </div>
