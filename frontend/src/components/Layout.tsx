@@ -65,7 +65,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
           </li>
         </ul>
       </nav>
-      <main className='ml-[200px] w-[calc(100vw-200px)] min-h-[calc(100vh-50px)]'>
+      <main className='ml-[200px] min-w-[calc(100vw-200px)] min-h-[calc(100vh-50px)]'>
         {props.children}
       </main>
     </div>
@@ -91,7 +91,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
           </li>
         </ul>
       </nav>
-      <main className='ml-[50px] w-[calc(100vw-50px)] min-h-[calc(100vh-50px)]'>
+      <main className='ml-[50px] min-w-[calc(100vw-50px)] min-h-[calc(100vh-50px)]'>
         {props.children}
       </main>
     </div>
@@ -118,10 +118,10 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
     dispatch(setErrorMessage(null));
   }, []);
   return (
-    <div>
+    <div className='w-max'>
       <header className='flex items-center justify-between pl-[5px] bg-[#eeeeee] w-full h-[50px]'>
         <img src='/imgs/logo.png' alt='logo'/>
-        <div className='relative [&:hover>ul]:block h-[50px] flex items-center'>
+        <div className='relative [&:hover>ul]:block h-[50px] flex items-center z-10'>
           <div>
             <FontAwesomeIcon icon={faUser} className='w-[34px] h-[34px]'/>
             <FontAwesomeIcon icon={faSortDown} className='w-[34px] h-[34px]'/>
