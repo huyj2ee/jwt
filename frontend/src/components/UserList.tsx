@@ -6,6 +6,8 @@ import { AppDispatch, RootState } from '../app/store';
 import { clearTargetUsername, deleteUserAsync, filterByUsernameAsync, listUsersAsync, setEnabledAsync, unlockUserAsync } from './users/usersSlice';
 import { SignedInUser, UserItem, UsersStore } from '../app/api';
 import { clearRoles } from './roles/rolesSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,29 +45,33 @@ const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   }
 
   return (
-    <div>
-      <span>{user.username}</span>
-      {user.accountNonLocked ? '' : <span onClick={() => unlock(user.username)}>unlock</span>}
-      {
-        user.username === signedInUser.username ?
-        (
-          user.enabled ?
-          <span>disable</span> :
-          <span>enable</span>
-        ) :
-        (
-          user.enabled ?
-          <span onClick={() => setEnabled(user.username, false)}>disable</span> :
-          <span onClick={() => setEnabled(user.username, true)}>enable</span>
-        )
-      }
-      <span onClick={() => setPassword(user.username)}>password</span>
-      <span onClick={() => setRoles(user.username)}>roles</span>
-      {
-        user.username === signedInUser.username ?
-        <span>delete</span> :
-        <span onClick={() => deleteUser(user.username)}>delete</span>
-      }
+    <div className='flex justify-between user-row'>
+      <div>
+        <span>{user.username}</span>
+      </div>
+      <div className='text-[#0099cc]'>
+        {user.accountNonLocked ? '' : <span className='ml-[20px] cursor-pointer' onClick={() => unlock(user.username)}>unlock</span>}
+        {
+          user.username === signedInUser.username ?
+          (
+            user.enabled ?
+            <span className='ml-[20px]'>disable</span> :
+            <span className='ml-[20px]'>enable</span>
+          ) :
+          (
+            user.enabled ?
+            <span className='ml-[20px] cursor-pointer' onClick={() => setEnabled(user.username, false)}>disable</span> :
+            <span className='ml-[20px] cursor-pointer' onClick={() => setEnabled(user.username, true)}>enable</span>
+          )
+        }
+        <span className='ml-[20px] cursor-pointer' onClick={() => setPassword(user.username)}>password</span>
+        <span className='ml-[20px] cursor-pointer' onClick={() => setRoles(user.username)}>roles</span>
+        {
+          user.username === signedInUser.username ?
+          <span className='ml-[20px]'>delete</span> :
+          <span className='ml-[20px] cursor-pointer' onClick={() => deleteUser(user.username)}>delete</span>
+        }
+      </div>
     </div>
   );
 };
@@ -82,14 +88,22 @@ const UserList : React.FunctionComponent = () => {
   const nonlockedObj:string = searchParams.get("nonlocked");
   const nonlocked:boolean = nonlockedObj === null || nonlockedObj.length === 0 ? null : false;
   const prePage:ReactNode = page > 0 ?
-    <span onClick={handlePrePageClick}>&lt;</span> :
-    <span>&lt;</span>;
+    <span onClick={handlePrePageClick} className='cursor-pointer px-[2px]'>
+      <FontAwesomeIcon className='w-[10px] h-[16px]' icon={faAngleLeft}/>
+    </span> :
+    <span className='px-[2px]'>
+      <FontAwesomeIcon className='w-[10px] h-[16px] text-[#d9d9d9]' icon={faAngleLeft}/>
+    </span>;
   const nextPage:ReactNode = page < users.count - 1 ?
-    <span onClick={handleNextPageClick}>&gt;</span> :
-    <span>&gt;</span>;
+    <span onClick={handleNextPageClick} className='cursor-pointer px-[2px]'>
+      <FontAwesomeIcon className='w-[10px] h-[16px]' icon={faAngleRight}/>
+    </span> :
+    <span className='px-[2px]'>
+      <FontAwesomeIcon className='w-[10px] h-[16px] text-[#d9d9d9]' icon={faAngleRight}/>
+    </span>;
   const lockButton:ReactNode = nonlocked === null ?
-    <button type='button' onClick={toggleLock}>List locked users</button> : 
-    <button type='button' onClick={toggleLock}>List all users</button>;
+    <button className='w-[140px] h-[34px] mx-[6px] rounded-[6px] bg-[#0099cc] text-white' type='button' onClick={toggleLock}>List locked users</button> : 
+    <button className='w-[110px] h-[34px] mx-[6px] rounded-[6px] bg-[#0099cc] text-white' type='button' onClick={toggleLock}>List all users</button>;
 
   function handlePrePageClick() {
     searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
@@ -104,6 +118,7 @@ const UserList : React.FunctionComponent = () => {
   }
 
   function toggleLock() {
+    searchParams.set("username", "");
     if (nonlocked === null) {
       searchParams.set("nonlocked", "false");
       searchParams.set("page", "0");
@@ -142,21 +157,34 @@ const UserList : React.FunctionComponent = () => {
 
   return (
     <Layout>
-      <div>
-        {lockButton}
+      <div className='flex justify-between items-center my-[7px] ml-[10px] mr-[6px]'>
+        <div className='text-[24px]'>User list</div>
+        <div className='flex items-center'>
+          <div>
+            <input className='w-[270px] h-[27px] mx-[6px] px-[2px] border-[1px] border-[#999999] rounded-[6px]' type='text' placeholder='Filter by username...' onKeyDown={e => filterByUsernameKeyDown(e)} onChange={e => setSearchParams("username=" + e.target.value)} value={username}></input>
+            <button className='w-[56px] h-[34px] mx-[6px] rounded-[6px] bg-[#0099cc] text-white' type='button' onClick={handleFilterByUsername}>Filter</button>
+          </div>
+          <div>
+            {lockButton}
+          </div>
+          <div>
+            <button className='w-[102px] h-[34px] mx-[6px] rounded-[6px] bg-[#0099cc] text-white' type='button' onClick={handleCreateUser}>Create user</button>
+          </div>
+        </div>
       </div>
-      <div>
-        <button type='button' onClick={handleCreateUser}>Create user</button>
+      {
+        users.errorMessage === null ?
+        null :
+        <div>Unexpected Error has occurred.</div>
+      }
+      <div className='w-[60%] mx-auto'>
+        <div className='text-[16px] mt-[45px]'>
+          {users.data.map((user) => <User user={user}/>)}
+        </div>
+        <div className='float-right'>
+          {prePage}<div className='inline-block w-[50px] h-[1px]'/>{nextPage}
+        </div>
       </div>
-      <div>
-        <input type='text' placeholder='Filter by username...' onKeyDown={e => filterByUsernameKeyDown(e)} onChange={e => setSearchParams("username=" + e.target.value)} value={username}></input>
-        <button type='button' onClick={handleFilterByUsername}>Filter</button>
-      </div>
-      {users.errorMessage === null ? null : <div>Unexpected Error has occurred.</div>}
-      <div>
-        {users.data.map((user) => <User user={user}/>)}
-      </div>
-      {prePage} {nextPage}
     </Layout>
   );
 };

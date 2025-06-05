@@ -5,3 +5,15 @@
 * {
   font-family: Roboto;
 }
+
+@media only screen and (min-height: 756px) {
+  .user-row {
+    border-top: 1px solid #d9d9d9;
+    height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .user-row:last-child {
+    border-bottom: 1px solid #d9d9d9;
+  }
+}
