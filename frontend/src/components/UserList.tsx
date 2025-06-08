@@ -88,15 +88,17 @@ const UserList : React.FunctionComponent = () => {
   const nonlockedObj:string = searchParams.get("nonlocked");
   const nonlocked:boolean = nonlockedObj === null || nonlockedObj.length === 0 ? null : false;
   const prePage:ReactNode = page > 0 ?
-    <span onClick={handlePrePageClick} className='cursor-pointer px-[2px]'>
+    <span onClick={handlePrePageClick} className='relative [&:hover>div]:flex cursor-pointer px-[2px]'>
       <FontAwesomeIcon className='w-[10px] h-[16px]' icon={faAngleLeft}/>
+      <div className='hidden absolute top-full right-0 w-[82px] h-[40px] rounded-[8px] bg-[#eeeeee] text-[16px] justify-center items-center'>previous</div>
     </span> :
     <span className='px-[2px]'>
       <FontAwesomeIcon className='w-[10px] h-[16px] text-[#d9d9d9]' icon={faAngleLeft}/>
     </span>;
   const nextPage:ReactNode = page < users.count - 1 ?
-    <span onClick={handleNextPageClick} className='cursor-pointer px-[2px]'>
+    <span onClick={handleNextPageClick} className='relative [&:hover>div]:flex cursor-pointer px-[2px]'>
       <FontAwesomeIcon className='w-[10px] h-[16px]' icon={faAngleRight}/>
+      <div className='hidden absolute top-full left-0 w-[52px] h-[40px] rounded-[8px] bg-[#eeeeee] text-[16px] justify-center items-center'>next</div>
     </span> :
     <span className='px-[2px]'>
       <FontAwesomeIcon className='w-[10px] h-[16px] text-[#d9d9d9]' icon={faAngleRight}/>
@@ -175,7 +177,7 @@ const UserList : React.FunctionComponent = () => {
       {
         users.errorMessage === null ?
         null :
-        <div>Unexpected Error has occurred.</div>
+        <div className='ml-[10px] text-[#db2f2f]'>Unexpected Error has occurred.</div>
       }
       <div className='w-[60%] mx-auto'>
         <div className='text-[16px] mt-[45px]'>
