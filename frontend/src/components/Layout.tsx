@@ -120,7 +120,9 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
   return (
     <div className='w-max'>
       <header className='flex items-center justify-between pl-[5px] bg-[#eeeeee] w-full h-[50px]'>
-        <img src='/imgs/logo.png' alt='logo'/>
+        <Link to='/'>
+          <img src='/imgs/logo.png' alt='logo'/>
+        </Link>
         <div className='relative [&:hover>ul]:block h-[50px] flex items-center z-10'>
           <div>
             <FontAwesomeIcon icon={faUser} className='w-[34px] h-[34px]'/>
