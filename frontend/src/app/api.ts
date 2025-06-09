@@ -162,6 +162,9 @@ export const refreshToken = async ({ rejectWithValue, dispatch, getState }: any)
       && error.response.data.message.slice(-notfoundMsg.length) !== notfoundMsg) {
       dispatch(setErrorMessage('Unexpected Error has occured.'));
     }
+    else {
+      dispatch(setErrorMessage(null));
+    }
     dispatch(setSignedInObject(signedInObj));
     return rejectWithValue(error.response.data);
   }
@@ -196,14 +199,6 @@ export const changePassword = async (credential: Credential, { rejectWithValue, 
     if (error.response.data.message === 'You must sign in to execute change password operation.') {
       dispatch(setOps({ops:['changepassword'], params:[error.response.config.data]}));
       dispatch(refreshTokenAsync());
-    }
-    else if (error.response.data.status === 401) {
-      const signedInObj: Object = {
-        username: null,
-        accessToken: null,
-        roles: []
-      };
-      dispatch(setSignedInObject(signedInObj));
     }
     return rejectWithValue(error.response.data);
   }

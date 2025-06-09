@@ -26,6 +26,7 @@ const ChangePassword : React.FunctionComponent = () => {
       setClientErrorMessage('Password and reenter password is not matched.');
     }
     else {
+      setClientErrorMessage(null);
       dispatch(changePasswordAsync(credential));
     }
   }
@@ -55,7 +56,8 @@ const ChangePassword : React.FunctionComponent = () => {
         <label htmlFor='reenterPassword'>Reenter password</label>
         <input id='reenterPassword' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
       </div>
-      {clientErrorMessage === null || user.errorMessage === '' ? '' : <div>{clientErrorMessage}</div>}
+      {clientErrorMessage === null ? '' : <div>{clientErrorMessage}</div>}
+      {user.errorMessage === null || user.errorMessage === '' ? null : <div>Unexpected Error has occurred.</div>}
       {feedbackMessage}
       <div>
         <button type='button' onClick={handleBack}>Back</button>

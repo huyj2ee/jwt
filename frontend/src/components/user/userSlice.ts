@@ -128,6 +128,9 @@ const userSlice = createSlice({
       .addCase(changePasswordAsync.fulfilled, (state: SignedInUser, action: PayloadAction<any>) => {
         state.errorMessage = '';
       })
+      .addCase(changePasswordAsync.rejected, (state: SignedInUser, action: PayloadAction<any>) => {
+        state.errorMessage = action.payload.message;
+      })
       // createuser
       .addCase(createUserAsync.pending, (state: SignedInUser) => {
         state.errorMessage = null;
