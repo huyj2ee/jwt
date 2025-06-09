@@ -120,6 +120,7 @@ const userSlice = createSlice({
       .addCase(signOutAsync.rejected, (state: SignedInUser, action: PayloadAction<any>) => {
         state.username = null;
         state.accessToken = null;
+        state.errorMessage = 'Unexpected Error has occured.';
       })
       // password
       .addCase(changePasswordAsync.pending, (state: SignedInUser) => {
