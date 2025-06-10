@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="RefreshTokenOptional" version="4">
+  <OBJECT>
+    <ID name="RefreshTokenOptional" mc="Standard.Class" uid="c3adaea5-e76f-4bba-bc0c-4e4c886b136f"/>
+    <PID name="Backend" mc="Standard.Package" uid="11d48e29-44d0-4648-b63f-68b0165548e4"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[RefreshTokenOptional]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="TemplateInstanciation">
+        <OBJECT>
+          <ID name="-&gt;Optional" mc="Standard.TemplateBinding" uid="dedeb7c7-8422-4734-a997-0ec56ec8b2d6"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[->Optional]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ParameterSubstitution">
+              <OBJECT>
+                <ID name="T" mc="Standard.TemplateParameterSubstitution" uid="e9b0a355-14a4-49a7-94e1-f1053648aeea"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[T]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Actual">
+                    <ID name="RefreshToken" mc="Standard.Class" uid="50ffb098-eb8e-4f80-999f-1dee2c0e5e39"/>
+                  </LINK>
+                  <LINK relation="FormalParameter">
+                    <REFOBJ>
+                      <ID name="T" mc="Standard.TemplateParameter" uid="6103f94e-99fe-41bd-8f79-85e3397c3d3b"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="InstanciatedTemplate">
+              <ID name="Optional" mc="Standard.Class" uid="289820d2-2e27-4b16-bbb6-9819756c6ccd"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

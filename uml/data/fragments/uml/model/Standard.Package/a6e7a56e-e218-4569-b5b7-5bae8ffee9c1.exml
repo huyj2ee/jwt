@@ -1,0 +1,217 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Backend" version="4">
+  <OBJECT>
+    <ID name="Backend" mc="Standard.Package" uid="a6e7a56e-e218-4569-b5b7-5bae8ffee9c1"/>
+    <PID name="JWT" mc="Standard.Package" uid="fbadb949-c2ba-4c04-aab2-877a395674e5"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Backend]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Sign in" mc="Standard.Interaction" uid="7666814f-6a86-4773-b02a-9e866f159c7e"/>
+        <COMPID name="Sign out" mc="Standard.Interaction" uid="d7e96015-1a5f-4be0-bdc0-6453d2a6f4c2"/>
+        <COMPID name="Refresh token" mc="Standard.Interaction" uid="d8fda2a3-50ed-47bf-81e3-7eaf084cc6e0"/>
+        <COMPID name="Change password" mc="Standard.Interaction" uid="48ca05f4-66f7-4750-8422-a9efd2259471"/>
+        <COMPID name="Create user" mc="Standard.Interaction" uid="d962420f-52e2-4451-bb67-54f1cfe844fd"/>
+        <COMPID name="Browse user" mc="Standard.Interaction" uid="7e40044d-76de-4f89-8e92-732eacb380e0"/>
+        <COMPID name="Browse user_1A" mc="Standard.Interaction" uid="f8358f5d-d77a-429f-aecb-576e32071bf2"/>
+        <COMPID name="Delete user" mc="Standard.Interaction" uid="1acc44e2-a2a3-4af5-a5c4-411aaf055256"/>
+        <COMPID name="Edit user" mc="Standard.Interaction" uid="b1bfaf0b-5039-47d3-a43b-99f2a5d1e0b6"/>
+        <COMPID name="Set password" mc="Standard.Interaction" uid="cfac24b8-0d5a-41bc-92ee-09f43e347854"/>
+        <COMPID name="Unlock user" mc="Standard.Interaction" uid="7ce93a1b-e4fa-421f-84d2-ccaf24970cce"/>
+        <COMPID name="Enable/disable user" mc="Standard.Interaction" uid="e7ad79ac-97fe-42a4-8f0d-dee8f15787f5"/>
+        <COMPID name="List all roles" mc="Standard.Interaction" uid="b792d0ac-4dc4-48de-baf5-21856c1de41d"/>
+        <COMPID name="List assigned roles" mc="Standard.Interaction" uid="35b2a8fb-79c3-4f1c-b23f-2372b06c63e5"/>
+        <COMPID name="Assign role" mc="Standard.Interaction" uid="623e050d-0834-4f7d-816d-9df13807a623"/>
+        <COMPID name="Revoke role" mc="Standard.Interaction" uid="e8c507c2-91da-4ce0-894f-862b60fd288c"/>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <OBJECT>
+          <ID name="Backend Objects" mc="Standard.Collaboration" uid="0bd94e5e-236a-4569-8d8e-74c656a4356e"/>
+          <ATTRIBUTES>
+            <ATT name="IsConcurrent">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[Backend Objects]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Declared">
+              <OBJECT>
+                <ID name="userActor" mc="Standard.BindableInstance" uid="b08ac6b8-24a4-45e6-8fed-761bea4a9008"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[userActor]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="User" mc="Standard.Actor" uid="70ab02d2-973b-43f1-a021-a93cb2ddef60"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="spring" mc="Standard.BindableInstance" uid="112660dd-cba8-4c6f-b50b-2a9e4b1e3c24"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[spring]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Spring" mc="Standard.Actor" uid="4250646f-abcb-4426-b14d-da83b1c6c428"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="controller" mc="Standard.BindableInstance" uid="dab72013-47c1-417a-85dc-ea6a12aa2754"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[controller]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Controller" mc="Standard.Class" uid="b30c9b04-2952-4551-a972-6523fac6ed3c"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="repository" mc="Standard.BindableInstance" uid="46172811-891e-4660-b096-3797609d148a"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[repository]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Repository" mc="Standard.Interface" uid="eb8af44b-d8ed-465c-ae69-0b9231544f8a"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="service" mc="Standard.BindableInstance" uid="683c6eae-3dd1-48c2-880b-7d360c16cad7"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[service]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Service" mc="Standard.Class" uid="3330dfc5-2fbf-4b07-94b3-0e03fe828930"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="user" mc="Standard.BindableInstance" uid="b222e1a7-c2ea-4f98-8221-401d6a138853"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[user]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="User" mc="Standard.Class" uid="c48d843c-6e24-498a-bb2d-faee8fddbf96"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="attempts" mc="Standard.BindableInstance" uid="0fcb3b6d-7fda-4288-8540-66bf87b8d2d2"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[attempts]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Attempts" mc="Standard.Class" uid="f47776e2-3e6d-489b-b6f5-cac8d5ef796c"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="refreshToken" mc="Standard.BindableInstance" uid="a7a2025c-2227-4af5-b1e4-593960becb09"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[refreshToken]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Refresh Token" mc="Standard.Class" uid="c39c865c-37c1-42e3-8de7-3bc70f228832"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="admin" mc="Standard.BindableInstance" uid="87899f2a-e4ed-414b-9dc7-f8f55b5247d4"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[admin]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Admin" mc="Standard.Actor" uid="803bb691-9f1e-4a6d-b9f3-2f8c9e54f77e"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="signedInUser" mc="Standard.BindableInstance" uid="9fedc462-e8b2-4cd4-93ef-de67f3aae8a6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[signedInUser]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="User" mc="Standard.Class" uid="fd1c7e31-4c68-46c2-9c3d-e4c33292671d"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="Controller" mc="Standard.Class" uid="b30c9b04-2952-4551-a972-6523fac6ed3c"/>
+        <COMPID name="Repository" mc="Standard.Interface" uid="eb8af44b-d8ed-465c-ae69-0b9231544f8a"/>
+        <COMPID name="Service" mc="Standard.Class" uid="3330dfc5-2fbf-4b07-94b3-0e03fe828930"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

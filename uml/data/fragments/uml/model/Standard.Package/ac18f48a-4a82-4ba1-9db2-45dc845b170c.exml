@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Detail View" version="4">
+  <OBJECT>
+    <ID name="Detail View" mc="Standard.Package" uid="ac18f48a-4a82-4ba1-9db2-45dc845b170c"/>
+    <PID name="TA" mc="Standard.Package" uid="1966b655-1e7b-49cd-aa2a-ba7f5f3001bb"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Detail View]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="JWT" mc="Standard.Package" uid="fd51e446-b89a-402e-860e-9138223bf97d"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

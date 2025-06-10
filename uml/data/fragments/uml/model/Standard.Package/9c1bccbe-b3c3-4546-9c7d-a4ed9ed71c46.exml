@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Framework" version="4">
+  <OBJECT>
+    <ID name="Framework" mc="Standard.Package" uid="9c1bccbe-b3c3-4546-9c7d-a4ed9ed71c46"/>
+    <PID name="TA" mc="Standard.Package" uid="1966b655-1e7b-49cd-aa2a-ba7f5f3001bb"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Framework]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="ResponseEntity" mc="Standard.Class" uid="ff8c23f7-972f-4fa6-96af-39b2dab39aa9"/>
+        <COMPID name="Spring" mc="Standard.Actor" uid="4250646f-abcb-4426-b14d-da83b1c6c428"/>
+        <COMPID name="JpaRepository" mc="Standard.Interface" uid="90f9d553-df7e-4851-bcf3-31d816b800d9"/>
+        <COMPID name="Pageable" mc="Standard.Interface" uid="cbd701ab-394b-4c00-9a91-55ccc788596e"/>
+        <COMPID name="BadCredentialsException" mc="Standard.Class" uid="52d23c9d-b115-4011-9b6a-d5680dd1d706"/>
+        <COMPID name="LockedException" mc="Standard.Class" uid="eb22c82c-a2a3-4278-9a17-5bd527184665"/>
+        <COMPID name="DisabledException" mc="Standard.Class" uid="d4d96bb5-7556-42fc-be18-d9bc7c287042"/>
+        <COMPID name="BadRequestException" mc="Standard.Class" uid="36cfb6a6-d40e-43c1-beb7-e15980619ae4"/>
+        <COMPID name="InsufficientAuthenticationException" mc="Standard.Class" uid="c414c701-77f4-4612-ae1e-c40f6a389d2f"/>
+        <COMPID name="PasswordEncoder" mc="Standard.Interface" uid="481f3317-0cb8-4c69-9071-655e304fa88b"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

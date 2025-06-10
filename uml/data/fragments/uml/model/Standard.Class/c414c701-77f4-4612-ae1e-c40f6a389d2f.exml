@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="InsufficientAuthenticationException" version="4">
+  <OBJECT>
+    <ID name="InsufficientAuthenticationException" mc="Standard.Class" uid="c414c701-77f4-4612-ae1e-c40f6a389d2f"/>
+    <PID name="Framework" mc="Standard.Package" uid="9c1bccbe-b3c3-4546-9c7d-a4ed9ed71c46"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[InsufficientAuthenticationException]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

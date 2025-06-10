@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="RoleSet" version="4">
+  <OBJECT>
+    <ID name="RoleSet" mc="Standard.Class" uid="1ffafff5-c3f1-4408-b5c3-8e3bc305ded8"/>
+    <PID name="Backend" mc="Standard.Package" uid="11d48e29-44d0-4648-b63f-68b0165548e4"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[RoleSet]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="TemplateInstanciation">
+        <OBJECT>
+          <ID name="-&gt;Set" mc="Standard.TemplateBinding" uid="30ec8644-2119-4324-aea7-e77b13882749"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[->Set]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ParameterSubstitution">
+              <OBJECT>
+                <ID name="T" mc="Standard.TemplateParameterSubstitution" uid="06d09d98-0fec-4035-bb42-6d7a8d11a48b"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[T]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Actual">
+                    <ID name="Role" mc="Standard.Class" uid="76eec3d8-63bf-4bd0-bc3e-7674c567cfad"/>
+                  </LINK>
+                  <LINK relation="FormalParameter">
+                    <REFOBJ>
+                      <ID name="T" mc="Standard.TemplateParameter" uid="05706d83-83e1-435a-b1e6-7288f0f43c09"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="InstanciatedTemplate">
+              <ID name="Set" mc="Standard.Class" uid="1de2ac46-1afa-4f62-bc29-953eddb9d55a"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

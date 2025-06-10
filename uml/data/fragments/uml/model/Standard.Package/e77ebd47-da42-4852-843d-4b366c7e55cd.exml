@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Generic View" version="4">
+  <OBJECT>
+    <ID name="Generic View" mc="Standard.Package" uid="e77ebd47-da42-4852-843d-4b366c7e55cd"/>
+    <PID name="TA" mc="Standard.Package" uid="1966b655-1e7b-49cd-aa2a-ba7f5f3001bb"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Generic View]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="JWT" mc="Standard.Package" uid="fbadb949-c2ba-4c04-aab2-877a395674e5"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

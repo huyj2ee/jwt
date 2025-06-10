@@ -1,0 +1,205 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Frontend" version="4">
+  <OBJECT>
+    <ID name="Frontend" mc="Standard.Package" uid="040647c7-245a-4e2d-b533-c1e9ba26a17c"/>
+    <PID name="JWT" mc="Standard.Package" uid="fbadb949-c2ba-4c04-aab2-877a395674e5"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Frontend]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Sign in_1A" mc="Standard.Interaction" uid="fca9ed6e-9e52-4771-b99d-968aa2ee3596"/>
+        <COMPID name="Sign out_1A" mc="Standard.Interaction" uid="ea919d04-a1bc-4830-bf11-34823248e411"/>
+        <COMPID name="Change password_1A" mc="Standard.Interaction" uid="445373ef-1a06-47a2-9d39-17bce6edf7d7"/>
+        <COMPID name="Create user_1A" mc="Standard.Interaction" uid="7d8a4274-0c32-4fce-8f3d-aaed744df54e"/>
+        <COMPID name="View next page" mc="Standard.Interaction" uid="01b0d62b-d368-4b35-9bf3-1e7272074ee6"/>
+        <COMPID name="View previous page" mc="Standard.Interaction" uid="ff6911f0-b41e-4679-bfbc-77bf7b6bc791"/>
+        <COMPID name="Filter by username" mc="Standard.Interaction" uid="d791d09b-ff11-458b-a082-8b5e87843603"/>
+        <COMPID name="Get only locked user" mc="Standard.Interaction" uid="e4cda8b8-9253-4926-afcd-4983831d6597"/>
+        <COMPID name="Get all user" mc="Standard.Interaction" uid="1e32b287-ea79-4008-be61-c38b316ddc45"/>
+        <COMPID name="Browse user_1B" mc="Standard.Interaction" uid="5dab2dce-4b5f-48c9-8e63-37e01ab61685"/>
+        <COMPID name="Delete user_1A" mc="Standard.Interaction" uid="d7b4b8ff-5e9e-46f8-96dc-3cd9e5bfede5"/>
+        <COMPID name="Set password_1A" mc="Standard.Interaction" uid="606b15a4-9c07-4f7d-b9e9-59855b079818"/>
+        <COMPID name="Unlock user_1A" mc="Standard.Interaction" uid="e6012049-0ac5-42ac-95bc-44e7344cb169"/>
+        <COMPID name="Enable/disable user_1A" mc="Standard.Interaction" uid="654d5437-6048-42de-8f7c-d109f4067f7a"/>
+        <COMPID name="Assign role_1A" mc="Standard.Interaction" uid="a4cb9c4f-8479-414e-a24e-1f0ac04544c3"/>
+        <COMPID name="Revoke role_1A" mc="Standard.Interaction" uid="c4060794-38f2-4161-891a-990fe80d0d2b"/>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="Backend" mc="Standard.Actor" uid="bf085446-b99d-4bae-b3d9-84883d862a18"/>
+        <COMPID name="Home Page" mc="Standard.Class" uid="c7c5a431-9b28-4f97-9335-c9897b609057"/>
+        <OBJECT>
+          <ID name="Frontend Objects" mc="Standard.Collaboration" uid="18f50d1d-eaf6-40a9-93b3-56a9469b09ea"/>
+          <ATTRIBUTES>
+            <ATT name="IsConcurrent">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[Frontend Objects]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Declared">
+              <OBJECT>
+                <ID name="userActor" mc="Standard.BindableInstance" uid="fbe3a606-15a5-451a-a6ee-87faf11f157e"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[userActor]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="User" mc="Standard.Actor" uid="70ab02d2-973b-43f1-a021-a93cb2ddef60"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="homePage" mc="Standard.BindableInstance" uid="67fbe578-69b2-4da1-9584-debc8bbce1b9"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[homePage]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Home Page" mc="Standard.Class" uid="c7c5a431-9b28-4f97-9335-c9897b609057"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="backend" mc="Standard.BindableInstance" uid="805cd859-2480-4ad0-8d58-76ffe750e701"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[backend]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Backend" mc="Standard.Actor" uid="bf085446-b99d-4bae-b3d9-84883d862a18"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="changePasswordForm" mc="Standard.BindableInstance" uid="0c6166e5-14ff-4b0c-a608-dc4fd2f0a514"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[changePasswordForm]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Change Password Form" mc="Standard.Class" uid="1263e1b6-eb8d-407b-bc40-30b0a49cadd2"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="admin" mc="Standard.BindableInstance" uid="08f1720b-eddb-4a91-b559-046b4102d8cc"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[admin]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Admin" mc="Standard.Actor" uid="803bb691-9f1e-4a6d-b9f3-2f8c9e54f77e"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="createUserPage" mc="Standard.BindableInstance" uid="9634494e-e57b-43fa-846e-6e9d402a46f6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[createUserPage]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Create User Page" mc="Standard.Class" uid="a0c8e14e-a281-4421-bbf9-b950b8d1eec4"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="userListPage" mc="Standard.BindableInstance" uid="48a70f61-a147-4bb0-8055-7edfe8119fa0"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[userListPage]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="User List Page" mc="Standard.Class" uid="c50dfa27-6ee8-47a9-a9f0-bd29f7114c77"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="setPasswordForm" mc="Standard.BindableInstance" uid="77d40d4e-b7c4-4c9f-b3e4-f529a71d82e5"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[setPasswordForm]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Set Password Form" mc="Standard.Class" uid="8b1348da-7306-465a-8398-d383a7f4f13c"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="assign/revokeRolePage" mc="Standard.BindableInstance" uid="c1d9a517-2361-442e-9a9c-c68acc50f51b"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[assign/revokeRolePage]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Base">
+                    <ID name="Assign/Revoke Role Page" mc="Standard.Class" uid="b3ee940c-6100-4c22-9582-a49dd5f6138d"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="Change Password Form" mc="Standard.Class" uid="1263e1b6-eb8d-407b-bc40-30b0a49cadd2"/>
+        <COMPID name="Create User Page" mc="Standard.Class" uid="a0c8e14e-a281-4421-bbf9-b950b8d1eec4"/>
+        <COMPID name="User List Page" mc="Standard.Class" uid="c50dfa27-6ee8-47a9-a9f0-bd29f7114c77"/>
+        <COMPID name="Set Password Form" mc="Standard.Class" uid="8b1348da-7306-465a-8398-d383a7f4f13c"/>
+        <COMPID name="Assign/Revoke Role Page" mc="Standard.Class" uid="b3ee940c-6100-4c22-9582-a49dd5f6138d"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

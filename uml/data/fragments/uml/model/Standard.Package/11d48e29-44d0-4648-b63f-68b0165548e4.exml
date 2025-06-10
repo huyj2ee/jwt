@@ -1,0 +1,225 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Backend" version="4">
+  <OBJECT>
+    <ID name="Backend" mc="Standard.Package" uid="11d48e29-44d0-4648-b63f-68b0165548e4"/>
+    <PID name="JWT" mc="Standard.Package" uid="fd51e446-b89a-402e-860e-9138223bf97d"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Backend]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedInformationFlow">
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="508a79fc-a234-43fd-8621-61d352950beb"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="JwtController" mc="Standard.Class" uid="a7c9e0e5-2aad-49dd-bbdc-6782c7996667"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="AttemptsRepository" mc="Standard.Interface" uid="35b50dbb-8dc9-4dd0-91e4-447bab3b4f5e"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="6505fb18-4cc0-4a7f-bcfe-0f69236e4631"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="JwtController" mc="Standard.Class" uid="a7c9e0e5-2aad-49dd-bbdc-6782c7996667"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="UserRepository" mc="Standard.Interface" uid="c6521800-f6ab-4e9d-9d30-496e0515b00b"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="e4395f73-7e9c-446d-83ff-999600a24023"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="UserController" mc="Standard.Class" uid="2600a2b7-fcde-4c56-b64d-bbbf75a15c88"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="AttemptsRepository" mc="Standard.Interface" uid="35b50dbb-8dc9-4dd0-91e4-447bab3b4f5e"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="6f19c3bf-b250-4143-9998-d25c1938b07b"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="UserController" mc="Standard.Class" uid="2600a2b7-fcde-4c56-b64d-bbbf75a15c88"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="UserRepository" mc="Standard.Interface" uid="c6521800-f6ab-4e9d-9d30-496e0515b00b"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="34899a74-008f-4113-bfc3-cb1ce188234a"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="RoleController" mc="Standard.Class" uid="4ddee812-04ed-4597-8d9c-9f466451d9ee"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="UserRepository" mc="Standard.Interface" uid="c6521800-f6ab-4e9d-9d30-496e0515b00b"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="59bd4081-56ad-4d4b-bdbc-c1e3c984e3c7"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="RoleController" mc="Standard.Class" uid="4ddee812-04ed-4597-8d9c-9f466451d9ee"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="RoleRepository" mc="Standard.Interface" uid="27b40b45-57bb-4ba5-b2ef-5b64b5bf94ef"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="manipulate" mc="Standard.InformationFlow" uid="4ef93256-e00e-40c3-b664-9cca869e50c1"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[manipulate]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="AttemptsRepository" mc="Standard.Interface" uid="35b50dbb-8dc9-4dd0-91e4-447bab3b4f5e"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="Attempts" mc="Standard.Class" uid="0e7847d4-1d20-44b9-8258-352405aa0d99"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="manipulate" mc="Standard.InformationFlow" uid="f51d6e5a-e770-4728-82be-a15356997dcc"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[manipulate]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="UserRepository" mc="Standard.Interface" uid="c6521800-f6ab-4e9d-9d30-496e0515b00b"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="User" mc="Standard.Class" uid="fd1c7e31-4c68-46c2-9c3d-e4c33292671d"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="access" mc="Standard.InformationFlow" uid="8de2ecb6-e780-4e33-8df9-5874fbb1ca4d"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[access]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="JwtController" mc="Standard.Class" uid="a7c9e0e5-2aad-49dd-bbdc-6782c7996667"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="RefreshTokenService" mc="Standard.Class" uid="a6ecf82f-600e-49de-8eef-4cdf2f3437be"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="manipulate" mc="Standard.InformationFlow" uid="dc1c0b45-6c14-4cc2-bb09-8481098c2b9f"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[manipulate]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="RefreshTokenService" mc="Standard.Class" uid="a6ecf82f-600e-49de-8eef-4cdf2f3437be"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="RefreshToken" mc="Standard.Class" uid="50ffb098-eb8e-4f80-999f-1dee2c0e5e39"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="manipulate" mc="Standard.InformationFlow" uid="3622e47c-dc41-4d0c-86da-855ddd757bb9"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[manipulate]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="RoleRepository" mc="Standard.Interface" uid="27b40b45-57bb-4ba5-b2ef-5b64b5bf94ef"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="Role" mc="Standard.Class" uid="76eec3d8-63bf-4bd0-bc3e-7674c567cfad"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="JwtController" mc="Standard.Class" uid="a7c9e0e5-2aad-49dd-bbdc-6782c7996667"/>
+        <COMPID name="CredentialRequestResponse" mc="Standard.Class" uid="1ac7d712-033d-412d-a153-c1df1d409bd8"/>
+        <COMPID name="RefreshTokenRequest" mc="Standard.Class" uid="0eff7ce9-6844-4279-ae97-bdfaca83b90a"/>
+        <COMPID name="UserController" mc="Standard.Class" uid="2600a2b7-fcde-4c56-b64d-bbbf75a15c88"/>
+        <COMPID name="UserRequestResponse" mc="Standard.Class" uid="1cdf9645-e1ff-452a-9bf9-6dd25d0746da"/>
+        <COMPID name="RoleController" mc="Standard.Class" uid="4ddee812-04ed-4597-8d9c-9f466451d9ee"/>
+        <COMPID name="SignedInObject" mc="Standard.Class" uid="45d1553a-003d-46d5-8605-d069dcc4af8b"/>
+        <COMPID name="UserRepository" mc="Standard.Interface" uid="c6521800-f6ab-4e9d-9d30-496e0515b00b"/>
+        <COMPID name="SignedInObjectEntity" mc="Standard.Class" uid="191b34ac-f33b-4ff9-a04b-a1c2c89b5537"/>
+        <COMPID name="CredentialResponseEntity" mc="Standard.Class" uid="113c5f5c-b84e-408e-b5d4-9e93837d1c29"/>
+        <COMPID name="UserResponseEntity" mc="Standard.Class" uid="6afd383d-8af3-41d1-b73a-45bf214661c9"/>
+        <COMPID name="BrowseUserResponseEntity" mc="Standard.Class" uid="c61ef1cc-9913-4baa-8985-69dea451fd72"/>
+        <COMPID name="UserRequestResponseList" mc="Standard.Class" uid="7c884f83-c1f6-40da-9855-d73b19505f73"/>
+        <COMPID name="User" mc="Standard.Class" uid="fd1c7e31-4c68-46c2-9c3d-e4c33292671d"/>
+        <COMPID name="Role" mc="Standard.Class" uid="76eec3d8-63bf-4bd0-bc3e-7674c567cfad"/>
+        <COMPID name="RoleSet" mc="Standard.Class" uid="1ffafff5-c3f1-4408-b5c3-8e3bc305ded8"/>
+        <COMPID name="RefreshToken" mc="Standard.Class" uid="50ffb098-eb8e-4f80-999f-1dee2c0e5e39"/>
+        <COMPID name="Attempts" mc="Standard.Class" uid="0e7847d4-1d20-44b9-8258-352405aa0d99"/>
+        <COMPID name="RoleList" mc="Standard.Class" uid="4c362200-e3d9-4970-a00c-f691d12d8de2"/>
+        <COMPID name="RoleListResponseEntity" mc="Standard.Class" uid="726bca3a-48ec-4191-b341-d841db3a1d0d"/>
+        <COMPID name="RoleResponseEntity" mc="Standard.Class" uid="0300e9b7-a802-439c-b1f9-f12be0e4c2d5"/>
+        <COMPID name="AttemptsRepository" mc="Standard.Interface" uid="35b50dbb-8dc9-4dd0-91e4-447bab3b4f5e"/>
+        <COMPID name="RoleRepository" mc="Standard.Interface" uid="27b40b45-57bb-4ba5-b2ef-5b64b5bf94ef"/>
+        <COMPID name="TOptional" mc="Standard.Class" uid="0ccf2eed-4de5-4e1f-a007-a6b84128b501"/>
+        <COMPID name="TList" mc="Standard.Class" uid="b67b5e56-a7e8-4ddd-a285-382a3e7a573e"/>
+        <COMPID name="UserOptional" mc="Standard.Class" uid="ef53851b-0f62-4a0d-9338-0436a051b760"/>
+        <COMPID name="UserList" mc="Standard.Class" uid="7e1d884c-346d-4c96-8f0d-23e6f1bd0557"/>
+        <COMPID name="AttemptsOptional" mc="Standard.Class" uid="5102aa48-3749-4007-827c-7af7a852d7e5"/>
+        <COMPID name="TokenRefreshException" mc="Standard.Class" uid="fb747997-2405-4396-94b5-a2799fc50d17"/>
+        <COMPID name="NotFoundException" mc="Standard.Class" uid="4a79c2cc-0537-4628-b6ee-119f0de723ce"/>
+        <COMPID name="ChangePasswordException" mc="Standard.Class" uid="3ee20354-0247-4add-a78f-49e0ec851109"/>
+        <COMPID name="ProhibitedActionException" mc="Standard.Class" uid="d564f0be-ac0b-40b0-af33-d7dd99dbdb1f"/>
+        <COMPID name="RefreshTokenService" mc="Standard.Class" uid="a6ecf82f-600e-49de-8eef-4cdf2f3437be"/>
+        <COMPID name="RefreshTokenOptional" mc="Standard.Class" uid="c3adaea5-e76f-4bba-bc0c-4e4c886b136f"/>
+        <COMPID name="JwtTokenService" mc="Standard.Class" uid="beb5c59b-e455-4494-a38e-a9a3c020402a"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Class diagram" mc="Standard.ClassDiagram" uid="3a029efe-40c4-49a9-a8fe-5311d216d201"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

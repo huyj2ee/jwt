@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="RoleListResponseEntity" version="4">
+  <OBJECT>
+    <ID name="RoleListResponseEntity" mc="Standard.Class" uid="726bca3a-48ec-4191-b341-d841db3a1d0d"/>
+    <PID name="Backend" mc="Standard.Package" uid="11d48e29-44d0-4648-b63f-68b0165548e4"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[RoleListResponseEntity]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="TemplateInstanciation">
+        <OBJECT>
+          <ID name="-&gt;ResponseEntity" mc="Standard.TemplateBinding" uid="46c643b1-09c3-4f03-855c-c37916f881b6"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[->ResponseEntity]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ParameterSubstitution">
+              <OBJECT>
+                <ID name="T" mc="Standard.TemplateParameterSubstitution" uid="992c08e1-9544-410d-9a4b-c3f16d8e8443"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"><![CDATA[T]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Actual">
+                    <ID name="RoleList" mc="Standard.Class" uid="4c362200-e3d9-4970-a00c-f691d12d8de2"/>
+                  </LINK>
+                  <LINK relation="FormalParameter">
+                    <REFOBJ>
+                      <ID name="T" mc="Standard.TemplateParameter" uid="87641047-2e69-44c7-acb9-3c301a65e86e"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="InstanciatedTemplate">
+              <ID name="ResponseEntity" mc="Standard.Class" uid="ff8c23f7-972f-4fa6-96af-39b2dab39aa9"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

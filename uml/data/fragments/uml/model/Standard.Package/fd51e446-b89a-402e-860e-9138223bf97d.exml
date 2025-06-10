@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="JWT" version="4">
+  <OBJECT>
+    <ID name="JWT" mc="Standard.Package" uid="fd51e446-b89a-402e-860e-9138223bf97d"/>
+    <PID name="Detail View" mc="Standard.Package" uid="ac18f48a-4a82-4ba1-9db2-45dc845b170c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[JWT]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedInformationFlow">
+        <OBJECT>
+          <ID name="http request" mc="Standard.InformationFlow" uid="6d523bc1-5f6d-4820-bbfb-eefc25dc1d06"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[http request]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="Postman" mc="Standard.Actor" uid="1c1edebb-dd5c-4507-b877-9a70f254fe8d"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="method request" mc="Standard.InformationFlow" uid="dc90aea7-370c-457d-a932-af7e99953c73"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[method request]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="JwtController" mc="Standard.Class" uid="a7c9e0e5-2aad-49dd-bbdc-6782c7996667"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="method request" mc="Standard.InformationFlow" uid="0c158159-470c-4047-bb8a-1ce3d4eb15ca"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[method request]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="UserController" mc="Standard.Class" uid="2600a2b7-fcde-4c56-b64d-bbbf75a15c88"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="method request" mc="Standard.InformationFlow" uid="d907e7c1-6e84-47b7-a96f-f52173388df8"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[method request]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="RoleController" mc="Standard.Class" uid="4ddee812-04ed-4597-8d9c-9f466451d9ee"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="view" mc="Standard.InformationFlow" uid="ef5eaed2-e0cc-4e34-85ca-d1b875b3ab2e"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[view]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="Browser" mc="Standard.Actor" uid="45d5a4a8-54dc-438e-aae2-ffbc5242d8e1"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="Index" mc="Standard.Class" uid="45dbbc91-8eb2-4a34-b424-ea0e35039e01"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="call api" mc="Standard.InformationFlow" uid="f46240d0-14bf-4289-8121-ada67eaa8667"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[call api]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="UserSlice" mc="Standard.Class" uid="4ef1be98-d1a1-47e0-9d16-d72d766b9c61"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="call api" mc="Standard.InformationFlow" uid="4c529f27-3d52-4912-a498-c377e38dc50b"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[call api]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="UsersSlice" mc="Standard.Class" uid="fb331a4e-358e-4afe-91eb-d2421369973f"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="call api" mc="Standard.InformationFlow" uid="9008a282-e736-4894-8687-a154ac127976"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[call api]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <ID name="RoleSlice" mc="Standard.Class" uid="8b7f69f3-b6be-47f5-96ed-ee25c9c5158e"/>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <ID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="Backend" mc="Standard.Package" uid="11d48e29-44d0-4648-b63f-68b0165548e4"/>
+        <COMPID name="Frontend" mc="Standard.Package" uid="0d3fbb3e-8953-49bc-9105-af5cb22d8774"/>
+        <COMPID name="Browser" mc="Standard.Actor" uid="45d5a4a8-54dc-438e-aae2-ffbc5242d8e1"/>
+        <COMPID name="Postman" mc="Standard.Actor" uid="1c1edebb-dd5c-4507-b877-9a70f254fe8d"/>
+        <COMPID name="Framework" mc="Standard.Package" uid="c11e3a71-37de-45c8-a738-a9cc5f4853c7"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="System overview class diagram" mc="Standard.ClassDiagram" uid="5eeaa07f-53fa-47c0-82c5-4cecb9521520"/>
+        <COMPID name="Architectural class diagram" mc="Standard.ClassDiagram" uid="82933590-c28a-47bf-90bb-454279474cf3"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

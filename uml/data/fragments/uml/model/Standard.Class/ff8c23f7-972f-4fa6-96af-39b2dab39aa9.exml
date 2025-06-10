@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ResponseEntity" version="4">
+  <OBJECT>
+    <ID name="ResponseEntity" mc="Standard.Class" uid="ff8c23f7-972f-4fa6-96af-39b2dab39aa9"/>
+    <PID name="Framework" mc="Standard.Package" uid="9c1bccbe-b3c3-4546-9c7d-a4ed9ed71c46"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[ResponseEntity]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Template">
+        <OBJECT>
+          <ID name="T" mc="Standard.TemplateParameter" uid="87641047-2e69-44c7-acb9-3c301a65e86e"/>
+          <ATTRIBUTES>
+            <ATT name="DefaultValue"></ATT>
+            <ATT name="IsValueParameter">false</ATT>
+            <ATT name="IsElementary">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[T]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

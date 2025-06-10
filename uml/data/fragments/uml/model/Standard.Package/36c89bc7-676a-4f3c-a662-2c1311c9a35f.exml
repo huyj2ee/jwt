@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Site Map" version="4">
+  <OBJECT>
+    <ID name="Site Map" mc="Standard.Package" uid="36c89bc7-676a-4f3c-a662-2c1311c9a35f"/>
+    <PID name="Frontend" mc="Standard.Package" uid="0d3fbb3e-8953-49bc-9105-af5cb22d8774"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Site Map]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Home" mc="Standard.Class" uid="bbb71c47-6fb9-4610-b4a5-1966e007f39e"/>
+        <COMPID name="Create user" mc="Standard.Class" uid="56ebaf0f-2a4b-44da-b0a0-f08e070b095f"/>
+        <COMPID name="Change password" mc="Standard.Class" uid="304b075e-d4f5-4e5d-8ab0-84932642bc20"/>
+        <COMPID name="User list" mc="Standard.Class" uid="6f371b5a-7139-4daa-aa43-64e82f1f79ba"/>
+        <COMPID name="User" mc="Standard.Class" uid="a29dd78a-8138-46e0-b58f-92e79a0a79a7"/>
+        <COMPID name="Set password" mc="Standard.Class" uid="8145cff8-fa25-4308-9b67-4d7dff6452f8"/>
+        <COMPID name="Assign/revoke" mc="Standard.Class" uid="36111561-f32d-4cd0-899f-a4cb1cf1e75e"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Site map" mc="Standard.ClassDiagram" uid="7a138a17-60ee-4fe4-b8a2-26b4ccbd850f"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

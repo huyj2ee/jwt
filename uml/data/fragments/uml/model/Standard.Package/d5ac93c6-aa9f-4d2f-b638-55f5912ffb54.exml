@@ -31,6 +31,11 @@
         <COMPID name="list assigned roles" mc="Standard.UseCase" uid="f258bfd9-c72b-4dcf-9d77-9e4ba5a5467c"/>
         <COMPID name="list all roles" mc="Standard.UseCase" uid="30abae2d-8861-4b32-b62d-d63d6999713a"/>
         <COMPID name="revoke role" mc="Standard.UseCase" uid="e493b187-16fa-4722-8872-6559c02a6b2e"/>
+        <COMPID name="view next page" mc="Standard.UseCase" uid="f1746b68-6652-4cca-88c1-6f146a89becd"/>
+        <COMPID name="view previous page" mc="Standard.UseCase" uid="23d89290-5493-4f32-819b-976058a38063"/>
+        <COMPID name="filter by username" mc="Standard.UseCase" uid="55221437-e6a8-4832-86bd-77ce2772c655"/>
+        <COMPID name="get only locked user" mc="Standard.UseCase" uid="e5d8b25b-761c-4996-bc1f-59298ff4c68f"/>
+        <COMPID name="get all user" mc="Standard.UseCase" uid="f54b8afc-df70-445b-859f-aa5015d0e019"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="Use Case diagram" mc="Standard.UseCaseDiagram" uid="dc684c88-e6b2-40fb-a2e5-fdd367d7e48d"/>
@@ -49,6 +54,7 @@
         <COMPID name="List Assigned Roles Use Case diagram" mc="Standard.UseCaseDiagram" uid="977f633b-40a3-43c8-8b94-f7a3fba5307f"/>
         <COMPID name="Assign Role Use Case diagram" mc="Standard.UseCaseDiagram" uid="bb4c0a33-af58-4547-988d-c61195121be1"/>
         <COMPID name="Revoke Role Use Case diagram" mc="Standard.UseCaseDiagram" uid="8fcd67bc-2241-4d1c-908e-0207b17174f9"/>
+        <COMPID name="Overview Use Case diagram" mc="Standard.UseCaseDiagram" uid="1804ab25-e08a-45f0-80a1-8bd1d63ff19e"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>

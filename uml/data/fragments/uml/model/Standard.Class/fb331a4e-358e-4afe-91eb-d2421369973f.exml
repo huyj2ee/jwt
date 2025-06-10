@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="UsersSlice" version="4">
+  <OBJECT>
+    <ID name="UsersSlice" mc="Standard.Class" uid="fb331a4e-358e-4afe-91eb-d2421369973f"/>
+    <PID name="Frontend" mc="Standard.Package" uid="0d3fbb3e-8953-49bc-9105-af5cb22d8774"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[UsersSlice]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Extension">
+        <ID name="Controller" mc="Infrastructure.Stereotype" uid="2bfba8d8-e1e7-4cd7-a381-d5db37b75041"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Framework" version="4">
+  <OBJECT>
+    <ID name="Framework" mc="Standard.Package" uid="c11e3a71-37de-45c8-a738-a9cc5f4853c7"/>
+    <PID name="JWT" mc="Standard.Package" uid="fd51e446-b89a-402e-860e-9138223bf97d"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Framework]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="SpringRESTController" mc="Standard.Class" uid="a9f59a65-d2fc-4021-bdd3-c58cad875cfd"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

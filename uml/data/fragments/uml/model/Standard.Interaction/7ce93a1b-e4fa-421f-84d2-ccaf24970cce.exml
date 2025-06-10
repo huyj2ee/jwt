@@ -1,0 +1,167 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Unlock user" version="4">
+  <OBJECT>
+    <ID name="Unlock user" mc="Standard.Interaction" uid="7ce93a1b-e4fa-421f-84d2-ccaf24970cce"/>
+    <PID name="Backend" mc="Standard.Package" uid="a6e7a56e-e218-4569-b5b7-5bae8ffee9c1"/>
+    <ATTRIBUTES>
+      <ATT name="IsReentrant">false</ATT>
+      <ATT name="Name"><![CDATA[Unlock user]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Fragment">
+        <OBJECT>
+          <ID name="InteractionUse" mc="Standard.InteractionUse" uid="e04896f9-cd24-4f2f-8381-453380585251"/>
+          <ATTRIBUTES>
+            <ATT name="EndLineNumber">198</ATT>
+            <ATT name="LineNumber">80</ATT>
+            <ATT name="Name"><![CDATA[InteractionUse]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ActualGate">
+              <OBJECT>
+                <ID name="" mc="Standard.Gate" uid="2217f93e-9212-4e4a-84f7-d12416362062"/>
+                <ATTRIBUTES>
+                  <ATT name="LineNumber">86</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Standard.Gate" uid="71c63f35-f5c4-4fbc-806f-54df6b93e41e"/>
+                <ATTRIBUTES>
+                  <ATT name="LineNumber">120</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="SentMessage">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Message" uid="4cdcc0c5-2eab-49aa-aa24-83bf46e44fa4"/>
+                      <ATTRIBUTES>
+                        <ATT name="Argument"></ATT>
+                        <ATT name="KindOfMessage">CompleteKind</ATT>
+                        <ATT name="SortOfMessage">ReturnMessage</ATT>
+                        <ATT name="Sequence"><![CDATA[2]]></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="ReceiveEvent">
+                          <REFOBJ>
+                            <ID name="" mc="Standard.ExecutionOccurenceSpecification" uid="7f8c489a-9123-401b-b336-53b0e4a2e4d4"/>
+                          </REFOBJ>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="RefersTo">
+              <ID name="Edit user" mc="Standard.Interaction" uid="b1bfaf0b-5039-47d3-a43b-99f2a5d1e0b6"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ExecutionOccurenceSpecification" uid="cb5a98cb-0d76-47d4-ad8b-6918af60caaf"/>
+          <ATTRIBUTES>
+            <ATT name="LineNumber">86</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="SentMessage">
+              <OBJECT>
+                <ID name="jwt/v1/users/{username}" mc="Standard.Message" uid="23ca97b1-f566-4628-9dd2-5ee6fbe8bace"/>
+                <ATTRIBUTES>
+                  <ATT name="Argument"></ATT>
+                  <ATT name="KindOfMessage">CompleteKind</ATT>
+                  <ATT name="SortOfMessage">SyncCall</ATT>
+                  <ATT name="Sequence"><![CDATA[1]]></ATT>
+                  <ATT name="Name"><![CDATA[jwt/v1/users/{username}]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="ReceiveEvent">
+                    <REFOBJ>
+                      <ID name="" mc="Standard.Gate" uid="2217f93e-9212-4e4a-84f7-d12416362062"/>
+                    </REFOBJ>
+                  </LINK>
+                  <LINK relation="Extension">
+                    <ID name="HTTP PUT" mc="Infrastructure.Stereotype" uid="9dfaa7d5-e91a-4ca7-8fc3-1ed3772cb42c"/>
+                  </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="Note" mc="Infrastructure.Note" uid="4c099c82-6050-479d-9901-0ae95ae112af"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[Header:
+Bearer {accessToken}
+
+Body:
+{username: username,
+accountNonLocked: true}]]></ATT>
+                        <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                        <ATT name="Name"><![CDATA[Note]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Covered">
+              <REFOBJ>
+                <ID name="admin" mc="Standard.Lifeline" uid="d23eba20-dc10-45ef-a0b8-1546c25cc19f"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="" mc="Standard.Gate" uid="2217f93e-9212-4e4a-84f7-d12416362062"/>
+        <COMPID name="" mc="Standard.Gate" uid="71c63f35-f5c4-4fbc-806f-54df6b93e41e"/>
+        <OBJECT>
+          <ID name="" mc="Standard.ExecutionOccurenceSpecification" uid="7f8c489a-9123-401b-b336-53b0e4a2e4d4"/>
+          <ATTRIBUTES>
+            <ATT name="LineNumber">120</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Covered">
+              <REFOBJ>
+                <ID name="admin" mc="Standard.Lifeline" uid="d23eba20-dc10-45ef-a0b8-1546c25cc19f"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedLine">
+        <OBJECT>
+          <ID name="admin" mc="Standard.Lifeline" uid="d23eba20-dc10-45ef-a0b8-1546c25cc19f"/>
+          <ATTRIBUTES>
+            <ATT name="Selector"></ATT>
+            <ATT name="Name"><![CDATA[admin]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Represented">
+              <REFOBJ>
+                <ID name="admin" mc="Standard.BindableInstance" uid="87899f2a-e4ed-414b-9dc7-f8f55b5247d4"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Unlock user" mc="Standard.SequenceDiagram" uid="c500b78e-22ff-4e22-bec3-3a023bece972"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

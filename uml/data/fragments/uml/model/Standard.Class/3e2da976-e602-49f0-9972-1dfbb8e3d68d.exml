@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="List" version="4">
+  <OBJECT>
+    <ID name="List" mc="Standard.Class" uid="3e2da976-e602-49f0-9972-1dfbb8e3d68d"/>
+    <PID name="Language" mc="Standard.Package" uid="ceafe5ee-53f9-461e-9f09-7a1735d5a041"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[List]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Template">
+        <OBJECT>
+          <ID name="T" mc="Standard.TemplateParameter" uid="edf27f71-e8a4-4fcd-98e2-e4782470b306"/>
+          <ATTRIBUTES>
+            <ATT name="DefaultValue"></ATT>
+            <ATT name="IsValueParameter">false</ATT>
+            <ATT name="IsElementary">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[T]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Frontend" version="4">
+  <OBJECT>
+    <ID name="Frontend" mc="Standard.Package" uid="0d3fbb3e-8953-49bc-9105-af5cb22d8774"/>
+    <PID name="JWT" mc="Standard.Package" uid="fd51e446-b89a-402e-860e-9138223bf97d"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Frontend]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Site Map" mc="Standard.Package" uid="36c89bc7-676a-4f3c-a662-2c1311c9a35f"/>
+        <COMPID name="Index" mc="Standard.Class" uid="45dbbc91-8eb2-4a34-b424-ea0e35039e01"/>
+        <COMPID name="Provider" mc="Standard.Class" uid="881d7b82-2d24-452f-9a00-e2830d35a40b"/>
+        <COMPID name="Store" mc="Standard.Class" uid="42d7d203-3665-48e6-b191-63114045ff64"/>
+        <COMPID name="App" mc="Standard.Class" uid="fc9c0a4a-0944-4b3d-bb46-9b7c9a80a0a4"/>
+        <COMPID name="Home" mc="Standard.Class" uid="4341f6ac-ca99-4443-b253-209311371222"/>
+        <COMPID name="ChangePassword" mc="Standard.Class" uid="ce04d3c8-37e9-4e1a-9af8-275cfe0a1eae"/>
+        <COMPID name="NewUser" mc="Standard.Class" uid="12241d64-4776-4001-b35c-b3c87ba7f497"/>
+        <COMPID name="UserList" mc="Standard.Class" uid="daeed7f8-eb7b-4908-9ac6-20d1d24f9a1d"/>
+        <COMPID name="SetPassword" mc="Standard.Class" uid="09639f09-5522-4ace-82c7-dfe9bba8d0a9"/>
+        <COMPID name="AssignRevokeRole" mc="Standard.Class" uid="f608b1ba-9ca2-425e-8628-f2007f05d5ea"/>
+        <COMPID name="UserSlice" mc="Standard.Class" uid="4ef1be98-d1a1-47e0-9d16-d72d766b9c61"/>
+        <COMPID name="UsersSlice" mc="Standard.Class" uid="fb331a4e-358e-4afe-91eb-d2421369973f"/>
+        <COMPID name="RoleSlice" mc="Standard.Class" uid="8b7f69f3-b6be-47f5-96ed-ee25c9c5158e"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

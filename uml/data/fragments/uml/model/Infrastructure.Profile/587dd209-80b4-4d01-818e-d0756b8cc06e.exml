@@ -12,6 +12,20 @@
         <COMPID name="Boundary" mc="Infrastructure.Stereotype" uid="6015ed6f-4952-4732-988e-f90293042e42"/>
         <COMPID name="Controller" mc="Infrastructure.Stereotype" uid="2bfba8d8-e1e7-4cd7-a381-d5db37b75041"/>
         <COMPID name="Entity" mc="Infrastructure.Stereotype" uid="18c059ee-7ce9-44c0-97d5-5b53d6e469a7"/>
+        <COMPID name="HTTP POST" mc="Infrastructure.Stereotype" uid="357f2b4d-a3f2-4efc-a20d-1c0b8007ae5e"/>
+        <COMPID name="HTTP OK" mc="Infrastructure.Stereotype" uid="1c7708eb-d3ba-4807-a6c3-f633274db3a0"/>
+        <COMPID name="HTTP Unauthorized" mc="Infrastructure.Stereotype" uid="d9a95a22-c373-43fc-bc3c-af1853b453c6"/>
+        <COMPID name="Submit" mc="Infrastructure.Stereotype" uid="f6ac89a4-1476-458b-b52e-11ab09762852"/>
+        <COMPID name="HTTP CODE" mc="Infrastructure.Stereotype" uid="119faa77-37f1-49ee-be6f-f09fa9a15203"/>
+        <COMPID name="HTTP No Content" mc="Infrastructure.Stereotype" uid="057fb0d6-079c-454e-af70-66647f172cb5"/>
+        <COMPID name="HTTP Forbidden" mc="Infrastructure.Stereotype" uid="0d17baa2-30b0-4a44-b37c-b35cf485d484"/>
+        <COMPID name="HTTP OP" mc="Infrastructure.Stereotype" uid="00efe258-0444-43a3-9cb5-6a50d28b07cd"/>
+        <COMPID name="HTTP PUT" mc="Infrastructure.Stereotype" uid="9dfaa7d5-e91a-4ca7-8fc3-1ed3772cb42c"/>
+        <COMPID name="HTTP Bad Request" mc="Infrastructure.Stereotype" uid="22b765d9-1b6f-4452-85c5-90de50b2d7dc"/>
+        <COMPID name="HTTP GET" mc="Infrastructure.Stereotype" uid="4c096c46-89b0-4bd6-a6a5-e769295da08b"/>
+        <COMPID name="HTTP Not Found" mc="Infrastructure.Stereotype" uid="d232bb21-e3b9-4312-997a-bef9dede1dd1"/>
+        <COMPID name="HTTP DELETE" mc="Infrastructure.Stereotype" uid="56d21411-40e8-43a2-b6f6-ec5f2ebea6be"/>
+        <COMPID name="HTTP Internal Server Error" mc="Infrastructure.Stereotype" uid="dd4094f2-7d9a-497d-9ac0-23c26e00368c"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>

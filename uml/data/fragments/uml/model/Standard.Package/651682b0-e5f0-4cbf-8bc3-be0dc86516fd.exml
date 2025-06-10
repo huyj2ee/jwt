@@ -13,11 +13,15 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="User List Page State Machine diagram" mc="Standard.StateMachine" uid="1cdac2ca-50b3-4aad-9ebe-8a5d10fb4af3"/>
+      </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="User" mc="Standard.Class" uid="c48d843c-6e24-498a-bb2d-faee8fddbf96"/>
         <COMPID name="Role" mc="Standard.Class" uid="6cb41c71-ac5c-4c64-bf36-a3ca4b3dcd7a"/>
         <COMPID name="Access Token" mc="Standard.Class" uid="f61ca8ef-db54-4974-b8e6-b24f0343592b"/>
         <COMPID name="Refresh Token" mc="Standard.Class" uid="c39c865c-37c1-42e3-8de7-3bc70f228832"/>
+        <COMPID name="Attempts" mc="Standard.Class" uid="f47776e2-3e6d-489b-b6f5-cac8d5ef796c"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="Class diagram" mc="Standard.ClassDiagram" uid="8dbcc9ac-23ff-4640-b594-a1e497d59cfd"/>

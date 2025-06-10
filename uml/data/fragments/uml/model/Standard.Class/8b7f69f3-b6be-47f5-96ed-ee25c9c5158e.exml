@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="RoleSlice" version="4">
+  <OBJECT>
+    <ID name="RoleSlice" mc="Standard.Class" uid="8b7f69f3-b6be-47f5-96ed-ee25c9c5158e"/>
+    <PID name="Frontend" mc="Standard.Package" uid="0d3fbb3e-8953-49bc-9105-af5cb22d8774"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[RoleSlice]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Extension">
+        <ID name="Controller" mc="Infrastructure.Stereotype" uid="2bfba8d8-e1e7-4cd7-a381-d5db37b75041"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

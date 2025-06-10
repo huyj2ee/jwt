@@ -2,7 +2,7 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="browse users" version="4">
   <OBJECT>
     <ID name="browse users" mc="Standard.UseCase" uid="9e56a5aa-1aa3-4f6d-bf58-d98c743511e2"/>
-    <PID name="Use Case" mc="Standard.Package" uid="d5ac93c6-aa9f-4d2f-b638-55f5912ffb54"/>
+    <PID name="JWT" mc="Standard.Package" uid="d5ac93c6-aa9f-4d2f-b638-55f5912ffb54"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
       <ATT name="IsAbstract">false</ATT>
@@ -22,7 +22,7 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="add role" mc="Standard.UseCase" uid="41153476-d802-4aae-8e84-3fbf7dd5de8f"/>
+              <ID name="assign role" mc="Standard.UseCase" uid="41153476-d802-4aae-8e84-3fbf7dd5de8f"/>
             </LINK>
             <LINK relation="Extension">
               <FOREIGNID name="extend" mc="Infrastructure.Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
@@ -97,12 +97,59 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="remove role" mc="Standard.UseCase" uid="e493b187-16fa-4722-8872-6559c02a6b2e"/>
+              <ID name="revoke role" mc="Standard.UseCase" uid="e493b187-16fa-4722-8872-6559c02a6b2e"/>
             </LINK>
             <LINK relation="Extension">
               <FOREIGNID name="extend" mc="Infrastructure.Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
             </LINK>
           </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedExtension">
+        <OBJECT>
+          <ID name="view next page" mc="Standard.ExtensionPoint" uid="8ba7f28d-5945-488d-af25-1f470542b312"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[view next page]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="view previous page" mc="Standard.ExtensionPoint" uid="bd739cbe-018d-4642-a235-71ae54c3cca2"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[view previous page]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="filter by username" mc="Standard.ExtensionPoint" uid="4a22a1fa-6efb-4e1b-9c71-02200206e4e8"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[filter by username]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="get only locked user" mc="Standard.ExtensionPoint" uid="0b7f2af5-57e5-45c6-a88a-a99ad78e5e0f"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[get only locked user]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="get all user" mc="Standard.ExtensionPoint" uid="1cca3e86-1956-48ce-8a5e-bae088aa92b7"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[get all user]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
         </OBJECT>
       </COMP>
       <COMP relation="Descriptor">
