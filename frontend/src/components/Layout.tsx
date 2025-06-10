@@ -19,7 +19,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   let homeStyle = location.pathname === '/' ? {background: 'black'} : {};
-  let usersStyle = ['/users', '/roles', '/setpassword'].includes(location.pathname) ? {background: 'black'} : {};
+  let usersStyle = ['/user', '/users', '/roles', '/setpassword'].includes(location.pathname) ? {background: 'black'} : {};
   let usersLink: React.ReactNode = '';
   if (user.roles.includes('admin')) {
     function handleUsersLink() {
