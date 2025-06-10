@@ -5,6 +5,8 @@ import Layout from './Layout';
 import { AppDispatch, RootState } from '../app/store';
 import { createUserAsync, setErrorMessage } from './user/userSlice';
 import { SignedInUser, UserObject } from '../app/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const NewUser : React.FunctionComponent = () => {
   const navigate = useNavigate();
@@ -18,23 +20,25 @@ const NewUser : React.FunctionComponent = () => {
   const [usernameIsRequired, setUsernameIsRequired] = useState<React.ReactNode>('');
   const [passwordIsRequired, setPasswordIsRequired] = useState<React.ReactNode>('');
   const [reenterPasswordIsRequired, setReenterPasswordIsRequired] = useState<React.ReactNode>('');
+  const backButton = (
+    <div>
+      <button type='button' className='w-[56px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white' onClick={handleBack}>Back</button>
+    </div>
+  );
+  const triangleExclamation = <FontAwesomeIcon className='ml-[11px] mr-[13px] w-[15px] h-[17px] text-[#db2f2f]' icon={faTriangleExclamation}/>;
   let button: React.ReactNode = (
     <div>
-      <button type='button' onClick={handleCreate}>Create</button>
+      <button className='w-[67px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white' type='button' onClick={handleCreate}>Create</button>
     </div>
   );
   function handleBack() {
     navigate('/users');
   }
-  let feedbackMessage: React.ReactNode = '';
+  let feedbackMessage: React.ReactNode = null;
   let errorMessage: string = '';
   if (user.errorMessage === '') {
     feedbackMessage = <div>User created.</div>;
-    button = (
-    <div>
-      <button type='button' onClick={handleBack}>Back</button>
-    </div>
-  );
+    button = backButton;
   }
   else if (user.errorMessage !== null) {
     const alreadyExistsUser: string = 'already exists.';
@@ -43,6 +47,7 @@ const NewUser : React.FunctionComponent = () => {
     }
     else {
       errorMessage = 'Unexpected Error has occurred.';
+      button = backButton;
     }
   }
   else {
@@ -50,19 +55,19 @@ const NewUser : React.FunctionComponent = () => {
   }
   function handleCreate() {
     if (username === '') {
-      setUsernameIsRequired(<span>this field is required</span>);
+      setUsernameIsRequired(triangleExclamation);
     }
     else {
       setUsernameIsRequired('');
     }
     if (password === '') {
-      setPasswordIsRequired(<span>this field is required</span>);
+      setPasswordIsRequired(triangleExclamation);
     }
     else {
       setPasswordIsRequired('');
     }
     if (confirmPassword === '') {
-      setReenterPasswordIsRequired(<span>this field is required</span>);
+      setReenterPasswordIsRequired(triangleExclamation);
     }
     else {
       setReenterPasswordIsRequired('');
@@ -76,35 +81,52 @@ const NewUser : React.FunctionComponent = () => {
         password,
         enabled
       };
+      setClientErrorMessage(null);
       dispatch(createUserAsync(user));
     }
   }
 
   return (
     <Layout>
-      <div>Create user</div>
-      <div>
-        <label htmlFor='username'>User name</label>
-        <input id='username' type='text' onChange={e => setUsername(e.target.value)} value={username}></input>
-        {usernameIsRequired}
+`      <div className='flex justify-center items-center h-[calc(100%-50px)] w-full'>
+        <div className='box-content relative w-[524px] bg-[#eeeeee] border-[#999999] border-[1px] rounded-tl-[10px] rounded-tr-[10px]'>
+          <div className='flex items-center justify-center w-[524px] h-[55px] bg-[#d9d9d9] border-[#999999] border-b-[1px] rounded-tl-[10px] rounded-tr-[10px] text-[24px]'>
+            Create user
+          </div>
+          <div className='flex items-center h-[43px] ml-[53px] mt-[27px]'>
+            <label className='inline-block min-w-[147px] text-[16px]' htmlFor='username'>User name</label>
+            <input id='username' type='text' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' onChange={e => setUsername(e.target.value)} value={username}></input>
+            {usernameIsRequired}
+          </div>
+          <div className='flex items-center h-[43px] ml-[53px]'>
+            <label htmlFor='password' className='inline-block min-w-[147px] text-[16px]'>Password</label>
+            <input id='password' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
+            {passwordIsRequired}
+          </div>
+          <div className='flex items-center h-[43px] ml-[53px]'>
+            <label htmlFor='reenterPassword' className='inline-block min-w-[147px] text-[16px]'>Reenter password</label>
+            <input id='reenterPassword' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
+            {reenterPasswordIsRequired}
+          </div>
+          <div className='flex items-center h-[43px] ml-[53px]'>
+            <label htmlFor='enable' className='inline-block min-w-[147px] text-[16px]'>Enable</label>
+            <input id='enable' type='checkbox' className='border-[#999999] border-[1px] rounded-[6px]' onChange={e => setEnabled(e.target.checked)} checked={enabled}></input>
+          </div>
+          {errorMessage === null || errorMessage === '' ? null : (
+            <div className='flex items-center w-[418px] h-[32px] mt-[11px] mb-[32px] ml-[53px] bg-[#f9e4dd] text-[#6c0101]'>
+              {triangleExclamation} {errorMessage}
+            </div>
+          )}
+          {feedbackMessage === null ? null : (
+            <div className='flex items-center h-[32px] mt-[11px] mb-[32px] ml-[53px]'>
+              {feedbackMessage}
+            </div>
+          )}
+          <div className='flex items-center justify-end w-[524px] h-[55px] mt-[25px] bg-[#fafafa] border-[#999999] border-t-[1px]'>
+            {button}
+          </div>
+        </div>
       </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input id='password' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
-        {passwordIsRequired}
-      </div>
-      <div>
-        <label htmlFor='reenterPassword'>Reenter password</label>
-        <input id='reenterPassword' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
-        {reenterPasswordIsRequired}
-      </div>
-      <div>
-        <label htmlFor='enable'>Enable</label>
-        <input id='enable' type='checkbox' onChange={e => setEnabled(e.target.checked)} checked={enabled}></input>
-      </div>
-      {errorMessage === null ? '' : <div>{errorMessage}</div>}
-      {feedbackMessage}
-      {button}
     </Layout>
   );
 };
