@@ -69,7 +69,7 @@ const SetPassword : React.FunctionComponent = () => {
             <button className='w-[44px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white' type='submit' onClick={handleSet}>Set</button>
           </div>
         </div>
-      </div>`
+      </div>
     </Layout>
   );
 };
