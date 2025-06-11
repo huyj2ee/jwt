@@ -49,20 +49,20 @@ const SetPassword : React.FunctionComponent = () => {
           </div>
           <div className='flex items-center h-[43px] ml-[53px]'>
             <label htmlFor='password' className='inline-block min-w-[147px] text-[16px]'>Password</label>
-            <input id='password' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
+            <input id='password' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px] bg-[#ffffff]' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
           </div>
           <div className='flex items-center h-[43px] ml-[53px]'>
             <label htmlFor='reenterPassword' className='inline-block min-w-[147px] text-[16px]'>Reenter password</label>
-            <input id='reenterPassword' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
+            <input id='reenterPassword' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px] bg-[#ffffff]' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
           </div>
           {errorMessage === null ? null : (
             <div className='flex items-center w-[418px] h-[32px] mt-[11px] mb-[32px] ml-[53px] bg-[#f9e4dd] text-[#6c0101]'>
-              <FontAwesomeIcon className='ml-[11px] mr-[13px] w-[15px] h-[17px] text-[#db2f2f]' icon={faTriangleExclamation}/> {errorMessage}
+              <FontAwesomeIcon style={{width: '15px', height: '17px'}} className='ml-[11px] mr-[13px] text-[#db2f2f]' icon={faTriangleExclamation}/> {errorMessage}
             </div>
           )}
           {users.errorMessage === null ? null : (
             <div className='flex items-center w-[418px] h-[32px] mt-[11px] mb-[32px] ml-[53px] bg-[#f9e4dd] text-[#6c0101]'>
-              <FontAwesomeIcon className='ml-[11px] mr-[13px] w-[15px] h-[17px] text-[#db2f2f]' icon={faTriangleExclamation}/> Unexpected Error has occurred.
+              <FontAwesomeIcon style={{width: '15px', height: '17px'}} className='ml-[11px] mr-[13px] text-[#db2f2f]' icon={faTriangleExclamation}/> Unexpected Error has occurred.
             </div>
           )}
           <div className='flex items-center justify-end w-[524px] h-[55px] mt-[25px] bg-[#fafafa] border-[#999999] border-t-[1px]'>

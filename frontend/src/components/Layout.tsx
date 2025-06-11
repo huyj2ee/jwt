@@ -28,7 +28,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
     usersLink = (
       <li style={usersStyle} className='hover:bg-black [&:hover>a>span]:flex [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
         <Link to='/users' onClick={handleUsersLink} className='relative flex items-center'>
-          <FontAwesomeIcon icon={faUsers} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
+          <FontAwesomeIcon icon={faUsers} style={{width: '34px', height: '34px'}} className='m-[8px] text-[#d9d9d9]' />
           {
             navExpanded ?
             <span className='ml-[26px] h-full w-[124px] text-[#d9d9d9] text-[16px]'>
@@ -47,7 +47,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
         <ul className='absolute top-0 left-0'>
           <li style={homeStyle} className='hover:bg-black [&:hover>a>svg]:text-[#ffffff] [&:hover>a>span]:text-[#ffffff] [&:hover>a>span]:font-medium'>
             <Link to='/' className='flex items-center'>
-              <FontAwesomeIcon icon={faHouseChimney} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
+              <FontAwesomeIcon icon={faHouseChimney} style={{width: '34px', height: '34px'}} className='m-[8px] text-[#d9d9d9]' />
               <span className='ml-[26px] h-full w-[124px] text-[#d9d9d9] text-[16px]'>
                 Home
               </span>
@@ -60,7 +60,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
           <li className='flex items-center justify-end [&:hover>div]:font-medium [&:hover>div>svg]:text-[#ffffff] cursor-pointer' onClick={(e)=>{setNavExpanded(false)}}>
             <div className='text-[#fafafa] text-[16px]'>Collapse menu</div>
             <div className='w-[34px] h-[34px] m-[8px] rounded-[17px] bg-black flex items-center justify-center'>
-              <FontAwesomeIcon icon={faAnglesLeft} className='w-[19px] h-[16px] mr-[1px] text-[#0099cc]'/>
+              <FontAwesomeIcon icon={faAnglesLeft} style={{width: '19px', height: '16px'}} className='mr-[1px] text-[#0099cc]'/>
             </div>
           </li>
         </ul>
@@ -76,7 +76,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
         <ul className='absolute top-0 left-0'>
           <li style={homeStyle} className='hover:bg-black [&:hover>a>span]:flex [&:hover>a>svg]:text-[#ffffff]'>
             <Link to='/' className='relative flex items-center'>
-              <FontAwesomeIcon icon={faHouseChimney} className='w-[34px] h-[34px] m-[8px] text-[#d9d9d9]' />
+              <FontAwesomeIcon icon={faHouseChimney} style={{width: '34px', height: '34px'}} className='m-[8px] text-[#d9d9d9]' />
               <span className='absolute left-full top-0 hidden items-center bg-black pl-[26px] h-full w-[124px] text-white text-[16px] font-medium'>Home</span>
             </Link>
           </li>
@@ -86,7 +86,7 @@ const Body : React.FunctionComponent<LayoutProperties> = (props: LayoutPropertie
           <div className='w-full h-[1px] mb-[2px] bg-black'/>
           <li className='flex items-center [&:hover>div>svg]:text-[#ffffff]' onClick={(e)=>{setNavExpanded(true)}}>
             <div className='w-[34px] h-[34px] m-[8px] rounded-[17px] bg-black flex items-center justify-center cursor-pointer'>
-              <FontAwesomeIcon icon={faAnglesRight} className='w-[19px] h-[16px] text-[#0099cc]'/>
+              <FontAwesomeIcon icon={faAnglesRight} style={{width: '19px', height: '16px'}} className='text-[#0099cc]'/>
             </div>
           </li>
         </ul>
@@ -125,8 +125,8 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
         </Link>
         <div className='relative [&:hover>ul]:block h-[50px] flex items-center z-10'>
           <div>
-            <FontAwesomeIcon icon={faUser} className='w-[34px] h-[34px]'/>
-            <FontAwesomeIcon icon={faSortDown} className='w-[34px] h-[34px]'/>
+            <FontAwesomeIcon icon={faUser} style={{width: '34px', height: '34px'}}/>
+            <FontAwesomeIcon icon={faSortDown} style={{width: '34px', height: '34px'}}/>
           </div>
           <ul className='absolute hidden w-[180px] bg-[#ffffff] top-full right-0'>
             <li className='w-full h-[50px] bg-[#d9d9d9] flex items-center justify-end pr-[20px]'>{user.username}</li>

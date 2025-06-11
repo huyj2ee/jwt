@@ -25,7 +25,7 @@ const NewUser : React.FunctionComponent = () => {
       <button type='button' className='w-[56px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white' onClick={handleBack}>Back</button>
     </div>
   );
-  const triangleExclamation = <FontAwesomeIcon className='ml-[11px] mr-[13px] w-[15px] h-[17px] text-[#db2f2f]' icon={faTriangleExclamation}/>;
+  const triangleExclamation = <FontAwesomeIcon style={{width: '15px', height: '17px'}} className='ml-[11px] mr-[13px] text-[#db2f2f]' icon={faTriangleExclamation}/>;
   let button: React.ReactNode = (
     <div>
       <button className='w-[67px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white' type='button' onClick={handleCreate}>Create</button>
@@ -95,17 +95,17 @@ const NewUser : React.FunctionComponent = () => {
           </div>
           <div className='flex items-center h-[43px] ml-[53px] mt-[27px]'>
             <label className='inline-block min-w-[147px] text-[16px]' htmlFor='username'>User name</label>
-            <input id='username' type='text' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' onChange={e => setUsername(e.target.value)} value={username}></input>
+            <input id='username' type='text' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px] bg-[#ffffff]' onChange={e => setUsername(e.target.value)} value={username}></input>
             {usernameIsRequired}
           </div>
           <div className='flex items-center h-[43px] ml-[53px]'>
             <label htmlFor='password' className='inline-block min-w-[147px] text-[16px]'>Password</label>
-            <input id='password' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
+            <input id='password' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px] bg-[#ffffff]' type='password' onChange={e => setPassword(e.target.value)} value={password}></input>
             {passwordIsRequired}
           </div>
           <div className='flex items-center h-[43px] ml-[53px]'>
             <label htmlFor='reenterPassword' className='inline-block min-w-[147px] text-[16px]'>Reenter password</label>
-            <input id='reenterPassword' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px]' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
+            <input id='reenterPassword' className='h-[27px] w-[271px] border-[#999999] border-[1px] rounded-[6px] bg-[#ffffff]' type='password' onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
             {reenterPasswordIsRequired}
           </div>
           <div className='flex items-center h-[43px] ml-[53px]'>

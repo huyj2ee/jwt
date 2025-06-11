@@ -65,7 +65,7 @@ const AssignRevokeRole : React.FunctionComponent = () => {
           </div>
           {roles.errorMessage === null ? null : (
             <div className='flex items-center w-[418px] h-[32px] mt-[11px] mb-[32px] ml-[53px] bg-[#f9e4dd] text-[#6c0101]'>
-              <FontAwesomeIcon className='ml-[11px] mr-[13px] w-[15px] h-[17px] text-[#db2f2f]' icon={faTriangleExclamation}/> Unexpected Error has occurred.
+              <FontAwesomeIcon style={{width: '15px', height: '17px'}} className='ml-[11px] mr-[13px] text-[#db2f2f]' icon={faTriangleExclamation}/> Unexpected Error has occurred.
             </div>
           )}
           <div className='flex items-center justify-end w-[524px] h-[55px] mt-[25px] bg-[#fafafa] border-[#999999] border-t-[1px]'>
