@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.blogspot.huyj2ee</groupId>
   <artifactId>jwt</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>jwt</name>
   <description>Spring Boot with JWT</description>
   <url/>
