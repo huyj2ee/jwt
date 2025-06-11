@@ -1,6 +1,6 @@
-const tailwindcss = require('tailwindcss');
+const tailwindcss = require('@tailwindcss/postcss');
 module.exports = {
-  plugins: [
-    tailwindcss
-  ]
+  plugins: {
+    '@tailwindcss/postcss': tailwindcss
+  }
 };
