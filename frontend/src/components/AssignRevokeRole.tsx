@@ -11,7 +11,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 const Roles : React.FunctionComponent<{roles: RolesStore}> = ({roles}: {roles: RolesStore}) => {
   const dispatch:AppDispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const usernameObj:string = searchParams.get("username");
+  const usernameObj:string = searchParams.get('username');
   const username:string = usernameObj === null ? '' : usernameObj;
 
   function assignRevokeRole(e: ChangeEvent<HTMLInputElement>, role: string) {
@@ -44,7 +44,7 @@ const AssignRevokeRole : React.FunctionComponent = () => {
   const roles:RolesStore = useSelector((state: RootState) => state.roles);
   const dispatch:AppDispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const usernameObj:string = searchParams.get("username");
+  const usernameObj:string = searchParams.get('username');
   const username:string = usernameObj === null ? '' : usernameObj;
 
   useEffect(()=>{
@@ -69,7 +69,7 @@ const AssignRevokeRole : React.FunctionComponent = () => {
             </div>
           )}
           <div className='flex items-center justify-end w-[524px] h-[55px] mt-[25px] bg-[#fafafa] border-[#999999] border-t-[1px]'>
-            <Link className='w-[56px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white flex items-center justify-center' to="/users">Back</Link>
+            <Link className='w-[56px] h-[34px] mr-[53px] bg-[#0099cc] rounded-[6px] text-white flex items-center justify-center' to='/users'>Back</Link>
           </div>
         </div>
       </div>

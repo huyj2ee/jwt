@@ -11,11 +11,11 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const User : React.FunctionComponent<{user: UserItem}> = ({user}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const usernameObj:string = searchParams.get("username");
+  const usernameObj:string = searchParams.get('username');
   const filteredUsername:string = usernameObj === null ? '' : usernameObj;
-  const pageStr:string = searchParams.get("page");
+  const pageStr:string = searchParams.get('page');
   const page:number = pageStr === null ? 0 : parseInt(pageStr);
-  const nonlockedObj:string = searchParams.get("nonlocked");
+  const nonlockedObj:string = searchParams.get('nonlocked');
   const nonlocked:boolean = nonlockedObj === null || nonlockedObj.length === 0 ? null : false;
 
   const signedInUser:SignedInUser = useSelector((state: RootState) => state.user);
@@ -81,11 +81,11 @@ const UserList : React.FunctionComponent = () => {
   const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const usernameObj:string = searchParams.get("username");
+  const usernameObj:string = searchParams.get('username');
   const username:string = usernameObj === null ? '' : usernameObj;
-  const pageStr:string = searchParams.get("page");
+  const pageStr:string = searchParams.get('page');
   const page:number = pageStr === null ? 0 : parseInt(pageStr);
-  const nonlockedObj:string = searchParams.get("nonlocked");
+  const nonlockedObj:string = searchParams.get('nonlocked');
   const nonlocked:boolean = nonlockedObj === null || nonlockedObj.length === 0 ? null : false;
   const prePage:ReactNode = page > 0 ?
     <span onClick={handlePrePageClick} className='relative [&:hover>div]:flex cursor-pointer px-[2px]'>
@@ -108,26 +108,26 @@ const UserList : React.FunctionComponent = () => {
     <button className='w-[110px] h-[34px] mx-[6px] rounded-[6px] bg-[#0099cc] text-white' type='button' onClick={toggleLock}>List all users</button>;
 
   function handlePrePageClick() {
-    searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
-    searchParams.set("page", (page - 1).toString());
+    searchParams.set('nonlocked', nonlocked === null ? '' : nonlocked.toString());
+    searchParams.set('page', (page - 1).toString());
     setSearchParams(searchParams);
   }
 
   function handleNextPageClick() {
-    searchParams.set("nonlocked", nonlocked === null ? "" : nonlocked.toString());
-    searchParams.set("page", (page + 1).toString());
+    searchParams.set('nonlocked', nonlocked === null ? '' : nonlocked.toString());
+    searchParams.set('page', (page + 1).toString());
     setSearchParams(searchParams);
   }
 
   function toggleLock() {
-    searchParams.set("username", "");
+    searchParams.set('username', '');
     if (nonlocked === null) {
-      searchParams.set("nonlocked", "false");
-      searchParams.set("page", "0");
+      searchParams.set('nonlocked', 'false');
+      searchParams.set('page', '0');
     }
     else {
-      searchParams.set("nonlocked", "");
-      searchParams.set("page", "0");
+      searchParams.set('nonlocked', '');
+      searchParams.set('page', '0');
     }
     setSearchParams(searchParams);
   }
@@ -163,7 +163,7 @@ const UserList : React.FunctionComponent = () => {
         <div className='text-[24px]'>User list</div>
         <div className='flex items-center'>
           <div>
-            <input className='w-[270px] h-[27px] mx-[6px] px-[2px] border-[1px] border-[#999999] rounded-[6px]' type='text' placeholder='Filter by username...' onKeyDown={e => filterByUsernameKeyDown(e)} onChange={e => setSearchParams("username=" + e.target.value)} value={username}></input>
+            <input className='w-[270px] h-[27px] mx-[6px] px-[2px] border-[1px] border-[#999999] rounded-[6px]' type='text' placeholder='Filter by username...' onKeyDown={e => filterByUsernameKeyDown(e)} onChange={e => setSearchParams('username=' + e.target.value)} value={username}></input>
             <button className='w-[56px] h-[34px] mx-[6px] rounded-[6px] bg-[#0099cc] text-white' type='button' onClick={handleFilterByUsername}>Filter</button>
           </div>
           <div>

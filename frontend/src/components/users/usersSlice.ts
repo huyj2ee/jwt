@@ -1,5 +1,5 @@
-import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteUser, filterByUsername, listUsers, setEnabled, setPassword, unlockUser, UsersStore } from "../../app/api";
+import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { deleteUser, filterByUsername, listUsers, setEnabled, setPassword, unlockUser, UsersStore } from '../../app/api';
 
 export const listUsersAsync = createAsyncThunk(
   'listusers',

@@ -237,9 +237,9 @@ export const listUsers = async (params: {page:number, nonlocked:boolean}, { reje
     const response = await axios.get(UsersEndpoint, config);
     return {
       data: response.data,
-      count: parseInt(response.headers["pagination-count"]),
-      limit: parseInt(response.headers["pagination-limit"]),
-      page: parseInt(response.headers["pagination-page"])
+      count: parseInt(response.headers['pagination-count']),
+      limit: parseInt(response.headers['pagination-limit']),
+      page: parseInt(response.headers['pagination-page'])
     };
   } catch (error) {
     if (error.response.data.message === 'Admin role is required to get user list.') {

@@ -1,5 +1,5 @@
-import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { assignRevokeRole, getAllRoles, getAssignedRoles, RolesStore } from "../../app/api";
+import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { assignRevokeRole, getAllRoles, getAssignedRoles, RolesStore } from '../../app/api';
 
 export const getAllRolesAsync = createAsyncThunk(
   'getallroles',

@@ -16,7 +16,7 @@ const SetPassword : React.FunctionComponent = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const usernameObj:string = searchParams.get("username");
+  const usernameObj:string = searchParams.get('username');
   const username:string = usernameObj === null ? '' : usernameObj;
 
   function handleSet() {
