@@ -30,12 +30,20 @@ public class ReactJSHandler {
     else {
       boolean isPng = path.endsWith(".png");
       boolean isJpg = path.endsWith(".jpg");
-      if (isPng || isJpg) {
+      boolean isWoff = path.endsWith(".woff");
+      boolean isWoff2 = path.endsWith(".woff2");
+      if (isPng || isJpg || isWoff || isWoff2) {
         if (isPng) {
           mt = new MediaType("image", "png");
         }
-        if (isJpg) {
+        else if (isJpg) {
           mt = new MediaType("image", "jpeg");
+        }
+        else if (isWoff) {
+          mt = new MediaType("font", "woff");
+        }
+        else if (isWoff2) {
+          mt = new MediaType("font", "woff2");
         }
         InputStream is = cl.getResourceAsStream("/static" + path);
         if (is == null) {
