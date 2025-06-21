@@ -113,7 +113,7 @@ const Layout : React.FunctionComponent<LayoutProperties> = (props: LayoutPropert
     else if (user.username === null) {
       navigate('/');
     }
-  }, [user.username]);
+  }, [user.doesRefreshToken, user.username]);
   useEffect(() => {
     dispatch(setErrorMessage(null));
   }, []);
