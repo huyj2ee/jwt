@@ -9,6 +9,11 @@ module.exports = (env, argv) => {
   const config = {
     devtool: isProduction ? false : "source-map",
     entry: "./src/index.tsx",
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    },
     output: {
       path: path.join(__dirname, "/build"),
       filename: "bundle.js"
